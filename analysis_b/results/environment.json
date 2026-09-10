@@ -1,0 +1,39 @@
+{
+  "python": "3.10.2 (tags/v3.10.2:a58ebcc, Jan 17 2022, 14:12:15) [MSC v.1929 64 bit (AMD64)]",
+  "executable": "F:\\Python\\python.exe",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "seed": 20260910,
+  "config": {
+    "seed": 20260910,
+    "cases_per_question": 40,
+    "region_radius_m": 1800,
+    "receiver_radius_min_m": 1000,
+    "receiver_radius_max_m": 1500,
+    "bearing_bound_deg": 1.005,
+    "optical_grid_m": 25,
+    "second_forward_m": 650,
+    "second_lateral_m": 250,
+    "q3_grid_m": 1000,
+    "q4_grid_m": 600,
+    "speed_m_s": 5,
+    "measure_s": 5,
+    "switch_s": 1,
+    "clear_success_s": 5,
+    "clear_failure_s": 3,
+    "near_m": 5,
+    "clear_m": 20,
+    "virtual_limit_s": 360000
+  },
+  "code_sha256": {
+    "build_report.py": "10526e8e4522485e07caadd29920ddb584fdae7b3c07b75d071dd068351f043b",
+    "derive_checks.py": "8ccbf54d75a08334a93ba365947bf96260dbbb1b3c8aac5b689eb9c8c064d7e9",
+    "experiments.py": "5be2f2125554d2803a2eddabbeeb305a8d957ec5de66a87e88911bb3bfdf68a4",
+    "extract_sources.py": "d17c85cbd74edff274988d180c6dd66ca06645133c823af508a40ab641afb80c",
+    "http_robot.py": "cd7993b6ba0f87e8975cee1f3efa2302c96c6b9147a44da4db50d1332ac5ea45",
+    "model.py": "6819ea46459939970eb556c76a4372dfa178fa4ca5ab3bdc05197c3ef2270e33",
+    "simulator.py": "9189eea538fcb665e756dadfc5ac0b33782a838032a71d5364c666612c486f12",
+    "test_http.py": "d3355fa270f08ad3beddc2842a5ffc5e618a4ed1d2cf2602e878517460686363"
+  }
+}

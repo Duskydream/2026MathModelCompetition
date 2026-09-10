@@ -1,0 +1,65 @@
+{
+  "local_runs_checked": 250,
+  "synthetic_required_field_missing": 0,
+  "synthetic_constraints": "all passed",
+  "source_count_min": 10,
+  "source_count_max": 16,
+  "optical_cell_circumradius_m": 17.677669529663685,
+  "full_first_polygon_actual_cells": 125,
+  "full_first_polygon_actual_snake_path_m": 3110.3553390593274,
+  "analytic_max_cells": 183,
+  "analytic_snake_path_bound_m": 6500,
+  "analytic_virtual_time_bound_s": 178152.0,
+  "default_virtual_limit_s": 360000,
+  "understated_error_counterexample_halfplane_violation_m": 12.95890848824443,
+  "components": [
+    {
+      "question": 3,
+      "strategy": "sweep",
+      "components_mean_s_per_source": {
+        "move": 705.2456334009266,
+        "switch": 18.66246066433566,
+        "measure": 103.03236607142858,
+        "optical": 148.76882117882116,
+        "laser": 2.0
+      },
+      "max_actions": 1113
+    },
+    {
+      "question": 3,
+      "strategy": "triangulate",
+      "components_mean_s_per_source": {
+        "move": 626.2424765606964,
+        "switch": 20.024269688644686,
+        "measure": 108.08286140942391,
+        "optical": 8.356690809190809,
+        "laser": 2.0
+      },
+      "max_actions": 367
+    },
+    {
+      "question": 4,
+      "strategy": "sweep",
+      "components_mean_s_per_source": {
+        "move": 805.3897867367936,
+        "switch": 36.705724796037295,
+        "measure": 202.92831335331334,
+        "optical": 157.1057576798202,
+        "laser": 2.0
+      },
+      "max_actions": 1257
+    },
+    {
+      "question": 4,
+      "strategy": "triangulate",
+      "components_mean_s_per_source": {
+        "move": 779.6388286823887,
+        "switch": 38.20846257908758,
+        "measure": 208.20876207126213,
+        "optical": 29.646510052447553,
+        "laser": 2.0
+      },
+      "max_actions": 782
+    }
+  ]
+}

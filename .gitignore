@@ -1,0 +1,44 @@
+# Python and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Private real-simulator runs (contain team identifiers and raw requests)
+practice_logs/
+*_actions.jsonl
+robot_actions.jsonl
+*.jlog
+.env
+.env.*
+!.env.example
+
+# Generated local test records
+/B题演练程序/practice_logs/
+
+# Rebuildable distribution copies and archives
+*.zip
+*.rar
+/.local_archive/
+
+# Source document extraction and visual QA intermediates
+/analysis_b/source_extract/*.txt
+/analysis_b/source_extract/*.png
+/analysis_b/pdf_work/pages/
+/analysis_b/pdf_work/initial_render_hashes.json
+/analysis_b/pdf_work/extracted_final_text.txt
+
+# Desktop/editor temporary files
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+*.tmp
+*.log
+
+# Internal review material
+/output/
+/analysis_b/pdf_work/

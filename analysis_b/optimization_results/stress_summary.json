@@ -1,0 +1,114 @@
+{
+  "phase": "stress",
+  "results": [
+    {
+      "question": 3,
+      "variant": "B1",
+      "cases": 50,
+      "sources": 670,
+      "cleared": 670,
+      "mean_s": 677.4551466566716,
+      "p95_s": 946.1424921035973,
+      "reduction": 0.0,
+      "improved_cases": 0,
+      "ci_saved_s": [
+        0.0,
+        0.0
+      ],
+      "max_slowdown_per_source": 0.0,
+      "mean_move_per_source": 556.2525596603346,
+      "max_runtime_s": 0.03916129999561235,
+      "max_virtual_s": 10336.336938654862,
+      "max_actions": 395
+    },
+    {
+      "question": 3,
+      "variant": "shared",
+      "cases": 50,
+      "sources": 670,
+      "cleared": 670,
+      "mean_s": 584.5653863483825,
+      "p95_s": 900.305728512809,
+      "reduction": 0.13711573491870566,
+      "improved_cases": 50,
+      "ci_saved_s": [
+        74.78466717331395,
+        112.79168845674631
+      ],
+      "max_slowdown_per_source": -10.539217386319024,
+      "mean_move_per_source": 464.14017297841906,
+      "max_runtime_s": 0.05288880000443896,
+      "max_virtual_s": 9537.210217187432,
+      "max_actions": 388
+    },
+    {
+      "question": 4,
+      "variant": "B1",
+      "cases": 50,
+      "sources": 670,
+      "cleared": 670,
+      "mean_s": 978.3866509114123,
+      "p95_s": 1377.6831363193799,
+      "reduction": 0.0,
+      "improved_cases": 0,
+      "ci_saved_s": [
+        0.0,
+        0.0
+      ],
+      "max_slowdown_per_source": 0.0,
+      "mean_move_per_source": 714.6290547575663,
+      "max_runtime_s": 0.39524140000139596,
+      "max_virtual_s": 15595.371031078292,
+      "max_actions": 965
+    },
+    {
+      "question": 4,
+      "variant": "shared",
+      "cases": 50,
+      "sources": 670,
+      "cleared": 670,
+      "mean_s": 916.9378786142609,
+      "p95_s": 1360.5305557630245,
+      "reduction": 0.06280622516661394,
+      "improved_cases": 38,
+      "ci_saved_s": [
+        35.5999306684916,
+        87.45916956568216
+      ],
+      "max_slowdown_per_source": 172.75219911194597,
+      "mean_move_per_source": 653.4476130464953,
+      "max_runtime_s": 0.3527793000030215,
+      "max_virtual_s": 16099.638844167688,
+      "max_actions": 1038
+    }
+  ],
+  "config": {
+    "seed": 20260910,
+    "cases_per_question": 40,
+    "region_radius_m": 1800,
+    "receiver_radius_min_m": 1000,
+    "receiver_radius_max_m": 1500,
+    "bearing_bound_deg": 1.005,
+    "optical_grid_m": 25,
+    "second_forward_m": 650,
+    "second_lateral_m": 250,
+    "q3_grid_m": 1000,
+    "q4_grid_m": 600,
+    "speed_m_s": 5,
+    "measure_s": 5,
+    "switch_s": 1,
+    "clear_success_s": 5,
+    "clear_failure_s": 3,
+    "near_m": 5,
+    "clear_m": 20,
+    "virtual_limit_s": 360000
+  },
+  "all_constraint_checks_passed": true,
+  "python": "3.10.2 (tags/v3.10.2:a58ebcc, Jan 17 2022, 14:12:15) [MSC v.1929 64 bit (AMD64)]",
+  "code_sha256": {
+    "model.py": "6819ea46459939970eb556c76a4372dfa178fa4ca5ab3bdc05197c3ef2270e33",
+    "simulator.py": "9189eea538fcb665e756dadfc5ac0b33782a838032a71d5364c666612c486f12",
+    "optimized.py": "45d5767f4817b03229287cb41ff8342c3060a1600940955e6ab2fd7d24b1db11",
+    "optimize_experiments.py": "0da0f657dfc29889c395a39ff41ac7bbeeef80ef62e58a30833ff869df3b2ce3"
+  }
+}
