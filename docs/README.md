@@ -11,7 +11,7 @@ python -m pip install -r "B题演练程序/requirements.txt"
 ```
 
 1. 在模拟器中登录，选择相应的演练测试，启动并等待接口就绪。
-2. 双击 [启动第3问演练.cmd](B题演练程序/启动第3问演练.cmd) 或 [启动第4问演练.cmd](B题演练程序/启动第4问演练.cmd)。
+2. 双击 [启动第3问演练.cmd](../B题演练程序/启动第3问演练.cmd) 或 [启动第4问演练.cmd](../B题演练程序/启动第4问演练.cmd)。
 3. 输入队号、端口（默认2026）和连续测试次数（1–100）。
 4. 按提示逐局启动模拟器演练并确认接口就绪；不需要每次重新打开CMD。当前启动器不会自动点击模拟器或自动创建下一局。
 
@@ -38,18 +38,20 @@ python "B题演练程序/practice_robot.py" --question 4 --robot-id YOUR_TEAM_ID
 | 默认策略 | `shared`，启用Q3混合调度 | `shared`，启用Q4混合调度 |
 | 搜索布局 | 圆心加六环点，共7站 | 圆心加内外双12环，共25站 |
 | 关键配置 | 环半径1150米；第二测点前向200米、侧向100米 | 内环999米，外环1800/cos(15°)米；第二测点200/100米 |
-| 定位 | 混合安排搜索站与已发现目标；利用目标圆和历史无信号约束保守缩小区域 | 保留目标轨迹，联合安排搜索和定位；仅用目标圆与正测向约束 |
-| 清除 | 包围圆认证；区域较大时用25米网格光学搜索兜底 | 同样保留认证和完整光学兜底 |
+| 定位 | 混合安排搜索站与已发现目标；利用目标圆和历史无信号约束保守缩小区域 | 选择性重测与受限等待；外环首次发现目标不等待；仅用目标圆与正测向约束 |
+| 清除 | 包围圆认证；区域较大时用25米网格光学搜索兜底 | 按扫描成本筛选补测；19.9米认证条段覆盖与原网格比较；near立即清除 |
 
-问题3的策略实现位于 [q3_policy.py](B题演练程序/q3_policy.py)，由 [optimized.py](B题演练程序/optimized.py) 接入。问题3专用的无信号距离约束不会用于定向发射的第四问。
+问题3的策略实现位于 [q3_policy.py](../B题演练程序/q3_policy.py)，由 [optimized.py](../B题演练程序/optimized.py) 接入。问题3专用的无信号距离约束不会用于定向发射的第四问。
 
-第四问新方案见 [第四轮报告](docs/experiment4_report.md)：100个独立随机案例平均792.16→566.30秒/源，P95为712.57秒，另有60个压力案例，均全部清除。尚未达到稳定500秒/源。设置 `q4_policy=legacy` 可恢复main的27站算法。
+第四问当前版本见 [第七轮报告](experiment7_report.md)：相对第6轮，200个新随机案例均值499.45降到493.55秒/源，标准差91.64降到91.54，整体波动没有明显改善。另有五类场景各50例，六组均值和P95均下降，全部450例清除完成。全部向外定向组均值606.08降到584.83，P95从754.30降到722.20。个别案例和额外误差压力测试仍有退步，不能保证每局更快。
+
+恢复第6轮时，将 `q4_strip_cover=false`、`q4_immediate_near=false`、`q4_scan_cost_gate=false`。进一步恢复第4轮25站时，保留 `q4_policy=mixed_ring`，再将 `q4_selective_remeasure=false`、`q4_wait_for_survey=false`、`q4_refine_max_m=0`、`q4_shared_scan=true`。设置 `q4_policy=legacy` 恢复的是更早的27站算法。
 
 在目标圆半径1800米、最小接收半径1000米的条件下，问题3当前搜索布局的连续域最坏覆盖距离为988.5114米。它仍保留全部搜索站和清除兜底；仅在已清除题设上限16个源时提前结束。参数不满足覆盖条件时程序拒绝运行。
 
-问题4需要保留目标圆外的部分搜索站，不能把27站简单裁剪到圆内，否则会破坏定向覆盖。几何证明和配对结果见 [Experiment 2报告](docs/experiment2_report.md)。
+问题4需要保留目标圆外的部分搜索站，不能简单裁剪到圆内，否则会破坏定向覆盖。当前25站的连续覆盖证明见 [第四轮报告](experiment4_report.md)。
 
-演练目录与 `analysis_b/` 中的 `model.py`、`optimized.py`、`q3_policy.py`、`config.json`、`practice_robot.py` 保持同步。实际双击入口读取演练目录中的文件；仅修改研究副本不会自动影响双击入口。
+演练目录与 `analysis_b/` 中的 `model.py`、`optimized.py`、`q3_policy.py`、`q4_policy.py`、`q4_optical.py`、`config.json`、`practice_robot.py` 保持同步。实际双击入口读取演练目录中的文件；仅修改研究副本不会自动影响双击入口。
 
 ## 当前本地验证结果
 
@@ -68,8 +70,8 @@ python "B题演练程序/practice_robot.py" --question 4 --robot-id YOUR_TEAM_ID
 
 结果证据：
 
-- [问题3汇总](experiments/round3/summary.json)、[逐局配对数据](experiments/round3/paired.csv)、[覆盖检查](experiments/round3/coverage.json)、[退步案例](experiments/round3/regressions.json)。
-- [问题4汇总](experiments/round2/summary.json)、[逐局配对数据](experiments/round2/paired.csv)、[几何检查](experiments/round2/geometry.json)。
+- [问题3汇总](../experiments/round3/summary.json)、[逐局配对数据](../experiments/round3/paired.csv)、[覆盖检查](../experiments/round3/coverage.json)、[退步案例](../experiments/round3/regressions.json)。
+- [问题4汇总](../experiments/round2/summary.json)、[逐局配对数据](../experiments/round2/paired.csv)、[几何检查](../experiments/round2/geometry.json)。
 - 每轮目录中的 `actions.jsonl.gz` 是本地合成实验动作记录，包含生成的源真值和定位证书；不是用户演练日志。
 - `experiments/round3/failed_attempt_01/` 保留一次几何证书验证失败及修复原因，不计入通过案例。修复后重新完成了同一验证集。
 
@@ -100,7 +102,9 @@ python "B题演练程序/practice_robot.py" --question 4 --robot-id YOUR_TEAM_ID
 | `experiments/round2/` | 问题4三角网格、基线快照与配对结果 |
 | `experiments/round3/` | 当前问题3混合调度、基线、开发及验证记录 |
 | `experiments/round3/development/` | 开发原型归档，不是演练入口 |
+| `experiments/round6/`、`experiments/round7/` | 当前第四问累计优化、冻结基线与独立验证 |
 | `docs/` | 建模说明、历史审计和实验报告 |
+| `dist/` | 本地生成的演练ZIP，不纳入Git |
 | `Question B/` | 题目与附件 |
 
 历史报告按生成时版本阅读，当前默认参数以两份 `config.json` 为准。本README描述当前交付状态。
@@ -108,8 +112,9 @@ python "B题演练程序/practice_robot.py" --question 4 --robot-id YOUR_TEAM_ID
 ## 阅读索引
 
 - [项目内容索引](CONTENTS.md)：目录、源码和结果文件用途。
-- [研究复现说明](analysis_b/REPRODUCTION.md)：沿用main分支整理后的文件名。
-- [审题与基准模型报告](analysis_b/审题与基准模型报告.md)及[历史优化试验报告](analysis_b/优化试验报告.md)：按报告对应的历史版本阅读。
+- [第一阶段复现说明](REPRODUCTION.md)：保留历史实验的运行方式。
+- [审题与基准模型报告](审题与基准模型报告.md)及[历史优化试验报告](优化试验报告.md)：按报告对应的历史版本阅读。
+- [演练使用说明](演练使用说明.md)：当前交付程序的完整操作说明。
 
 ## 测试与复现
 
@@ -119,7 +124,7 @@ python "B题演练程序/practice_robot.py" --question 4 --robot-id YOUR_TEAM_ID
 python -B -m unittest discover -s analysis_b -p "test_*.py" -v
 ```
 
-当前27项测试已通过，涵盖几何边界、保守约束、Q3/Q4隔离、通信重试、预算和端到端调用。测试使用本机临时回环HTTP服务，不连接官方模拟器。
+当前测试涵盖几何边界、保守约束、Q3/Q4隔离、通信重试、预算和端到端调用，并新增条段覆盖、误差失联反例和near立即清除检查。实际通过数量、450例动作回放与副本哈希见 `experiments/round7/delivery_validation.json`。测试使用本机临时回环HTTP服务，不连接官方模拟器。
 
 运行独立实验：
 
@@ -140,7 +145,7 @@ python -B analysis_b/experiment3.py
 python analysis_b/package_practice.py
 ```
 
-它会覆盖演练目录中的对应源码和说明，并生成 `B题演练程序.zip`；先确认两份代码已同步。`q3_policy.py` 必须随算法一起复制。演练源码目录已纳入Git，生成的ZIP、缓存和真实演练日志不纳入。
+它会覆盖演练目录中的对应源码，将 `docs/演练使用说明.md` 复制到演练包的 `docs/使用说明.md`，并生成 `dist/B题演练程序.zip`；先确认研究副本是待交付版本。打包按明确清单收录文件并更新 `manifest.json`。演练源码目录已纳入Git，生成的ZIP、缓存和真实演练日志不纳入。
 
 ## 恢复对照配置
 
@@ -154,7 +159,7 @@ python analysis_b/package_practice.py
 }
 ```
 
-只把 `q3_policy` 改成 `legacy` 而保留1150米环，属于中间对照，不是完整原版。问题4的49站对照使用 `q4_survey_layout: grid`、`q4_grid_m: 600`；当前27站为 `q4_survey_layout: triangular`、`q4_triangle_spacing_m: 950`。修改单问时保留另一问配置。
+只把 `q3_policy` 改成 `legacy` 而保留1150米环，属于中间对照，不是完整原版。问题4的历史49站对照在 `q4_policy: legacy` 下使用 `q4_survey_layout: grid`、`q4_grid_m: 600`；历史27站使用 `q4_survey_layout: triangular`、`q4_triangle_spacing_m: 950`。当前25站由 `q4_policy: mixed_ring` 启用，不读取旧布局参数。修改单问时保留另一问配置。
 
 ## 远程协作
 

@@ -27,18 +27,5 @@
   "q3_second_lateral_m": 100,
   "q4_policy": "mixed_ring",
   "q4_second_forward_m": 200,
-  "q4_second_lateral_m": 100,
-  "q4_selective_remeasure": true,
-  "q4_wait_for_survey": true,
-  "q4_wait_mode": "inner",
-  "q4_wait_stale_m": 1400,
-  "q4_station_help_m": 950,
-  "q4_help_distance": "polygon",
-  "q4_remeasure_min_sine": 0.3,
-  "q4_remeasure_min_gap_m": 300,
-  "q4_refine_max_m": 150,
-  "q4_shared_scan": true,
-  "q4_strip_cover": true,
-  "q4_immediate_near": true,
-  "q4_scan_cost_gate": true
+  "q4_second_lateral_m": 100
 }

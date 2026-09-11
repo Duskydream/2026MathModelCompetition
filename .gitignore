@@ -18,6 +18,7 @@ robot_actions.jsonl
 !.env.example
 
 # Rebuildable distribution copies and archives
+/dist/
 *.zip
 *.rar
 /.local_archive/

@@ -37,8 +37,5 @@
   "q4_remeasure_min_sine": 0.3,
   "q4_remeasure_min_gap_m": 300,
   "q4_refine_max_m": 150,
-  "q4_shared_scan": true,
-  "q4_strip_cover": true,
-  "q4_immediate_near": true,
-  "q4_scan_cost_gate": true
+  "q4_shared_scan": true
 }

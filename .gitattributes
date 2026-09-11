@@ -1,0 +1,29 @@
+# Preserve the checked-in runtime bytes used by package and experiment hashes.
+/analysis_b/model.py text eol=crlf
+/analysis_b/optimized.py text eol=crlf
+/analysis_b/q3_policy.py text eol=crlf
+/analysis_b/practice_launcher.py text eol=crlf
+/analysis_b/practice_q[34].py text eol=lf
+/analysis_b/simulator.py text eol=lf
+/analysis_b/q4_optical.py text eol=lf
+/analysis_b/q4_policy.py -text whitespace=cr-at-eol
+/analysis_b/practice_robot.py -text whitespace=cr-at-eol
+/analysis_b/config.json -text whitespace=cr-at-eol
+/B题演练程序/model.py text eol=crlf
+/B题演练程序/optimized.py text eol=crlf
+/B题演练程序/q3_policy.py text eol=crlf
+/B题演练程序/practice_launcher.py text eol=crlf
+/B题演练程序/practice_q[34].py text eol=lf
+/B题演练程序/q4_optical.py text eol=lf
+/B题演练程序/q4_policy.py -text whitespace=cr-at-eol
+/B题演练程序/practice_robot.py -text whitespace=cr-at-eol
+/B题演练程序/config.json -text whitespace=cr-at-eol
+/B题演练程序/requirements.txt text eol=crlf
+/B题演练程序/manifest.json text eol=crlf
+/B题演练程序/*.cmd text eol=crlf
+/B题演练程序/docs/使用说明.md -text whitespace=cr-at-eol
+/docs/演练使用说明.md -text whitespace=cr-at-eol
+
+# Frozen experiment inputs must never be normalized.
+/experiments/round6/baseline/** -text whitespace=cr-at-eol
+/experiments/round7/baseline/** -text whitespace=cr-at-eol

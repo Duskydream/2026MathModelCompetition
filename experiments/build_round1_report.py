@@ -214,7 +214,7 @@ KEEP。当前7站版是离线验证后的演练候选，尚无本轮官方联调
 
 未执行。默认端口检查未发现监听；必须人工启动一次对应演练并核对模式，不能只因端口开放就进入。真实演练的总源数需结束后从界面补录，未知时留空，绝不记成100%。official_results_template.csv仅有列名，等待实际结果。
 '''
-(ROOT/'experiments/experiment_log.md').write_text(log,encoding='utf-8')
+(ROOT/'docs/experiment_log.md').write_text(log,encoding='utf-8')
 with (ROOT/'experiments/official_results_template.csv').open('w',encoding='utf-8-sig',newline='') as f:
     csv.writer(f).writerow(['data_source','case_id','question','true_source_count','cleared_count','clear_ratio','virtual_time','average_clear_time','real_program_time','movement_distance','measure_count','channel_switch_count','clear_attempt_count','failed_clear_count','strategy_version','parameters','notes'])
 print('Reports and 5 figures built from saved evidence.')

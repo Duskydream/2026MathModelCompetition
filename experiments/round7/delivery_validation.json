@@ -1,0 +1,15 @@
+{
+  "replayed_cases": 450,
+  "all_actions_and_certificates_match": true,
+  "tests_passed": 45,
+  "package_matches_source": true,
+  "manifest_valid": true,
+  "zip_matches_package": true,
+  "official_runs": 0,
+  "sha256": {
+    "q4_policy.py": "e24e9ef4c99589a77bd6367420be42a426a004977aabded03959b86948652b9a",
+    "q4_optical.py": "8b3fbd901df91df1a42443bef1bb4f56694bba1ccb5221e4f19591de2a4e13b4",
+    "config.json": "f3b7b4b9352e6731ed116a508c204c269e00fc33bd7cc1beab7158d530d4fdfc",
+    "practice_robot.py": "5b56c2359f79c608856276eb7213fccc812e4851d407c164437cb25bd583ec87"
+  }
+}

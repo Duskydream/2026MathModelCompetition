@@ -308,6 +308,7 @@ B1在第三问平均每源移动耗时626.24 s，第四问779.64 s，分别明�
 '''
 for key,value in {'TABLE':table,'PAIRED':paired,'CANDIDATES':candidate_table,'SENS':'\n'.join(sens),'RADIUS':f"{g['minimum_circle_radius_m']:.6f}",'CELLR':f"{a['optical_cell_circumradius_m']:.6f}",'CELLS':str(a['full_first_polygon_actual_cells']),'SNAKE':f"{a['full_first_polygon_actual_snake_path_m']:.3f}",'BOUND':f"{a['analytic_virtual_time_bound_s']:.0f}",'VIOLATION':f"{a['understated_error_counterexample_halfplane_violation_m']:.6f}"}.items():text=text.replace('@@'+key+'@@',value)
 assert '@@' not in text
-(B/'审题与基准模型报告.md').write_text(text,encoding='utf-8')
+(B.parent/'docs').mkdir(exist_ok=True)
+(B.parent/'docs/审题与基准模型报告.md').write_text(text,encoding='utf-8')
 env=json.loads((R/'environment.json').read_text());env['code_sha256']={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in B.glob('*.py')};(R/'environment.json').write_text(json.dumps(env,ensure_ascii=False,indent=2),encoding='utf-8')
 print('Report generated from verified results.')

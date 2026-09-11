@@ -1,0 +1,708 @@
+{
+  "metadata": {
+    "args": {
+      "freeze": false,
+      "suite": "sensitivity",
+      "variants": [
+        "baseline",
+        "cost_gate"
+      ],
+      "label": "negative_error",
+      "noise": "constant",
+      "amplitude": -1.0
+    },
+    "python": "3.10.2 (tags/v3.10.2:a58ebcc, Jan 17 2022, 14:12:15) [MSC v.1929 64 bit (AMD64)]",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "cfg": {
+      "seed": 20260910,
+      "cases_per_question": 40,
+      "region_radius_m": 1800,
+      "receiver_radius_min_m": 1000,
+      "receiver_radius_max_m": 1500,
+      "bearing_bound_deg": 1.005,
+      "optical_grid_m": 25,
+      "second_forward_m": 650,
+      "second_lateral_m": 250,
+      "q3_grid_m": 1000,
+      "q3_survey_layout": "hexagon",
+      "q4_grid_m": 600,
+      "speed_m_s": 5,
+      "measure_s": 5,
+      "switch_s": 1,
+      "clear_success_s": 5,
+      "clear_failure_s": 3,
+      "near_m": 5,
+      "clear_m": 20,
+      "virtual_limit_s": 360000,
+      "q4_survey_layout": "triangular",
+      "q4_triangle_spacing_m": 950,
+      "q3_policy": "mixed",
+      "q3_ring_radius_m": 1150,
+      "q3_second_forward_m": 200,
+      "q3_second_lateral_m": 100,
+      "q4_policy": "mixed_ring",
+      "q4_second_forward_m": 200,
+      "q4_second_lateral_m": 100,
+      "q4_selective_remeasure": true,
+      "q4_wait_for_survey": true,
+      "q4_wait_mode": "inner",
+      "q4_wait_stale_m": 1400,
+      "q4_station_help_m": 950,
+      "q4_help_distance": "polygon",
+      "q4_remeasure_min_sine": 0.3,
+      "q4_remeasure_min_gap_m": 300,
+      "q4_refine_max_m": 150,
+      "q4_shared_scan": true
+    },
+    "variants": {
+      "baseline": {},
+      "cost_gate": {
+        "q4_scan_cost_gate": true
+      }
+    },
+    "cases": [
+      [
+        2026118000,
+        "random"
+      ],
+      [
+        2026118001,
+        "random"
+      ],
+      [
+        2026118002,
+        "random"
+      ],
+      [
+        2026118003,
+        "random"
+      ],
+      [
+        2026118004,
+        "random"
+      ],
+      [
+        2026118005,
+        "random"
+      ],
+      [
+        2026118006,
+        "random"
+      ],
+      [
+        2026118007,
+        "random"
+      ],
+      [
+        2026118008,
+        "random"
+      ],
+      [
+        2026118009,
+        "random"
+      ],
+      [
+        2026118010,
+        "random"
+      ],
+      [
+        2026118011,
+        "random"
+      ],
+      [
+        2026118012,
+        "random"
+      ],
+      [
+        2026118013,
+        "random"
+      ],
+      [
+        2026118014,
+        "random"
+      ],
+      [
+        2026118015,
+        "random"
+      ],
+      [
+        2026118016,
+        "random"
+      ],
+      [
+        2026118017,
+        "random"
+      ],
+      [
+        2026118018,
+        "random"
+      ],
+      [
+        2026118019,
+        "random"
+      ],
+      [
+        2026118020,
+        "random"
+      ],
+      [
+        2026118021,
+        "random"
+      ],
+      [
+        2026118022,
+        "random"
+      ],
+      [
+        2026118023,
+        "random"
+      ],
+      [
+        2026118024,
+        "random"
+      ],
+      [
+        2026118025,
+        "random"
+      ],
+      [
+        2026118026,
+        "random"
+      ],
+      [
+        2026118027,
+        "random"
+      ],
+      [
+        2026118028,
+        "random"
+      ],
+      [
+        2026118029,
+        "random"
+      ],
+      [
+        2026118500,
+        "boundary"
+      ],
+      [
+        2026118501,
+        "boundary"
+      ],
+      [
+        2026118502,
+        "boundary"
+      ],
+      [
+        2026118503,
+        "boundary"
+      ],
+      [
+        2026118504,
+        "boundary"
+      ],
+      [
+        2026118505,
+        "boundary"
+      ],
+      [
+        2026118506,
+        "boundary"
+      ],
+      [
+        2026118507,
+        "boundary"
+      ],
+      [
+        2026118508,
+        "boundary"
+      ],
+      [
+        2026118509,
+        "boundary"
+      ],
+      [
+        2026119000,
+        "radius_min"
+      ],
+      [
+        2026119001,
+        "radius_min"
+      ],
+      [
+        2026119002,
+        "radius_min"
+      ],
+      [
+        2026119003,
+        "radius_min"
+      ],
+      [
+        2026119004,
+        "radius_min"
+      ],
+      [
+        2026119005,
+        "radius_min"
+      ],
+      [
+        2026119006,
+        "radius_min"
+      ],
+      [
+        2026119007,
+        "radius_min"
+      ],
+      [
+        2026119008,
+        "radius_min"
+      ],
+      [
+        2026119009,
+        "radius_min"
+      ],
+      [
+        2026119500,
+        "all_directional"
+      ],
+      [
+        2026119501,
+        "all_directional"
+      ],
+      [
+        2026119502,
+        "all_directional"
+      ],
+      [
+        2026119503,
+        "all_directional"
+      ],
+      [
+        2026119504,
+        "all_directional"
+      ],
+      [
+        2026119505,
+        "all_directional"
+      ],
+      [
+        2026119506,
+        "all_directional"
+      ],
+      [
+        2026119507,
+        "all_directional"
+      ],
+      [
+        2026119508,
+        "all_directional"
+      ],
+      [
+        2026119509,
+        "all_directional"
+      ],
+      [
+        2026120000,
+        "cluster"
+      ],
+      [
+        2026120001,
+        "cluster"
+      ],
+      [
+        2026120002,
+        "cluster"
+      ],
+      [
+        2026120003,
+        "cluster"
+      ],
+      [
+        2026120004,
+        "cluster"
+      ],
+      [
+        2026120005,
+        "cluster"
+      ],
+      [
+        2026120006,
+        "cluster"
+      ],
+      [
+        2026120007,
+        "cluster"
+      ],
+      [
+        2026120008,
+        "cluster"
+      ],
+      [
+        2026120009,
+        "cluster"
+      ],
+      [
+        2026120500,
+        "random_directional"
+      ],
+      [
+        2026120501,
+        "random_directional"
+      ],
+      [
+        2026120502,
+        "random_directional"
+      ],
+      [
+        2026120503,
+        "random_directional"
+      ],
+      [
+        2026120504,
+        "random_directional"
+      ],
+      [
+        2026120505,
+        "random_directional"
+      ],
+      [
+        2026120506,
+        "random_directional"
+      ],
+      [
+        2026120507,
+        "random_directional"
+      ],
+      [
+        2026120508,
+        "random_directional"
+      ],
+      [
+        2026120509,
+        "random_directional"
+      ]
+    ],
+    "sha256": {
+      "candidate.py": "066fe806626e329c01a26b92f8e47d2d4e479b7c1cd63deb7eeb4821b481b8e8",
+      "config.json": "2836ed4c84bf145f24f7b33e518c61844734293e449333e8a197e9766f0f19fc",
+      "model.py": "c3b97b1b163f592ea17cb8c7d0648ad92bb1b3dde614a9347c36bac8ff8b91b6",
+      "optimized.py": "565c8edefa429e586adf60d9a1dbf0662f90ffa89d23abfd62b153ce733ba7fb",
+      "q3_policy.py": "1d27552679cc3f42b1af078f5640158df45954d50e3282ae005f1b5c314de3e4",
+      "q4_optical.py": "8b3fbd901df91df1a42443bef1bb4f56694bba1ccb5221e4f19591de2a4e13b4",
+      "q4_policy.py": "7ed28a5c8773237fa1667e46ff37eddbfad825986bd58d093fd2f576ab03c87b",
+      "run.py": "a4645a7dcb5d69829d51606b255027c2e10d1786eb9ae89e7768078fafb2f37d",
+      "simulator.py": "9189eea538fcb665e756dadfc5ac0b33782a838032a71d5364c666612c486f12"
+    },
+    "bootstrap_seed": 2026091207
+  },
+  "summary": {
+    "all_directional": {
+      "baseline": {
+        "cases": 10,
+        "mean": 640.7545954175173,
+        "std": 108.88826897109969,
+        "variance": 11856.655119522551,
+        "p95": 788.5367992833801,
+        "tail_mean": 803.2363033257323,
+        "maximum": 803.2363033257323,
+        "sources": 129,
+        "cleared": 129,
+        "parts": {
+          "move": 416.9331943186161,
+          "switch": 30.901428571428575,
+          "measure": 163.59100274725273,
+          "optical": 27.32896978021978,
+          "laser": 2.0
+        },
+        "failed_per_source": 8.109656593406593
+      },
+      "cost_gate": {
+        "cases": 10,
+        "mean": 613.7364467021064,
+        "std": 102.93899695404544,
+        "variance": 10596.437093904977,
+        "p95": 754.4820527806404,
+        "tail_mean": 759.3771442806351,
+        "maximum": 759.3771442806351,
+        "sources": 129,
+        "cleared": 129,
+        "parts": {
+          "move": 400.51054010869996,
+          "switch": 30.830123626373627,
+          "measure": 163.01923076923077,
+          "optical": 17.376552197802198,
+          "laser": 2.0
+        },
+        "failed_per_source": 4.792184065934066,
+        "paired": {
+          "delta": -27.01814871541091,
+          "ci95": [
+            -33.652906490453894,
+            -20.739311783585695
+          ],
+          "faster": 10,
+          "slower": 0,
+          "worst_delta": -12.671083202975353,
+          "worst_seed": 2026119500
+        }
+      }
+    },
+    "boundary": {
+      "baseline": {
+        "cases": 10,
+        "mean": 620.993928783809,
+        "std": 74.06988776644471,
+        "variance": 5486.348273733715,
+        "p95": 729.7325822318669,
+        "tail_mean": 739.1228630280909,
+        "maximum": 739.1228630280909,
+        "sources": 127,
+        "cleared": 127,
+        "parts": {
+          "move": 393.6457236556036,
+          "switch": 34.74068056943057,
+          "measure": 183.06940143190144,
+          "optical": 7.538123126873127,
+          "laser": 2.0
+        },
+        "failed_per_source": 1.5127077089577088
+      },
+      "cost_gate": {
+        "cases": 10,
+        "mean": 624.8051751271445,
+        "std": 73.72947511232701,
+        "variance": 5436.035500339248,
+        "p95": 733.2251168022199,
+        "tail_mean": 745.3586190167043,
+        "maximum": 745.3586190167043,
+        "sources": 127,
+        "cleared": 127,
+        "parts": {
+          "move": 399.30474722171647,
+          "switch": 34.52680069930069,
+          "measure": 182.03571636696637,
+          "optical": 6.93791083916084,
+          "laser": 2.0
+        },
+        "failed_per_source": 1.3126369463869465,
+        "paired": {
+          "delta": 3.811246343335722,
+          "ci95": [
+            -0.7587947026005603,
+            9.322639750104582
+          ],
+          "faster": 5,
+          "slower": 5,
+          "worst_delta": 19.46200438546248,
+          "worst_seed": 2026118503
+        }
+      }
+    },
+    "cluster": {
+      "baseline": {
+        "cases": 10,
+        "mean": 490.5947883363504,
+        "std": 78.2714785669696,
+        "variance": 6126.424357059583,
+        "p95": 601.6903345090559,
+        "tail_mean": 608.8791633378105,
+        "maximum": 608.8791633378105,
+        "sources": 122,
+        "cleared": 122,
+        "parts": {
+          "move": 354.6827154092773,
+          "switch": 19.888061938061938,
+          "measure": 109.10841658341658,
+          "optical": 4.9155944055944065,
+          "laser": 2.0
+        },
+        "failed_per_source": 0.6385314685314686
+      },
+      "cost_gate": {
+        "cases": 10,
+        "mean": 484.5915132032202,
+        "std": 75.99004414171851,
+        "variance": 5774.486808660327,
+        "p95": 591.4366879506911,
+        "tail_mean": 595.6926165145344,
+        "maximum": 595.6926165145344,
+        "sources": 122,
+        "cleared": 122,
+        "parts": {
+          "move": 351.3665048782119,
+          "switch": 19.585995670995672,
+          "measure": 107.67546620046619,
+          "optical": 3.9635464535464537,
+          "laser": 2.0
+        },
+        "failed_per_source": 0.32118215118215115,
+        "paired": {
+          "delta": -6.00327513313008,
+          "ci95": [
+            -8.061141537974509,
+            -4.181327264241623
+          ],
+          "faster": 10,
+          "slower": 0,
+          "worst_delta": -1.4064300821340794,
+          "worst_seed": 2026120009
+        }
+      }
+    },
+    "radius_min": {
+      "baseline": {
+        "cases": 10,
+        "mean": 504.29302590241406,
+        "std": 78.28757118890618,
+        "variance": 6128.943802658053,
+        "p95": 615.7152416469589,
+        "tail_mean": 654.6139263294679,
+        "maximum": 654.6139263294679,
+        "sources": 133,
+        "cleared": 133,
+        "parts": {
+          "move": 366.28128555942374,
+          "switch": 20.557407176157177,
+          "measure": 111.12363261738263,
+          "optical": 4.33070054945055,
+          "laser": 2.0
+        },
+        "failed_per_source": 0.4435668498168498
+      },
+      "cost_gate": {
+        "cases": 10,
+        "mean": 498.8814913449455,
+        "std": 79.301560062194,
+        "variance": 6288.737428297762,
+        "p95": 614.7296465992391,
+        "tail_mean": 653.6345340185064,
+        "maximum": 653.6345340185064,
+        "sources": 133,
+        "cleared": 133,
+        "parts": {
+          "move": 362.8969055141098,
+          "switch": 20.248792873792873,
+          "measure": 109.75724275724276,
+          "optical": 3.9785501998001997,
+          "laser": 2.0
+        },
+        "failed_per_source": 0.32618339993339995,
+        "paired": {
+          "delta": -5.411534557468514,
+          "ci95": [
+            -8.915698200641515,
+            -2.749492220896121
+          ],
+          "faster": 10,
+          "slower": 0,
+          "worst_delta": -0.973455670419014,
+          "worst_seed": 2026119004
+        }
+      }
+    },
+    "random": {
+      "baseline": {
+        "cases": 30,
+        "mean": 500.7347393918906,
+        "std": 119.06281988373843,
+        "variance": 14175.955078667539,
+        "p95": 652.5927533715068,
+        "tail_mean": 671.9828756284927,
+        "maximum": 712.8406050049892,
+        "sources": 398,
+        "cleared": 398,
+        "parts": {
+          "move": 362.3030659264671,
+          "switch": 20.29730769230769,
+          "measure": 109.30800796425797,
+          "optical": 6.826357808857809,
+          "laser": 2.0
+        },
+        "failed_per_source": 1.2754526029526028
+      },
+      "cost_gate": {
+        "cases": 30,
+        "mean": 493.6226034461373,
+        "std": 117.34704350598297,
+        "variance": 13770.32861959506,
+        "p95": 645.0569712385928,
+        "tail_mean": 664.3832904093514,
+        "maximum": 705.6295713752762,
+        "sources": 398,
+        "cleared": 398,
+        "parts": {
+          "move": 358.3203326613665,
+          "switch": 20.00120435120435,
+          "measure": 108.06557400932401,
+          "optical": 5.235492424242424,
+          "laser": 2.0
+        },
+        "failed_per_source": 0.7451641414141413,
+        "paired": {
+          "delta": -7.112135945753318,
+          "ci95": [
+            -9.168691386153993,
+            -5.203832706184862
+          ],
+          "faster": 30,
+          "slower": 0,
+          "worst_delta": -0.9158485060278281,
+          "worst_seed": 2026118015
+        }
+      }
+    },
+    "random_directional": {
+      "baseline": {
+        "cases": 10,
+        "mean": 541.0803179524548,
+        "std": 110.38482196243955,
+        "variance": 12184.808919679477,
+        "p95": 685.0505282323229,
+        "tail_mean": 712.6524026951492,
+        "maximum": 712.6524026951492,
+        "sources": 131,
+        "cleared": 131,
+        "parts": {
+          "move": 380.1185726144595,
+          "switch": 23.51439102564103,
+          "measure": 125.64290501165502,
+          "optical": 9.8044493006993,
+          "laser": 2.0
+        },
+        "failed_per_source": 2.268149766899767
+      },
+      "cost_gate": {
+        "cases": 10,
+        "mean": 527.8977022679594,
+        "std": 110.17524807054521,
+        "variance": 12138.585287406175,
+        "p95": 670.6247318689349,
+        "tail_mean": 703.6688949143753,
+        "maximum": 703.6688949143753,
+        "sources": 131,
+        "cleared": 131,
+        "parts": {
+          "move": 372.37628909779625,
+          "switch": 23.194909673659673,
+          "measure": 124.2998688811189,
+          "optical": 6.026634615384615,
+          "laser": 2.0
+        },
+        "failed_per_source": 1.008878205128205,
+        "paired": {
+          "delta": -13.182615684495607,
+          "ci95": [
+            -17.646520815774384,
+            -9.029208014977392
+          ],
+          "faster": 10,
+          "slower": 0,
+          "worst_delta": -1.0436972137073326,
+          "worst_seed": 2026120505
+        }
+      }
+    }
+  }
+}

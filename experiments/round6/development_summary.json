@@ -1,0 +1,1787 @@
+{
+  "metadata": {
+    "command": [
+      "experiments/round6/run.py",
+      "--suite",
+      "dev",
+      "--variants",
+      "baseline",
+      "selected",
+      "center_gate",
+      "shared",
+      "no_wait",
+      "no_selective",
+      "no_refine",
+      "--label",
+      "development"
+    ],
+    "python": "3.10.2 (tags/v3.10.2:a58ebcc, Jan 17 2022, 14:12:15) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "baseline": {
+      "commit": "e5b8e192edc69570cf868bc91752186fc2959e22",
+      "sha256": {
+        "model.py": "c3b97b1b163f592ea17cb8c7d0648ad92bb1b3dde614a9347c36bac8ff8b91b6",
+        "optimized.py": "565c8edefa429e586adf60d9a1dbf0662f90ffa89d23abfd62b153ce733ba7fb",
+        "q3_policy.py": "1d27552679cc3f42b1af078f5640158df45954d50e3282ae005f1b5c314de3e4",
+        "q4_policy.py": "98f33bf7c8ade2bf502efa648593136d11cb82e98e027d8909d0eb2835482f16",
+        "simulator.py": "9189eea538fcb665e756dadfc5ac0b33782a838032a71d5364c666612c486f12",
+        "config.json": "a60b43880a8015804d20f15c56466a8a937ddecb3dc2f1e989594ea8ef8bff6d"
+      }
+    },
+    "cfg": {
+      "seed": 20260910,
+      "cases_per_question": 40,
+      "region_radius_m": 1800,
+      "receiver_radius_min_m": 1000,
+      "receiver_radius_max_m": 1500,
+      "bearing_bound_deg": 1.005,
+      "optical_grid_m": 25,
+      "second_forward_m": 650,
+      "second_lateral_m": 250,
+      "q3_grid_m": 1000,
+      "q3_survey_layout": "hexagon",
+      "q4_grid_m": 600,
+      "speed_m_s": 5,
+      "measure_s": 5,
+      "switch_s": 1,
+      "clear_success_s": 5,
+      "clear_failure_s": 3,
+      "near_m": 5,
+      "clear_m": 20,
+      "virtual_limit_s": 360000,
+      "q4_survey_layout": "triangular",
+      "q4_triangle_spacing_m": 950,
+      "q3_policy": "mixed",
+      "q3_ring_radius_m": 1150,
+      "q3_second_forward_m": 200,
+      "q3_second_lateral_m": 100,
+      "q4_policy": "mixed_ring",
+      "q4_second_forward_m": 200,
+      "q4_second_lateral_m": 100
+    },
+    "variants": {
+      "baseline": {},
+      "selected": {},
+      "center_gate": {
+        "q4_help_distance": "center"
+      },
+      "shared": {
+        "q4_shared_scan": true
+      },
+      "no_wait": {
+        "q4_wait_for_survey": false
+      },
+      "no_selective": {
+        "q4_selective_remeasure": false
+      },
+      "no_refine": {
+        "q4_refine_max_m": 0
+      }
+    },
+    "cases": [
+      [
+        2026095100,
+        "random"
+      ],
+      [
+        2026095101,
+        "random"
+      ],
+      [
+        2026095102,
+        "random"
+      ],
+      [
+        2026095103,
+        "random"
+      ],
+      [
+        2026095104,
+        "random"
+      ],
+      [
+        2026095105,
+        "random"
+      ],
+      [
+        2026095106,
+        "random"
+      ],
+      [
+        2026095107,
+        "random"
+      ],
+      [
+        2026095108,
+        "random"
+      ],
+      [
+        2026095109,
+        "random"
+      ],
+      [
+        2026095110,
+        "random"
+      ],
+      [
+        2026095111,
+        "random"
+      ],
+      [
+        2026095112,
+        "random"
+      ],
+      [
+        2026095113,
+        "random"
+      ],
+      [
+        2026095114,
+        "random"
+      ],
+      [
+        2026095115,
+        "random"
+      ],
+      [
+        2026095116,
+        "random"
+      ],
+      [
+        2026095117,
+        "random"
+      ],
+      [
+        2026095118,
+        "random"
+      ],
+      [
+        2026095119,
+        "random"
+      ],
+      [
+        2026095120,
+        "random"
+      ],
+      [
+        2026095121,
+        "random"
+      ],
+      [
+        2026095122,
+        "random"
+      ],
+      [
+        2026095123,
+        "random"
+      ],
+      [
+        2026095124,
+        "random"
+      ],
+      [
+        2026095125,
+        "random"
+      ],
+      [
+        2026095126,
+        "random"
+      ],
+      [
+        2026095127,
+        "random"
+      ],
+      [
+        2026095128,
+        "random"
+      ],
+      [
+        2026095129,
+        "random"
+      ],
+      [
+        2026095130,
+        "random"
+      ],
+      [
+        2026095131,
+        "random"
+      ],
+      [
+        2026095132,
+        "random"
+      ],
+      [
+        2026095133,
+        "random"
+      ],
+      [
+        2026095134,
+        "random"
+      ],
+      [
+        2026095135,
+        "random"
+      ],
+      [
+        2026095136,
+        "random"
+      ],
+      [
+        2026095137,
+        "random"
+      ],
+      [
+        2026095138,
+        "random"
+      ],
+      [
+        2026095139,
+        "random"
+      ],
+      [
+        2026095140,
+        "random"
+      ],
+      [
+        2026095141,
+        "random"
+      ],
+      [
+        2026095142,
+        "random"
+      ],
+      [
+        2026095143,
+        "random"
+      ],
+      [
+        2026095144,
+        "random"
+      ],
+      [
+        2026095145,
+        "random"
+      ],
+      [
+        2026095146,
+        "random"
+      ],
+      [
+        2026095147,
+        "random"
+      ],
+      [
+        2026095148,
+        "random"
+      ],
+      [
+        2026095149,
+        "random"
+      ],
+      [
+        2026095150,
+        "random"
+      ],
+      [
+        2026095151,
+        "random"
+      ],
+      [
+        2026095152,
+        "random"
+      ],
+      [
+        2026095153,
+        "random"
+      ],
+      [
+        2026095154,
+        "random"
+      ],
+      [
+        2026095155,
+        "random"
+      ],
+      [
+        2026095156,
+        "random"
+      ],
+      [
+        2026095157,
+        "random"
+      ],
+      [
+        2026095158,
+        "random"
+      ],
+      [
+        2026095159,
+        "random"
+      ],
+      [
+        2026095100,
+        "boundary"
+      ],
+      [
+        2026095101,
+        "boundary"
+      ],
+      [
+        2026095102,
+        "boundary"
+      ],
+      [
+        2026095103,
+        "boundary"
+      ],
+      [
+        2026095104,
+        "boundary"
+      ],
+      [
+        2026095105,
+        "boundary"
+      ],
+      [
+        2026095106,
+        "boundary"
+      ],
+      [
+        2026095107,
+        "boundary"
+      ],
+      [
+        2026095108,
+        "boundary"
+      ],
+      [
+        2026095109,
+        "boundary"
+      ],
+      [
+        2026095110,
+        "boundary"
+      ],
+      [
+        2026095111,
+        "boundary"
+      ],
+      [
+        2026095112,
+        "boundary"
+      ],
+      [
+        2026095113,
+        "boundary"
+      ],
+      [
+        2026095114,
+        "boundary"
+      ],
+      [
+        2026095115,
+        "boundary"
+      ],
+      [
+        2026095116,
+        "boundary"
+      ],
+      [
+        2026095117,
+        "boundary"
+      ],
+      [
+        2026095118,
+        "boundary"
+      ],
+      [
+        2026095119,
+        "boundary"
+      ],
+      [
+        2026095120,
+        "boundary"
+      ],
+      [
+        2026095121,
+        "boundary"
+      ],
+      [
+        2026095122,
+        "boundary"
+      ],
+      [
+        2026095123,
+        "boundary"
+      ],
+      [
+        2026095124,
+        "boundary"
+      ],
+      [
+        2026095125,
+        "boundary"
+      ],
+      [
+        2026095126,
+        "boundary"
+      ],
+      [
+        2026095127,
+        "boundary"
+      ],
+      [
+        2026095128,
+        "boundary"
+      ],
+      [
+        2026095129,
+        "boundary"
+      ],
+      [
+        2026095100,
+        "radius_min"
+      ],
+      [
+        2026095101,
+        "radius_min"
+      ],
+      [
+        2026095102,
+        "radius_min"
+      ],
+      [
+        2026095103,
+        "radius_min"
+      ],
+      [
+        2026095104,
+        "radius_min"
+      ],
+      [
+        2026095105,
+        "radius_min"
+      ],
+      [
+        2026095106,
+        "radius_min"
+      ],
+      [
+        2026095107,
+        "radius_min"
+      ],
+      [
+        2026095108,
+        "radius_min"
+      ],
+      [
+        2026095109,
+        "radius_min"
+      ],
+      [
+        2026095110,
+        "radius_min"
+      ],
+      [
+        2026095111,
+        "radius_min"
+      ],
+      [
+        2026095112,
+        "radius_min"
+      ],
+      [
+        2026095113,
+        "radius_min"
+      ],
+      [
+        2026095114,
+        "radius_min"
+      ],
+      [
+        2026095115,
+        "radius_min"
+      ],
+      [
+        2026095116,
+        "radius_min"
+      ],
+      [
+        2026095117,
+        "radius_min"
+      ],
+      [
+        2026095118,
+        "radius_min"
+      ],
+      [
+        2026095119,
+        "radius_min"
+      ],
+      [
+        2026095120,
+        "radius_min"
+      ],
+      [
+        2026095121,
+        "radius_min"
+      ],
+      [
+        2026095122,
+        "radius_min"
+      ],
+      [
+        2026095123,
+        "radius_min"
+      ],
+      [
+        2026095124,
+        "radius_min"
+      ],
+      [
+        2026095125,
+        "radius_min"
+      ],
+      [
+        2026095126,
+        "radius_min"
+      ],
+      [
+        2026095127,
+        "radius_min"
+      ],
+      [
+        2026095128,
+        "radius_min"
+      ],
+      [
+        2026095129,
+        "radius_min"
+      ],
+      [
+        2026095100,
+        "all_directional"
+      ],
+      [
+        2026095101,
+        "all_directional"
+      ],
+      [
+        2026095102,
+        "all_directional"
+      ],
+      [
+        2026095103,
+        "all_directional"
+      ],
+      [
+        2026095104,
+        "all_directional"
+      ],
+      [
+        2026095105,
+        "all_directional"
+      ],
+      [
+        2026095106,
+        "all_directional"
+      ],
+      [
+        2026095107,
+        "all_directional"
+      ],
+      [
+        2026095108,
+        "all_directional"
+      ],
+      [
+        2026095109,
+        "all_directional"
+      ],
+      [
+        2026095110,
+        "all_directional"
+      ],
+      [
+        2026095111,
+        "all_directional"
+      ],
+      [
+        2026095112,
+        "all_directional"
+      ],
+      [
+        2026095113,
+        "all_directional"
+      ],
+      [
+        2026095114,
+        "all_directional"
+      ],
+      [
+        2026095115,
+        "all_directional"
+      ],
+      [
+        2026095116,
+        "all_directional"
+      ],
+      [
+        2026095117,
+        "all_directional"
+      ],
+      [
+        2026095118,
+        "all_directional"
+      ],
+      [
+        2026095119,
+        "all_directional"
+      ],
+      [
+        2026095120,
+        "all_directional"
+      ],
+      [
+        2026095121,
+        "all_directional"
+      ],
+      [
+        2026095122,
+        "all_directional"
+      ],
+      [
+        2026095123,
+        "all_directional"
+      ],
+      [
+        2026095124,
+        "all_directional"
+      ],
+      [
+        2026095125,
+        "all_directional"
+      ],
+      [
+        2026095126,
+        "all_directional"
+      ],
+      [
+        2026095127,
+        "all_directional"
+      ],
+      [
+        2026095128,
+        "all_directional"
+      ],
+      [
+        2026095129,
+        "all_directional"
+      ],
+      [
+        2026095100,
+        "cluster"
+      ],
+      [
+        2026095101,
+        "cluster"
+      ],
+      [
+        2026095102,
+        "cluster"
+      ],
+      [
+        2026095103,
+        "cluster"
+      ],
+      [
+        2026095104,
+        "cluster"
+      ],
+      [
+        2026095105,
+        "cluster"
+      ],
+      [
+        2026095106,
+        "cluster"
+      ],
+      [
+        2026095107,
+        "cluster"
+      ],
+      [
+        2026095108,
+        "cluster"
+      ],
+      [
+        2026095109,
+        "cluster"
+      ],
+      [
+        2026095110,
+        "cluster"
+      ],
+      [
+        2026095111,
+        "cluster"
+      ],
+      [
+        2026095112,
+        "cluster"
+      ],
+      [
+        2026095113,
+        "cluster"
+      ],
+      [
+        2026095114,
+        "cluster"
+      ],
+      [
+        2026095115,
+        "cluster"
+      ],
+      [
+        2026095116,
+        "cluster"
+      ],
+      [
+        2026095117,
+        "cluster"
+      ],
+      [
+        2026095118,
+        "cluster"
+      ],
+      [
+        2026095119,
+        "cluster"
+      ],
+      [
+        2026095120,
+        "cluster"
+      ],
+      [
+        2026095121,
+        "cluster"
+      ],
+      [
+        2026095122,
+        "cluster"
+      ],
+      [
+        2026095123,
+        "cluster"
+      ],
+      [
+        2026095124,
+        "cluster"
+      ],
+      [
+        2026095125,
+        "cluster"
+      ],
+      [
+        2026095126,
+        "cluster"
+      ],
+      [
+        2026095127,
+        "cluster"
+      ],
+      [
+        2026095128,
+        "cluster"
+      ],
+      [
+        2026095129,
+        "cluster"
+      ]
+    ],
+    "bootstrap_seed": 2026091106,
+    "sha256": {
+      "model.py": "c3b97b1b163f592ea17cb8c7d0648ad92bb1b3dde614a9347c36bac8ff8b91b6",
+      "optimized.py": "565c8edefa429e586adf60d9a1dbf0662f90ffa89d23abfd62b153ce733ba7fb",
+      "q3_policy.py": "1d27552679cc3f42b1af078f5640158df45954d50e3282ae005f1b5c314de3e4",
+      "q4_policy.py": "013605a144df3fab01f6f3dce872aedc909083f1d7566e2216b3744203714fdc",
+      "simulator.py": "9189eea538fcb665e756dadfc5ac0b33782a838032a71d5364c666612c486f12",
+      "config.json": "a60b43880a8015804d20f15c56466a8a937ddecb3dc2f1e989594ea8ef8bff6d"
+    }
+  },
+  "summary": {
+    "all_directional": {
+      "baseline": {
+        "cases": 30,
+        "mean": 616.0048363546088,
+        "p95": 756.2356162315484,
+        "maximum": 760.599409456911,
+        "below500": 1,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 5.912454489954489,
+        "runtime_mean_s": 0.17851173666640535,
+        "parts": {
+          "move": 401.89430286032507,
+          "switch": 30.45309634809635,
+          "measure": 160.92007367632368,
+          "optical": 20.737363469863475,
+          "laser": 2.0
+        }
+      },
+      "center_gate": {
+        "cases": 30,
+        "mean": 620.6891217027993,
+        "p95": 748.4805556878257,
+        "maximum": 770.043738982152,
+        "below500": 1,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.8068581418581419,
+        "runtime_mean_s": 0.13586517000148887,
+        "parts": {
+          "move": 429.80160408153176,
+          "switch": 29.175928654678657,
+          "measure": 154.29101454101456,
+          "optical": 5.420574425574427,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 4.684285348190749,
+          "ci95": [
+            -8.06852774504613,
+            16.99997109251579
+          ],
+          "faster": 12,
+          "slower": 18,
+          "worst_delta": 61.98769754861587,
+          "worst_seed": 2026095107
+        }
+      },
+      "no_refine": {
+        "cases": 30,
+        "mean": 627.9512414583945,
+        "p95": 773.7855903949874,
+        "maximum": 793.3408201372346,
+        "below500": 1,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.879254218004218,
+        "runtime_mean_s": 0.1292687600000742,
+        "parts": {
+          "move": 437.956583061236,
+          "switch": 28.82457251082251,
+          "measure": 153.53232323232322,
+          "optical": 5.637762654012653,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 11.946405103785748,
+          "ci95": [
+            0.5516518279985398,
+            24.18641770978651
+          ],
+          "faster": 11,
+          "slower": 19,
+          "worst_delta": 113.74030403297365,
+          "worst_seed": 2026095109
+        }
+      },
+      "no_selective": {
+        "cases": 30,
+        "mean": 631.2769653301061,
+        "p95": 775.3827695391909,
+        "maximum": 805.1259605359633,
+        "below500": 1,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.8126626151626153,
+        "runtime_mean_s": 0.13195907666692316,
+        "parts": {
+          "move": 428.9719914151321,
+          "switch": 31.04946955821956,
+          "measure": 163.81751651126652,
+          "optical": 5.437987845487846,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 15.272128975497425,
+          "ci95": [
+            2.0795118253199534,
+            28.107988501183286
+          ],
+          "faster": 10,
+          "slower": 20,
+          "worst_delta": 92.2366749593865,
+          "worst_seed": 2026095109
+        }
+      },
+      "no_wait": {
+        "cases": 30,
+        "mean": 615.3080188429806,
+        "p95": 743.1436179593821,
+        "maximum": 766.4444308664044,
+        "below500": 2,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 4.978727522477524,
+        "runtime_mean_s": 0.15763905333272607,
+        "parts": {
+          "move": 411.86298027044177,
+          "switch": 29.197833694083695,
+          "measure": 154.3110223110223,
+          "optical": 17.936182567432567,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -0.6968175116282074,
+          "ci95": [
+            -8.355119795540851,
+            7.140507791868903
+          ],
+          "faster": 15,
+          "slower": 15,
+          "worst_delta": 61.16442652068008,
+          "worst_seed": 2026095105
+        }
+      },
+      "selected": {
+        "cases": 30,
+        "mean": 622.3912367105318,
+        "p95": 768.2379719258416,
+        "maximum": 783.1803906192291,
+        "below500": 1,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.8322352647352648,
+        "runtime_mean_s": 0.12113245333360585,
+        "parts": {
+          "move": 430.5169107587058,
+          "switch": 29.306539849039847,
+          "measure": 155.0710803085803,
+          "optical": 5.496705794205795,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 6.386400355923149,
+          "ci95": [
+            -6.833644789041845,
+            19.466517639215585
+          ],
+          "faster": 12,
+          "slower": 18,
+          "worst_delta": 84.74514544590374,
+          "worst_seed": 2026095109
+        }
+      },
+      "shared": {
+        "cases": 30,
+        "mean": 620.2379092291932,
+        "p95": 749.1190729032551,
+        "maximum": 785.8703306669805,
+        "below500": 1,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.9528736541236541,
+        "runtime_mean_s": 0.13479431666637537,
+        "parts": {
+          "move": 424.985641080675,
+          "switch": 29.607009518259524,
+          "measure": 157.78663766788767,
+          "optical": 5.858620962370963,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 4.233072874584426,
+          "ci95": [
+            -8.250766865126685,
+            16.75534146175568
+          ],
+          "faster": 13,
+          "slower": 17,
+          "worst_delta": 63.41960964050202,
+          "worst_seed": 2026095105
+        }
+      }
+    },
+    "boundary": {
+      "baseline": {
+        "cases": 30,
+        "mean": 608.7485501337286,
+        "p95": 724.6359576683308,
+        "maximum": 816.2859683284692,
+        "below500": 1,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 1.3604643967143963,
+        "runtime_mean_s": 0.22456118000045536,
+        "parts": {
+          "move": 382.0050942840227,
+          "switch": 34.739220224220226,
+          "measure": 182.92284243534237,
+          "optical": 7.081393190143191,
+          "laser": 2.0
+        }
+      },
+      "center_gate": {
+        "cases": 30,
+        "mean": 678.2629138370762,
+        "p95": 822.2356933572704,
+        "maximum": 865.5394922268081,
+        "below500": 0,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 1.385372405372405,
+        "runtime_mean_s": 0.2523344466673734,
+        "parts": {
+          "move": 457.17590612256845,
+          "switch": 33.942564241314244,
+          "measure": 177.98832625707624,
+          "optical": 7.1561172161172175,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 69.51436370334751,
+          "ci95": [
+            55.79439016191024,
+            82.95933465510699
+          ],
+          "faster": 2,
+          "slower": 28,
+          "worst_delta": 124.36696330539644,
+          "worst_seed": 2026095101
+        }
+      },
+      "no_refine": {
+        "cases": 30,
+        "mean": 688.5989302495177,
+        "p95": 827.3415685710225,
+        "maximum": 866.139492226808,
+        "below500": 0,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 1.351254301254301,
+        "runtime_mean_s": 0.24765362333322022,
+        "parts": {
+          "move": 466.7467502073374,
+          "switch": 34.093320152070156,
+          "measure": 178.70509698634697,
+          "optical": 7.053762903762904,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 79.85038011578891,
+          "ci95": [
+            67.67305568451589,
+            91.71713682129189
+          ],
+          "faster": 1,
+          "slower": 29,
+          "worst_delta": 134.98001933595674,
+          "worst_seed": 2026095101
+        }
+      },
+      "no_selective": {
+        "cases": 30,
+        "mean": 700.830289870212,
+        "p95": 840.7215719825991,
+        "maximum": 878.139492226808,
+        "below500": 0,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 1.3880058830058826,
+        "runtime_mean_s": 0.25487280000015744,
+        "parts": {
+          "move": 466.90331795324005,
+          "switch": 36.07905969030969,
+          "measure": 188.68389457764457,
+          "optical": 7.16401764901765,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 92.08173973648337,
+          "ci95": [
+            79.94518141684854,
+            103.74424355300344
+          ],
+          "faster": 0,
+          "slower": 30,
+          "worst_delta": 133.37550225068037,
+          "worst_seed": 2026095123
+        }
+      },
+      "no_wait": {
+        "cases": 30,
+        "mean": 607.5021635878633,
+        "p95": 720.9559576683307,
+        "maximum": 807.6859683284691,
+        "below500": 2,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 1.452081668331668,
+        "runtime_mean_s": 0.21411656333342155,
+        "parts": {
+          "move": 387.2658679390676,
+          "switch": 33.92973914973915,
+          "measure": 176.9503114940615,
+          "optical": 7.356245004995005,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -1.2463865458652472,
+          "ci95": [
+            -5.078792260947273,
+            3.188671171947638
+          ],
+          "faster": 22,
+          "slower": 8,
+          "worst_delta": 40.09945736535883,
+          "worst_seed": 2026095127
+        }
+      },
+      "selected": {
+        "cases": 30,
+        "mean": 689.1462860962082,
+        "p95": 824.4670265280537,
+        "maximum": 866.139492226808,
+        "below500": 0,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 1.3880058830058826,
+        "runtime_mean_s": 0.24342572666597942,
+        "parts": {
+          "move": 466.90331795324005,
+          "switch": 34.13220904095905,
+          "measure": 178.94674145299146,
+          "optical": 7.16401764901765,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 80.39773596247962,
+          "ci95": [
+            68.14755564223577,
+            92.37235756403255
+          ],
+          "faster": 1,
+          "slower": 29,
+          "worst_delta": 125.301761910035,
+          "worst_seed": 2026095120
+        }
+      },
+      "shared": {
+        "cases": 30,
+        "mean": 689.9772302473904,
+        "p95": 831.9552083462355,
+        "maximum": 872.839492226808,
+        "below500": 0,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 1.3958187645687647,
+        "runtime_mean_s": 0.2626113533326134,
+        "parts": {
+          "move": 459.90445122086123,
+          "switch": 35.091458263958266,
+          "measure": 185.79386446886448,
+          "optical": 7.187456293706293,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 81.22868011366168,
+          "ci95": [
+            69.23208143851542,
+            92.98345420894637
+          ],
+          "faster": 1,
+          "slower": 29,
+          "worst_delta": 133.27605421448732,
+          "worst_seed": 2026095101
+        }
+      }
+    },
+    "cluster": {
+      "baseline": {
+        "cases": 30,
+        "mean": 469.82922992041983,
+        "p95": 593.5738809378557,
+        "maximum": 608.0677324575506,
+        "below500": 18,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.146486013986014,
+        "runtime_mean_s": 0.19819342000021908,
+        "parts": {
+          "move": 335.6901048787949,
+          "switch": 19.86297868797869,
+          "measure": 108.83668831168829,
+          "optical": 3.4394580419580416,
+          "laser": 2.0
+        }
+      },
+      "center_gate": {
+        "cases": 30,
+        "mean": 458.5259639749537,
+        "p95": 580.8297039743935,
+        "maximum": 609.4723539292402,
+        "below500": 22,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.6169806582306584,
+        "runtime_mean_s": 0.26092048333448475,
+        "parts": {
+          "move": 338.5084571761969,
+          "switch": 17.311170912420916,
+          "measure": 95.8553939116439,
+          "optical": 4.850941974691975,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -11.303265945466245,
+          "ci95": [
+            -22.331735327710497,
+            4.204440361157362
+          ],
+          "faster": 25,
+          "slower": 5,
+          "worst_delta": 173.6948394628694,
+          "worst_seed": 2026095119
+        }
+      },
+      "no_refine": {
+        "cases": 30,
+        "mean": 458.00303664152995,
+        "p95": 586.4260538968318,
+        "maximum": 599.9758128665643,
+        "below500": 21,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.4980852480852481,
+        "runtime_mean_s": 0.2815726233338258,
+        "parts": {
+          "move": 337.5175494897928,
+          "switch": 17.453860445110443,
+          "measure": 96.53737096237097,
+          "optical": 4.494255744255743,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -11.826193278889892,
+          "ci95": [
+            -23.502467749418933,
+            4.118953116318367
+          ],
+          "faster": 23,
+          "slower": 7,
+          "worst_delta": 170.6477363357188,
+          "worst_seed": 2026095119
+        }
+      },
+      "no_selective": {
+        "cases": 30,
+        "mean": 548.4304130506771,
+        "p95": 680.9121408791729,
+        "maximum": 709.7020079573266,
+        "below500": 7,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.0,
+        "runtime_mean_s": 0.4345462733329138,
+        "parts": {
+          "move": 323.233426842441,
+          "switch": 35.0591323953824,
+          "measure": 185.13785381285382,
+          "optical": 3.0,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 78.6011831302572,
+          "ci95": [
+            61.98843519512899,
+            97.5216191453546
+          ],
+          "faster": 0,
+          "slower": 30,
+          "worst_delta": 275.6625957319975,
+          "worst_seed": 2026095119
+        }
+      },
+      "no_wait": {
+        "cases": 30,
+        "mean": 492.2375637324933,
+        "p95": 612.6882112492766,
+        "maximum": 641.5258201795401,
+        "below500": 17,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.48586122211122207,
+        "runtime_mean_s": 0.17081354666806875,
+        "parts": {
+          "move": 379.13844299212246,
+          "switch": 16.209423354423354,
+          "measure": 90.43211371961371,
+          "optical": 4.457583666333665,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 22.40833381207335,
+          "ci95": [
+            11.346091376068973,
+            38.192735013013454
+          ],
+          "faster": 6,
+          "slower": 24,
+          "worst_delta": 211.930696609355,
+          "worst_seed": 2026095119
+        }
+      },
+      "selected": {
+        "cases": 30,
+        "mean": 459.0177311007659,
+        "p95": 589.6333332921241,
+        "maximum": 607.2035919322587,
+        "below500": 22,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.2561345598845599,
+        "runtime_mean_s": 0.24253592000022764,
+        "parts": {
+          "move": 337.293778109313,
+          "switch": 17.792237623487622,
+          "measure": 98.1633116883117,
+          "optical": 3.7684036796536793,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -10.811498819653945,
+          "ci95": [
+            -22.707263824415854,
+            5.454325014446395
+          ],
+          "faster": 24,
+          "slower": 6,
+          "worst_delta": 177.30803119079255,
+          "worst_seed": 2026095119
+        }
+      },
+      "shared": {
+        "cases": 30,
+        "mean": 458.15137464963925,
+        "p95": 586.0652413496091,
+        "maximum": 607.2035919322587,
+        "below500": 22,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.23023337773337774,
+        "runtime_mean_s": 0.2392096666674964,
+        "parts": {
+          "move": 336.44494926946385,
+          "switch": 17.797579503829503,
+          "measure": 98.21814574314574,
+          "optical": 3.690700133200133,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -11.677855270780704,
+          "ci95": [
+            -23.30187893856892,
+            4.296893864122933
+          ],
+          "faster": 24,
+          "slower": 6,
+          "worst_delta": 172.27220206347542,
+          "worst_seed": 2026095119
+        }
+      }
+    },
+    "radius_min": {
+      "baseline": {
+        "cases": 30,
+        "mean": 554.891461008792,
+        "p95": 695.0521411596434,
+        "maximum": 735.9949445904074,
+        "below500": 6,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 2.828519258519259,
+        "runtime_mean_s": 0.16025127333317263,
+        "parts": {
+          "move": 380.8004971115782,
+          "switch": 25.23718475968476,
+          "measure": 135.36822136197137,
+          "optical": 11.485557775557774,
+          "laser": 2.0
+        }
+      },
+      "center_gate": {
+        "cases": 30,
+        "mean": 538.3343289094275,
+        "p95": 658.8043128094281,
+        "maximum": 707.2092660422999,
+        "below500": 9,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.5467521367521367,
+        "runtime_mean_s": 0.13168437666681712,
+        "parts": {
+          "move": 392.56720880730757,
+          "switch": 21.77957695082695,
+          "measure": 117.34728674103674,
+          "optical": 4.64025641025641,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -16.55713209936448,
+          "ci95": [
+            -29.224548135897166,
+            -3.9494579303025965
+          ],
+          "faster": 21,
+          "slower": 9,
+          "worst_delta": 58.5763103447714,
+          "worst_seed": 2026095105
+        }
+      },
+      "no_refine": {
+        "cases": 30,
+        "mean": 558.7425489765053,
+        "p95": 689.5965886231041,
+        "maximum": 721.9410980551986,
+        "below500": 8,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.7315848040848042,
+        "runtime_mean_s": 0.15476442666646714,
+        "parts": {
+          "move": 411.23126276271915,
+          "switch": 21.866647657897655,
+          "measure": 118.44988414363415,
+          "optical": 5.194754412254412,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 3.851087967713325,
+          "ci95": [
+            -7.520550364270532,
+            15.187920389404423
+          ],
+          "faster": 12,
+          "slower": 18,
+          "worst_delta": 65.29902046649369,
+          "worst_seed": 2026095126
+        }
+      },
+      "no_selective": {
+        "cases": 30,
+        "mean": 575.9653068714634,
+        "p95": 710.5122884377245,
+        "maximum": 728.5215593769434,
+        "below500": 4,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.732039072039072,
+        "runtime_mean_s": 0.17354098333380535,
+        "parts": {
+          "move": 392.33575989066645,
+          "switch": 27.9696602009102,
+          "measure": 148.46376956376955,
+          "optical": 5.196117216117216,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": 21.07384586267129,
+          "ci95": [
+            4.967196913600436,
+            37.744822149710544
+          ],
+          "faster": 11,
+          "slower": 19,
+          "worst_delta": 139.90975412874627,
+          "worst_seed": 2026095115
+        }
+      },
+      "no_wait": {
+        "cases": 30,
+        "mean": 547.064012513372,
+        "p95": 678.9465196367825,
+        "maximum": 727.8035336837703,
+        "below500": 8,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 1.79389652014652,
+        "runtime_mean_s": 0.11112512000036076,
+        "parts": {
+          "move": 394.69901972837914,
+          "switch": 22.169039016539013,
+          "measure": 119.81426420801421,
+          "optical": 8.381689560439561,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -7.827448495420165,
+          "ci95": [
+            -15.15705469188849,
+            0.42220850447088043
+          ],
+          "faster": 23,
+          "slower": 7,
+          "worst_delta": 62.619519495663155,
+          "worst_seed": 2026095122
+        }
+      },
+      "selected": {
+        "cases": 30,
+        "mean": 540.5281055165627,
+        "p95": 666.6442048934307,
+        "maximum": 710.2924561763593,
+        "below500": 9,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.7346031746031747,
+        "runtime_mean_s": 0.12757706666646604,
+        "parts": {
+          "move": 392.35082779428507,
+          "switch": 22.078473609723613,
+          "measure": 118.89499458874457,
+          "optical": 5.203809523809523,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -14.363355492229314,
+          "ci95": [
+            -29.669361166559995,
+            1.3068058219961007
+          ],
+          "faster": 19,
+          "slower": 11,
+          "worst_delta": 102.02797760650685,
+          "worst_seed": 2026095115
+        }
+      },
+      "shared": {
+        "cases": 30,
+        "mean": 536.2886011349874,
+        "p95": 672.2052707221702,
+        "maximum": 686.9918649939704,
+        "below500": 9,
+        "sources": 385,
+        "cleared": 385,
+        "failures_per_source": 0.4755056055056056,
+        "runtime_mean_s": 0.13595510333422378,
+        "parts": {
+          "move": 387.0838153652015,
+          "switch": 22.344310550560557,
+          "measure": 120.43395840270843,
+          "optical": 4.426516816516817,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -18.602859873804693,
+          "ci95": [
+            -32.52361387487184,
+            -2.77185486674846
+          ],
+          "faster": 22,
+          "slower": 8,
+          "worst_delta": 137.21745330646263,
+          "worst_seed": 2026095115
+        }
+      }
+    },
+    "random": {
+      "baseline": {
+        "cases": 60,
+        "mean": 559.0311743771714,
+        "p95": 695.1272810785829,
+        "maximum": 755.2383840941627,
+        "below500": 13,
+        "sources": 770,
+        "cleared": 770,
+        "failures_per_source": 3.367070221445222,
+        "runtime_mean_s": 0.19964950166565057,
+        "parts": {
+          "move": 382.3620095142565,
+          "switch": 25.35593392718393,
+          "measure": 136.2120202713953,
+          "optical": 13.101210664335664,
+          "laser": 2.0
+        }
+      },
+      "center_gate": {
+        "cases": 60,
+        "mean": 522.9569479467615,
+        "p95": 656.8980353353196,
+        "maximum": 768.9605562975264,
+        "below500": 23,
+        "sources": 770,
+        "cleared": 770,
+        "failures_per_source": 0.598567821067821,
+        "runtime_mean_s": 0.14035908833332844,
+        "parts": {
+          "move": 381.7586057334193,
+          "switch": 21.004409201909205,
+          "measure": 113.39822954822952,
+          "optical": 4.795703463203463,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -36.07422643040988,
+          "ci95": [
+            -45.76997539456326,
+            -26.618956386377345
+          ],
+          "faster": 50,
+          "slower": 10,
+          "worst_delta": 47.69245813033217,
+          "worst_seed": 2026095100
+        }
+      },
+      "no_refine": {
+        "cases": 60,
+        "mean": 543.2566391926227,
+        "p95": 696.6484689534642,
+        "maximum": 716.1699529889837,
+        "below500": 19,
+        "sources": 770,
+        "cleared": 770,
+        "failures_per_source": 0.5785662254412254,
+        "runtime_mean_s": 0.15680921833312217,
+        "parts": {
+          "move": 401.6893667428503,
+          "switch": 20.937387404262402,
+          "measure": 113.89418636918637,
+          "optical": 4.735698676323676,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -15.774535184548638,
+          "ci95": [
+            -26.5598840268306,
+            -5.203597286962777
+          ],
+          "faster": 36,
+          "slower": 24,
+          "worst_delta": 83.73612748328082,
+          "worst_seed": 2026095151
+        }
+      },
+      "no_selective": {
+        "cases": 60,
+        "mean": 556.5776568527242,
+        "p95": 690.4961913147588,
+        "maximum": 803.6227804361497,
+        "below500": 16,
+        "sources": 770,
+        "cleared": 770,
+        "failures_per_source": 0.6215251415251415,
+        "runtime_mean_s": 0.1813914916668485,
+        "parts": {
+          "move": 379.17807324189073,
+          "switch": 26.992329684204684,
+          "measure": 143.5426785020535,
+          "optical": 4.864575424575423,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -2.4535175244470895,
+          "ci95": [
+            -11.436800003274952,
+            6.226860255388461
+          ],
+          "faster": 31,
+          "slower": 29,
+          "worst_delta": 68.31229802607186,
+          "worst_seed": 2026095151
+        }
+      },
+      "no_wait": {
+        "cases": 60,
+        "mean": 535.1035885019745,
+        "p95": 679.6006621992993,
+        "maximum": 722.3678486618157,
+        "below500": 21,
+        "sources": 770,
+        "cleared": 770,
+        "failures_per_source": 2.821726745476745,
+        "runtime_mean_s": 0.1319699883331244,
+        "parts": {
+          "move": 388.4452342867453,
+          "switch": 20.792626956376957,
+          "measure": 112.40054702242203,
+          "optical": 11.465180236430234,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -23.927585875196872,
+          "ci95": [
+            -27.80353886102387,
+            -19.967697648174877
+          ],
+          "faster": 55,
+          "slower": 5,
+          "worst_delta": 6.193233500539463,
+          "worst_seed": 2026095122
+        }
+      },
+      "selected": {
+        "cases": 60,
+        "mean": 523.8105356605253,
+        "p95": 655.6525280556181,
+        "maximum": 771.6533450851575,
+        "below500": 23,
+        "sources": 770,
+        "cleared": 770,
+        "failures_per_source": 0.7105257242757241,
+        "runtime_mean_s": 0.13171651666610462,
+        "parts": {
+          "move": 380.8914178339075,
+          "switch": 21.229085914085918,
+          "measure": 114.55845473970473,
+          "optical": 5.131577172827172,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -35.220638716646086,
+          "ci95": [
+            -44.18776406200455,
+            -26.549125288591895
+          ],
+          "faster": 50,
+          "slower": 10,
+          "worst_delta": 28.000578128861036,
+          "worst_seed": 2026095158
+        }
+      },
+      "shared": {
+        "cases": 60,
+        "mean": 522.5744109880611,
+        "p95": 654.5760005484447,
+        "maximum": 772.9308244635363,
+        "below500": 25,
+        "sources": 770,
+        "cleared": 770,
+        "failures_per_source": 0.5688952713952714,
+        "runtime_mean_s": 0.14422425000023698,
+        "parts": {
+          "move": 377.4152411301413,
+          "switch": 21.639127955377955,
+          "measure": 116.81335608835609,
+          "optical": 4.706685814185815,
+          "laser": 2.0
+        },
+        "paired": {
+          "mean_delta": -36.45676338911027,
+          "ci95": [
+            -45.42696053871829,
+            -27.776146675086004
+          ],
+          "faster": 52,
+          "slower": 8,
+          "worst_delta": 56.89430198674495,
+          "worst_seed": 2026095100
+        }
+      }
+    }
+  }
+}

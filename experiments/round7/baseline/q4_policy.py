@@ -1,8 +1,7 @@
 """Q4 selective measurements and bounded refinement with certified coverage."""
 import math
 import numpy as np
-from model import clip, direction, enclosing_circle, diameter
-from q4_optical import clearing_route, route_seconds
+from model import clip, direction, enclosing_circle
 
 
 def ring_stations(cfg):
@@ -61,9 +60,6 @@ class Q4Planner:
         self.stale_m=cfg.get('q4_wait_stale_m',1400.)
         self.refine_max=cfg.get('q4_refine_max_m',150.)
         self.wait_mode=cfg.get('q4_wait_mode','inner')
-        self.strip_cover=cfg.get('q4_strip_cover',False)
-        self.immediate_near=cfg.get('q4_immediate_near',False)
-        self.scan_cost_gate=cfg.get('q4_scan_cost_gate',False)
         if not all(type(value) is bool for value in (self.selective,self.wait,self.shared)):
             raise ValueError('Q4 feature switches must be booleans')
         if not all(math.isfinite(v) and v>0 for v in (self.clear_m,self.help_m,self.min_gap,self.stale_m)):
@@ -76,8 +72,6 @@ class Q4Planner:
             raise ValueError('Invalid Q4 station help criterion')
         if self.wait_mode not in ('stale','inner','same_side','all_sides'):
             raise ValueError('Invalid Q4 waiting rule')
-        if not all(type(value) is bool for value in (self.strip_cover,self.immediate_near,self.scan_cost_gate)):
-            raise ValueError('Q4 optical feature switches must be booleans')
 
     def observe(self,position,ch,response):
         # Silence is compatible with a nearby directional transmitter.
@@ -153,11 +147,6 @@ class Q4Planner:
         if t['near'] is not None:return
         center,radius=enclosing_circle(t['poly'])
         if not self.clear_m<radius<=self.refine_max:return
-        if self.scan_cost_gate:
-            points,_=clearing_route(t['poly'],t['origin'],t['deg'],p.pos,p.cfg)
-            budget=route_seconds(points,p.pos,p.cfg)
-            travel=np.linalg.norm(center-p.pos)/p.cfg['speed_m_s']
-            if budget<=travel+p.cfg['measure_s']+p.cfg['clear_failure_s']+10:return
         response=p.measure(center,ch);p.update(ch,center,response)
         if response['measure_result']!='direction':return
         new_center,new_radius=enclosing_circle(t['poly'])
@@ -167,19 +156,6 @@ class Q4Planner:
         candidates=(center+offset*side,center-offset*side)
         point=min(candidates,key=lambda q:np.linalg.norm(q-new_center))
         response=p.measure(point,ch);p.update(ch,point,response)
-
-    def finish(self,ch):
-        p=self.p;t=p.tracks[ch]
-        if ch in p.cleared:return
-        if t['near'] is not None:return p.finish(ch)
-        center,radius=enclosing_circle(t['poly'])
-        if radius<=self.clear_m-1e-6 or not self.strip_cover:return p.finish(ch)
-        points,_=clearing_route(t['poly'],t['origin'],t['deg'],p.pos,p.cfg)
-        p.certificates.append(dict(channel=ch,center=center.tolist(),radius_m=radius,
-                                   diameter_m=diameter(t['poly']),vertices=t['poly'].tolist()))
-        for point in points:
-            if p.clear(point,ch):return
-        raise RuntimeError('Certified optical strip cover exhausted')
 
     def run(self):
         p=self.p;points=ring_stations(p.cfg);visited=0
@@ -196,9 +172,6 @@ class Q4Planner:
                     response=p.measure(station,c)
                     if c in p.tracks:p.update(c,station,response)
                     elif response['measure_result']!='no_signal':p.make_track(c,station,response)
-                    if self.immediate_near and response['measure_result']=='near':
-                        if not p.clear(station,c):raise RuntimeError('near clear failed')
-                        if len(p.cleared)==16:break
             else:
                 if not self.ready(ch):
                     point,measure=self.destination(ch)
@@ -206,7 +179,7 @@ class Q4Planner:
                         response=p.measure(point,ch);p.update(ch,point,response)
                         if self.shared:p.shared_scan(exclude=ch)
                 self.refine(ch)
-                self.finish(ch)
+                p.finish(ch)
                 if self.shared:p.shared_scan()
             if len(p.cleared)==16:break
         return dict(cleared_count=len(p.cleared),visited_survey_points=visited,

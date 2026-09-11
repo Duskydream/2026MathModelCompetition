@@ -1,6 +1,6 @@
 """Generate report and plots without rerunning or selecting favorable cases."""
 from pathlib import Path
-import csv,json,hashlib,zipfile
+import csv,json,hashlib
 import numpy as np
 from PIL import Image,ImageDraw,ImageFont
 
@@ -105,7 +105,8 @@ optimized.py为优化策略；optimize_experiments.py为配对试验；optimizat
 
 holdout_comparison.png直接由独立集汇总绘制。原始题目事实和假设来源沿用审题与基准模型报告引用的题目及两份附件，未新增外部数据或文献。
 '''
-(B/'优化试验报告.md').write_text(report,encoding='utf-8')
+(B.parent/'docs').mkdir(exist_ok=True)
+(B.parent/'docs/优化试验报告.md').write_text(report,encoding='utf-8')
 im=Image.new('RGB',(1150,600),'white');draw=ImageDraw.Draw(im);font=lambda n:ImageFont.truetype('C:/Windows/Fonts/arial.ttf',n)
 draw.text((30,20),'Frozen policy | 100 new paired cases per question',font=font(28),fill='#192b43')
 draw.text((30,65),'Local synthetic tests. Mean virtual seconds per source.',font=font(23),fill='#475569')
@@ -114,8 +115,4 @@ for i,r in enumerate(summaries['holdout']['results']):
     width=r['mean_s']*.75;draw.rectangle((220,y,220+width,y+50),fill='#94a3b8' if r['variant']=='B1' else '#2563eb')
     draw.text((230+width,y+10),f"{r['mean_s']:.2f}",font=font(23),fill='#192b43')
 draw.text((30,555),'All sources cleared in every run. Not official simulator results.',font=font(22),fill='#475569');im.save(O/'holdout_comparison.png')
-with zipfile.ZipFile(B.parent/'B题_优化试验.zip','w',zipfile.ZIP_DEFLATED) as z:
-    for p in B.rglob('*'):
-        if p.is_file() and '__pycache__' not in p.parts and not (p.parent.name=='source_extract' and p.suffix=='.png'):
-            z.write(p,p.relative_to(B.parent))
-print('Frozen evaluation hashes verified; report and package generated.')
+print('Frozen evaluation hashes verified; report and plots generated.')
