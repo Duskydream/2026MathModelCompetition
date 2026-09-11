@@ -9,6 +9,7 @@
   "second_forward_m": 650,
   "second_lateral_m": 250,
   "q3_grid_m": 1000,
+  "q3_survey_layout": "hexagon",
   "q4_grid_m": 600,
   "speed_m_s": 5,
   "measure_s": 5,

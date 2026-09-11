@@ -20,6 +20,7 @@ robot_actions.jsonl
 /B题演练程序/practice_logs/
 
 # Rebuildable distribution copies and archives
+/B题演练程序/
 *.zip
 *.rar
 /.local_archive/
