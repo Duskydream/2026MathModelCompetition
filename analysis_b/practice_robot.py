@@ -185,7 +185,7 @@ def main(argv=None):
     out=Path(args.output_dir);out.mkdir(parents=True,exist_ok=True)
     run_dir=out/f'q{args.question}_{datetime.now():%Y%m%d_%H%M%S}_{uuid.uuid4().hex[:8]}'
     run_dir.mkdir();io=PracticeHTTP(args.robot_id,args.base_url,run_dir/'actions.jsonl',args.timeout,args.attempts)
-    meta=dict(question=args.question,strategy=args.strategy,declared_mode='practice',mode_verified_by_protocol=False,case_code=args.case_code,config=cfg,python=sys.version,code_sha256={name:hashlib.sha256((base/name).read_bytes()).hexdigest() for name in ['practice_robot.py','model.py','optimized.py','q3_policy.py','config.json']})
+    meta=dict(question=args.question,strategy=args.strategy,declared_mode='practice',mode_verified_by_protocol=False,case_code=args.case_code,config=cfg,python=sys.version,code_sha256={name:hashlib.sha256((base/name).read_bytes()).hexdigest() for name in ['practice_robot.py','model.py','optimized.py','q3_policy.py','q4_policy.py','config.json']})
     (run_dir/'run_config.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2),encoding='utf-8')
     print(f'第{args.question}问，策略 {args.strategy}，日志：{run_dir}',flush=True)
     print('接口无法识别演练/正式模式；当前应为模拟器中已启动的对应演练。',flush=True)
