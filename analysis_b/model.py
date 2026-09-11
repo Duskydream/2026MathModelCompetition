@@ -83,6 +83,17 @@ def optical_cells(poly,origin,deg,h):
     return cells
 
 def survey_points(question,cfg):
+    if question==3:
+        layout=cfg.get('q3_survey_layout','grid')
+        if layout=='hexagon':
+            # Center plus six ring stations cover the target disk with R/2 disks.
+            # See docs/model_formulation.md for the continuous coverage proof.
+            radius=cfg['region_radius_m']
+            if not math.isfinite(radius) or radius<=0 or radius/2>cfg['receiver_radius_min_m']:
+                raise ValueError('Hexagon survey requires 0 < region radius <= 2 * minimum reception radius')
+            ring=radius*math.cos(math.pi/6)
+            return [np.zeros(2)]+[ring*direction(60*k) for k in range(6)]
+        if layout!='grid':raise ValueError(f'Unknown Q3 survey layout: {layout}')
     h=cfg[f'q{question}_grid_m'];n=math.ceil(cfg['region_radius_m']/h)
     return [np.array([i*h,j*h],float) for i in range(-n,n+1) for j in range(-n,n+1)]
 
