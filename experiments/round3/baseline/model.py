@@ -122,18 +122,12 @@ def survey_points(question,cfg):
     if question==3:
         layout=cfg.get('q3_survey_layout','grid')
         if layout=='hexagon':
-            # Center plus six ring stations; validate the continuous bound below.
-            # See docs/experiment3_report.md for the configurable-ring proof.
+            # Center plus six ring stations cover the target disk with R/2 disks.
+            # See docs/model_formulation.md for the continuous coverage proof.
             radius=cfg['region_radius_m']
             if not math.isfinite(radius) or radius<=0 or radius/2>cfg['receiver_radius_min_m']:
                 raise ValueError('Hexagon survey requires 0 < region radius <= 2 * minimum reception radius')
-            ring=cfg.get('q3_ring_radius_m',radius*math.cos(math.pi/6))
-            if not math.isfinite(ring) or not 0<ring<=math.sqrt(3)*radius:
-                raise ValueError('Q3 ring radius must be positive, finite, and within the coverage geometry')
-            # Extrema: Voronoi junction and the target-circle sector bisector.
-            worst=max(ring/math.sqrt(3),math.sqrt(radius**2+ring**2-math.sqrt(3)*radius*ring))
-            if worst>cfg['receiver_radius_min_m']-1e-6:
-                raise ValueError('Q3 ring does not guarantee minimum-radius coverage')
+            ring=radius*math.cos(math.pi/6)
             return [np.zeros(2)]+[ring*direction(60*k) for k in range(6)]
         if layout!='grid':raise ValueError(f'Unknown Q3 survey layout: {layout}')
     if question==4:

@@ -18,11 +18,5 @@
   "clear_failure_s": 3,
   "near_m": 5,
   "clear_m": 20,
-  "virtual_limit_s": 360000,
-  "q4_survey_layout": "triangular",
-  "q4_triangle_spacing_m": 950,
-  "q3_policy": "mixed",
-  "q3_ring_radius_m": 1150,
-  "q3_second_forward_m": 200,
-  "q3_second_lateral_m": 100
+  "virtual_limit_s": 360000
 }

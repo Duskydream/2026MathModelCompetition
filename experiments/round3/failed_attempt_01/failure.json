@@ -1,0 +1,9 @@
+{
+  "seed": 2031091108,
+  "variant": "candidate",
+  "cleared": 15,
+  "sources": 15,
+  "failure": "Localization certificate excluded true source by 9.7374 m",
+  "cause": "Repeated disk subtraction dropped an intersection vertex because floating-point distance placed it infinitesimally inside the disk, while the quadratic root fell just outside the edge interval.",
+  "fix": "Retain boundary vertices with conservative squared-distance tolerance and clamp near-endpoint roots; add a repeated-constraint regression."
+}

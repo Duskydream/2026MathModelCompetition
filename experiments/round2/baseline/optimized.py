@@ -6,18 +6,9 @@ class OptimizedPolicy(Policy):
     def __init__(self,transport,cfg,question,variant='shared'):
         super().__init__(transport,cfg,question,'triangulate')
         self.variant=variant;self.tracks={};self.shared_attempts=0;self.shared_hits=0
-        self.q3_planner=None
-        if question==3 and variant=='shared' and cfg.get('q3_policy','legacy')=='mixed':
-            from q3_policy import Q3Planner
-            self.q3_planner=Q3Planner(self)
-    def measure(self,p,ch):
-        response=super().measure(p,ch)
-        if self.q3_planner is not None:self.q3_planner.observe(p,ch,response)
-        return response
     def make_track(self,ch,p,r):
         deg=r.get('svd_deg',0.)
         self.tracks[ch]={'origin':p.copy(),'deg':deg,'poly':initial_polygon(p,deg,self.cfg),'count':1,'near':p.copy() if r['measure_result']=='near' else None,'extra':0,'sample_points':[p.copy()]}
-        if self.q3_planner is not None:self.q3_planner.constrain(ch)
     def update(self,ch,p,r):
         t=self.tracks[ch];t['sample_points'].append(p.copy())
         if r['measure_result']=='near':t['near']=p.copy();return
@@ -25,9 +16,7 @@ class OptimizedPolicy(Policy):
             A,b=bearing_halfplanes(p,r['svd_deg'],self.cfg['bearing_bound_deg']);t['poly']=clip(t['poly'],A,b)
             if not len(t['poly']):raise RuntimeError('Inconsistent observed bearings')
             t['count']+=1
-        if self.q3_planner is not None:self.q3_planner.constrain(ch)
     def destination(self,ch):
-        if self.q3_planner is not None:return self.q3_planner.destination(ch)
         t=self.tracks[ch]
         if t['near'] is not None:return t['near'],False
         c,rad=enclosing_circle(t['poly'])
@@ -70,7 +59,6 @@ class OptimizedPolicy(Policy):
             if self.clear(p,ch):return
         raise RuntimeError('Optical cover exhausted')
     def run(self):
-        if self.q3_planner is not None:return self.q3_planner.run()
         points=survey_points(self.question,self.cfg);visited=0
         while points:
             idx=min(range(len(points)),key=lambda i:np.linalg.norm(points[i]-self.pos));p=points.pop(idx);visited+=1

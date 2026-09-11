@@ -3,7 +3,7 @@ from pathlib import Path
 import hashlib,json,shutil,zipfile
 
 B=Path(__file__).resolve().parent;DEST=B.parent/'B题演练程序';DEST.mkdir(exist_ok=True)
-names=['practice_robot.py','practice_launcher.py','practice_q3.py','practice_q4.py','model.py','optimized.py','config.json']
+names=['practice_robot.py','practice_launcher.py','practice_q3.py','practice_q4.py','model.py','optimized.py','q3_policy.py','config.json']
 for name in names:shutil.copyfile(B/name,DEST/name)
 (DEST/'requirements.txt').write_text('numpy==2.2.6\nscipy==1.15.3\n',encoding='utf-8')
 for q in (3,4):

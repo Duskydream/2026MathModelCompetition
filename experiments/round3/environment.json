@@ -1,0 +1,14 @@
+{
+  "python": "3.12.9 (tags/v3.12.9:fdb8142, Feb  4 2025, 15:27:58) [MSC v.1942 64 bit (AMD64)]",
+  "numpy": "2.3.5",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "code_sha256": {
+    "model.py": "b158e92173ef677c327e5e7adaadaadd4f8654c924e6d8c34bcb80e00705f9c2",
+    "optimized.py": "7b0fae62ba83c734aef5011e7a897b69176aa1e9444fbb44b293f1201f2dbcdc",
+    "q3_policy.py": "1d27552679cc3f42b1af078f5640158df45954d50e3282ae005f1b5c314de3e4",
+    "config.json": "b1758a1e929eaee459dd3f50e192eb7ad6fdd5b4fb653d5895576dd8bf08e762",
+    "simulator.py": "f82f7be49b8920f3436568aaeffcd4c37453a2819d091e496adc13b4500d5df0",
+    "experiment3.py": "06572d8d96811d3542a3aab24a1c464c0077d040b72f3b34dd340edd188752ab",
+    "test_round3.py": "37eb8749677478fe820eded6e1fb96a99838519369c4abe643ae90b1489a1306"
+  }
+}

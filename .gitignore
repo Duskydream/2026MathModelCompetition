@@ -8,16 +8,14 @@ venv/
 htmlcov/
 
 # Private real-simulator runs (contain team identifiers and raw requests)
-practice_logs/
+# Exclude real practice logs at every directory depth.
+**/practice_logs/
 *_actions.jsonl
 robot_actions.jsonl
 *.jlog
 .env
 .env.*
 !.env.example
-
-# Generated local test records
-/B题演练程序/practice_logs/
 
 # Rebuildable distribution copies and archives
 *.zip

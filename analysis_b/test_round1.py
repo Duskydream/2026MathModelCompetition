@@ -40,7 +40,7 @@ class GeometryCoverageTests(unittest.TestCase):
         self.assertAlmostEqual(enclosing_circle(region['vertices'])[1],40/math.sqrt(3))
 
     def test_hexagon_continuous_bound_extrema(self):
-        pts=np.array(survey_points(3,dict(CFG,q3_survey_layout='hexagon')))
+        pts=np.array(survey_points(3,dict(CFG,q3_survey_layout='hexagon',q3_ring_radius_m=1800*math.cos(math.pi/6))))
         self.assertEqual(len(pts),7)
         # Voronoi junctions and boundary bisectors attain the exact bound 900.
         for radius in [900,1800]:
@@ -50,7 +50,7 @@ class GeometryCoverageTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             survey_points(3,dict(CFG,q3_survey_layout='hexagon',region_radius_m=2100))
         self.assertTrue(np.array_equal(survey_points(4,dict(CFG,q3_survey_layout='grid')),
-                                       survey_points(4,dict(CFG,q3_survey_layout='hexagon'))))
+                                       survey_points(4,dict(CFG,q3_survey_layout='hexagon',q3_ring_radius_m=1800*math.cos(math.pi/6)))))
 
     def test_q4_closed_halfplane_and_optical_backside(self):
         sim=LocalSimulator([dict(channel=1,position=[1800,0],radius_m=1000,orientation_deg=0)],CFG,noise='zero')

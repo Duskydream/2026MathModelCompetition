@@ -82,64 +82,18 @@ def optical_cells(poly,origin,deg,h):
             if len(clip(local,A,b)):cells.append(origin+B@c)
     return cells
 
-def triangular_survey_points(cfg):
-    """Vertices of every closed triangular cell intersecting the target disk.
-
-    The centroid of one cell is at the origin. See docs/experiment2_report.md.
-    Keep exterior vertices: clipping stations to the disk breaks direction coverage.
-    """
-    radius=cfg['region_radius_m']
-    spacing=cfg.get('q4_triangle_spacing_m',950)
-    reception=cfg['receiver_radius_min_m']
-    if not all(math.isfinite(v) and v>0 for v in (radius,spacing,reception)):
-        raise ValueError('Triangle survey requires positive finite distances')
-    if spacing>=reception:
-        raise ValueError('Triangle spacing must be below minimum reception radius')
-    height=spacing*math.sqrt(3)/2
-    offset=np.array([spacing/2,height/3])
-    def vertex(i,j):
-        return np.array([spacing*(i+j/2),height*j])-offset
-    # Includes a full cell beyond each disk bounding-box edge.
-    rows=math.ceil((radius+height/3)/height)+1
-    columns=math.ceil(radius/spacing+rows/2+0.5)+1
-    tolerance=1e-9*max(1.,radius,spacing)
-    selected=set()
-    for j in range(-rows,rows+1):
-        for i in range(-columns,columns+1):
-            for ids in (((i,j),(i+1,j),(i,j+1)),
-                        ((i+1,j),(i+1,j+1),(i,j+1))):
-                a=np.array([vertex(*ij) for ij in ids])
-                edge=np.roll(a,-1,axis=0)-a
-                cross=edge[:,0]*(-a[:,1])-edge[:,1]*(-a[:,0])
-                inside=bool(np.all(cross>=0))
-                fraction=np.clip(-np.sum(a*edge,axis=1)/np.sum(edge*edge,axis=1),0,1)
-                closest=a+fraction[:,None]*edge
-                if inside or np.any(np.sum(closest*closest,axis=1)<=(radius+tolerance)**2):
-                    selected.update(ids)
-    return sorted((vertex(*ij) for ij in selected),key=lambda p:(p[0],p[1]))
-
 def survey_points(question,cfg):
     if question==3:
         layout=cfg.get('q3_survey_layout','grid')
         if layout=='hexagon':
-            # Center plus six ring stations; validate the continuous bound below.
-            # See docs/experiment3_report.md for the configurable-ring proof.
+            # Center plus six ring stations cover the target disk with R/2 disks.
+            # See docs/model_formulation.md for the continuous coverage proof.
             radius=cfg['region_radius_m']
             if not math.isfinite(radius) or radius<=0 or radius/2>cfg['receiver_radius_min_m']:
                 raise ValueError('Hexagon survey requires 0 < region radius <= 2 * minimum reception radius')
-            ring=cfg.get('q3_ring_radius_m',radius*math.cos(math.pi/6))
-            if not math.isfinite(ring) or not 0<ring<=math.sqrt(3)*radius:
-                raise ValueError('Q3 ring radius must be positive, finite, and within the coverage geometry')
-            # Extrema: Voronoi junction and the target-circle sector bisector.
-            worst=max(ring/math.sqrt(3),math.sqrt(radius**2+ring**2-math.sqrt(3)*radius*ring))
-            if worst>cfg['receiver_radius_min_m']-1e-6:
-                raise ValueError('Q3 ring does not guarantee minimum-radius coverage')
+            ring=radius*math.cos(math.pi/6)
             return [np.zeros(2)]+[ring*direction(60*k) for k in range(6)]
         if layout!='grid':raise ValueError(f'Unknown Q3 survey layout: {layout}')
-    if question==4:
-        layout=cfg.get('q4_survey_layout','grid')
-        if layout=='triangular':return triangular_survey_points(cfg)
-        if layout!='grid':raise ValueError(f'Unknown Q4 survey layout: {layout}')
     h=cfg[f'q{question}_grid_m'];n=math.ceil(cfg['region_radius_m']/h)
     return [np.array([i*h,j*h],float) for i in range(-n,n+1) for j in range(-n,n+1)]
 
