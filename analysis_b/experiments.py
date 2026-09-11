@@ -103,7 +103,7 @@ def figures(rows,geo):
     for i,(label,value) in enumerate(zip(['Q3 bearing + optical cover','Q3 two bearings + optical cover','Q4 bearing + optical cover','Q4 two bearings + optical cover'],means)):
         y=145+i*102;d.text((35,y),label,font=font(20),fill='#182738')
         d.rectangle((360,y,360+scale*value,y+48),fill='#3b82f6' if i%2 else '#94a3b8');d.text((370+scale*value,y+10),f'{value:.1f}',font=font(20),fill='#182738')
-    d.text((35,575),'Generated from cases.csv. These are NOT official simulator tests.',font=font(20),fill='#475569');im.save(OUT/'comparison.png')
+    d.text((35,575),'Generated from cases.csv. These are NOT official simulator tests.',font=font(20),fill='#475569');im.save(OUT/'baseline_comparison.png')
     im=Image.new('RGB',(900,620),'white');d=ImageDraw.Draw(im)
     d.text((35,25),'Q1 counterexample: diameter 40 m, enclosing radius 23.094 m',font=font(23),fill='#182738')
     # Equal geometric scale in x and y.

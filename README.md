@@ -28,9 +28,10 @@ python analysis_b/practice_robot.py --question 4 --robot-id YOUR_TEAM_ID --conne
 
 ## 阅读材料
 
+- [项目内容索引](CONTENTS.md)：按目录和文件类型快速查找内容。
 - [审题与基准模型报告](analysis_b/审题与基准模型报告.md)：题目事实、假设、几何证明和基准结果。
 - [优化试验报告](analysis_b/优化试验报告.md)：改动、配对对照、独立验证和退步案例。
-- [研究代码说明](analysis_b/README.md)：文件清单与复现细节。
+- [研究代码说明](analysis_b/REPRODUCTION.md)：文件清单与复现细节。
 
 背景原理详解 PDF 仅供内部审阅，不纳入公开仓库。
 
@@ -50,13 +51,15 @@ python analysis_b/practice_robot.py --question 4 --robot-id YOUR_TEAM_ID --conne
 | 路径 | 内容 |
 |---|---|
 | `Question B/` | 用户提供的题目、两份附件及格式规范 |
-| `analysis_b/model.py` | 原基准几何与策略 |
-| `analysis_b/optimized.py` | 已冻结的路线与共用测站策略 |
+| `analysis_b/model.py` | 基准几何、测向定位、搜索与清除策略 |
+| `analysis_b/optimized.py` | 已冻结的路线、第二测站选择与共用测站策略 |
 | `analysis_b/simulator.py` | 本地模拟环境；策略不读取其隐藏真值 |
 | `analysis_b/practice_robot.py` | 串行HTTP演练客户端与错误处理 |
 | `analysis_b/results/` | 基准的逐例结果、图表与合成日志 |
 | `analysis_b/optimization_results/` | 优化试验、独立验证与压力测试结果 |
 | `output/` | 内部审阅材料，仅保存在本地，不纳入公开仓库 |
+
+更完整的文件清单见 [CONTENTS.md](CONTENTS.md)。
 
 ## 复现计算
 
@@ -87,4 +90,4 @@ python analysis_b/package_practice.py
 
 `.gitignore` 已排除真实演练日志、`.jlog`、内部 PDF、缓存、临时页面图和重复压缩包。研究所用的 `.jsonl.gz` 是自行生成的合成试验记录，作为结果证据保留。不要使用 `git add -f` 强行加入被忽略的真实日志或内部审阅材料；普通Git忽略规则不作用于网页手动拖拽上传，网页上传时也需跳过这些本地目录。
 
-当前工作目录尚未建立Git仓库；可以在确认远程仓库后自行初始化、提交和推送。本次整理没有替用户发布任何内容。
+本目录已经是 Git 仓库；提交和推送前请再次核对 `git status`，确认没有把真实演练日志、队号信息或内部审阅材料加入版本控制。

@@ -103,7 +103,7 @@ bootstrap按案例进行5000次重采样，种子20290910。这些区间只描�
 
 optimized.py为优化策略；optimize_experiments.py为配对试验；optimization_results下的三个CSV保存逐例数据，三个JSONL.GZ保存真值、行动和可行域。各summary.json保存配置、Python版本和被运行代码的SHA-256。optimization_parameters.json列出冻结的启发式常量，实际执行定义在optimized.py中。策略代码仍使用先前requirements.txt中的依赖。
 
-comparison.png直接由独立集汇总绘制。原始题目事实和假设来源沿用审题与基准模型报告引用的题目及两份附件，未新增外部数据或文献。
+holdout_comparison.png直接由独立集汇总绘制。原始题目事实和假设来源沿用审题与基准模型报告引用的题目及两份附件，未新增外部数据或文献。
 '''
 (B/'优化试验报告.md').write_text(report,encoding='utf-8')
 im=Image.new('RGB',(1150,600),'white');draw=ImageDraw.Draw(im);font=lambda n:ImageFont.truetype('C:/Windows/Fonts/arial.ttf',n)
@@ -113,7 +113,7 @@ for i,r in enumerate(summaries['holdout']['results']):
     y=145+i*100;draw.text((30,y),f"Q{r['question']}  {r['variant']}",font=font(24),fill='#192b43')
     width=r['mean_s']*.75;draw.rectangle((220,y,220+width,y+50),fill='#94a3b8' if r['variant']=='B1' else '#2563eb')
     draw.text((230+width,y+10),f"{r['mean_s']:.2f}",font=font(23),fill='#192b43')
-draw.text((30,555),'All sources cleared in every run. Not official simulator results.',font=font(22),fill='#475569');im.save(O/'comparison.png')
+draw.text((30,555),'All sources cleared in every run. Not official simulator results.',font=font(22),fill='#475569');im.save(O/'holdout_comparison.png')
 with zipfile.ZipFile(B.parent/'B题_优化试验.zip','w',zipfile.ZIP_DEFLATED) as z:
     for p in B.rglob('*'):
         if p.is_file() and '__pycache__' not in p.parts and not (p.parent.name=='source_extract' and p.suffix=='.png'):

@@ -4,7 +4,7 @@
 
 ## 复现
 
-在 `F:\Download\MathModelGPT` 下执行以下 PowerShell 命令。计算只依赖 NumPy、SciPy 和 Pillow；本次实际计算环境为 Python 3.10、NumPy 2.2.6、SciPy 1.15.3、Pillow 12.0.0。完整环境见 `results/environment.json`。核心结果由固定种子确定；现实运行时间随机器变化。
+在仓库根目录下执行以下 PowerShell 命令。计算只依赖 NumPy、SciPy 和 Pillow；本次实际计算环境为 Python 3.10、NumPy 2.2.6、SciPy 1.15.3、Pillow 12.0.0。完整环境见 `results/environment.json`。核心结果由固定种子确定；现实运行时间随机器变化。
 
 ```powershell
 & F:/Python/python.exe analysis_b/experiments.py
@@ -52,7 +52,7 @@
 | results/audit_checks.json | 数据质量、时间上界和模型失配反例 |
 | results/summary.json | 主试验汇总及配对bootstrap结果 |
 | results/environment.json | 环境、种子、配置与代码SHA-256 |
-| results/comparison.png | 直接由逐例表生成的策略比较 |
+| results/baseline_comparison.png | 直接由逐例表生成的基准策略比较 |
 | results/q1_counterexample.png | 第一问反例几何图 |
 
 ## 后续官方演练
