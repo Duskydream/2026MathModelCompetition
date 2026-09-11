@@ -103,6 +103,12 @@ python "B题演练程序/practice_robot.py" --question 4 --robot-id YOUR_TEAM_ID
 
 历史报告按生成时版本阅读，当前默认参数以两份 `config.json` 为准。本README描述当前交付状态。
 
+## 阅读索引
+
+- [项目内容索引](CONTENTS.md)：目录、源码和结果文件用途。
+- [研究复现说明](analysis_b/REPRODUCTION.md)：沿用main分支整理后的文件名。
+- [审题与基准模型报告](analysis_b/审题与基准模型报告.md)及[历史优化试验报告](analysis_b/优化试验报告.md)：按报告对应的历史版本阅读。
+
 ## 测试与复现
 
 在仓库根目录运行全部测试：
