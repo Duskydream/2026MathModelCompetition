@@ -1,0 +1,145 @@
+{
+  "results": [
+    {
+      "group": "validation",
+      "metrics": {
+        "baseline": {
+          "cases": 100,
+          "sources": 1315,
+          "cleared": 1315,
+          "mean_s": 343.72548266787527,
+          "median_s": 339.7495396426166,
+          "p95_s": 427.15816257914616,
+          "pooled_s": 337.85869741252225,
+          "mean_measurements": 100.99,
+          "mean_move_m": 18553.859354873337,
+          "mean_failed_clears": 21.5,
+          "mean_visited": 6.93,
+          "max_virtual_s": 5367.918432629917,
+          "max_runtime_s": 0.1258378000002267,
+          "cases_below300": 16,
+          "cases_below225": 1
+        },
+        "candidate": {
+          "cases": 100,
+          "sources": 1315,
+          "cleared": 1315,
+          "mean_s": 263.85876781483313,
+          "median_s": 259.8404797765362,
+          "p95_s": 323.275336875589,
+          "pooled_s": 259.37053496524766,
+          "mean_measurements": 118.32,
+          "mean_move_m": 12607.912673965031,
+          "mean_failed_clears": 39.78,
+          "mean_visited": 6.98,
+          "max_virtual_s": 4268.474090707438,
+          "max_runtime_s": 0.6291214000002583,
+          "cases_below300": 81,
+          "cases_below225": 14
+        }
+      },
+      "reduction": 0.2323561064869123,
+      "regressions": 0,
+      "max_slowdown_s": 0.0,
+      "saved_s_ci95": [
+        73.7656086936467,
+        85.8654447205572
+      ]
+    },
+    {
+      "group": "stress",
+      "metrics": {
+        "baseline": {
+          "cases": 70,
+          "sources": 890,
+          "cleared": 890,
+          "mean_s": 336.30934661591544,
+          "median_s": 339.8171304945594,
+          "p95_s": 403.77151691086027,
+          "pooled_s": 332.30477589474543,
+          "mean_measurements": 106.64285714285714,
+          "mean_move_m": 17472.94646759453,
+          "mean_failed_clears": 10.557142857142857,
+          "mean_visited": 6.857142857142857,
+          "max_virtual_s": 5413.7363057572575,
+          "max_runtime_s": 0.1003045999996175,
+          "cases_below300": 13,
+          "cases_below225": 2
+        },
+        "candidate": {
+          "cases": 70,
+          "sources": 890,
+          "cleared": 890,
+          "mean_s": 281.82937903538374,
+          "median_s": 299.0147843977587,
+          "p95_s": 372.52402880538665,
+          "pooled_s": 279.43906841254295,
+          "mean_measurements": 114.97142857142858,
+          "mean_move_m": 13505.912206225945,
+          "mean_failed_clears": 34.57142857142857,
+          "mean_visited": 6.914285714285715,
+          "max_virtual_s": 4916.527752147312,
+          "max_runtime_s": 0.5495383000006768,
+          "cases_below300": 36,
+          "cases_below225": 12
+        }
+      },
+      "reduction": 0.1619936172715145,
+      "regressions": 2,
+      "max_slowdown_s": 2.7223437630332796,
+      "saved_s_ci95": [
+        46.160696597914104,
+        62.604603619219915
+      ]
+    },
+    {
+      "group": "q4_regression",
+      "metrics": {
+        "baseline": {
+          "cases": 20,
+          "sources": 259,
+          "cleared": 259,
+          "mean_s": 768.0900284287017,
+          "median_s": 775.7551266132264,
+          "p95_s": 1048.7612649215994,
+          "pooled_s": 743.8637418771225,
+          "mean_measurements": 276.9,
+          "mean_move_m": 38117.92728654368,
+          "mean_failed_clears": 101.7,
+          "mean_visited": 25.65,
+          "max_virtual_s": 10663.78871195174,
+          "max_runtime_s": 0.37237629999981436,
+          "cases_below300": 0,
+          "cases_below225": 0
+        },
+        "candidate": {
+          "cases": 20,
+          "sources": 259,
+          "cleared": 259,
+          "mean_s": 768.0900284287017,
+          "median_s": 775.7551266132264,
+          "p95_s": 1048.7612649215994,
+          "pooled_s": 743.8637418771225,
+          "mean_measurements": 276.9,
+          "mean_move_m": 38117.92728654368,
+          "mean_failed_clears": 101.7,
+          "mean_visited": 25.65,
+          "max_virtual_s": 10663.78871195174,
+          "max_runtime_s": 0.3700564000000668,
+          "cases_below300": 0,
+          "cases_below225": 0
+        }
+      },
+      "reduction": 0.0,
+      "regressions": 0,
+      "max_slowdown_s": 0.0,
+      "saved_s_ci95": [
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "all_cleared": true,
+  "q4_identical_action_sequences": 20,
+  "official_runs": 0
+}

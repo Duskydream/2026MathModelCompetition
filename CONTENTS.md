@@ -25,6 +25,7 @@
 |---|---|
 | `analysis_b/model.py` | 基准几何、测向定位、搜索与清除策略 |
 | `analysis_b/optimized.py` | 优化后的路线、第二测站选择和多目标共用测站策略 |
+| analysis_b/q3_policy.py | 当前问题三专用调度器，保持已验证的算法与参数 |
 | `analysis_b/simulator.py` | 本地合成仿真环境；策略代码不读取隐藏真值 |
 | `analysis_b/experiments.py` | 基准试验、稳健性/敏感性试验和图表生成 |
 | `analysis_b/optimize_experiments.py` | 优化方案的开发、留出和压力测试 |
@@ -42,19 +43,21 @@
 | `analysis_b/optimization_results/` | 优化方案的开发集、留出集、压力测试、回归案例和留出集对比图 |
 | `analysis_b/source_extract/manifest.json` | 原始题目文件的哈希与结构清单 |
 | `analysis_b/practice_validation.json` | 演练客户端相关验证摘要 |
+| experiments/round2/ | 问题四三角网格验证及基线 |
+| experiments/round3/ | 当前问题三混合调度验证及基线 |
 
 这些结果主要来自本地合成环境，不能直接当作官方成绩。官方模拟器导出的加密日志、真实队号日志和正式测试结果应单独保存，不要公开提交。
 
 ## 演练包说明
 
-`B题演练程序/` 是给使用者直接运行的生成副本，不再纳入源码仓库。运行 `python analysis_b/package_practice.py` 后会生成：
+B题演练程序/ 是当前直接运行的演练目录，其源码与启动文件保留在仓库中；仅practice_logs、缓存和生成ZIP被忽略。它与analysis_b中的对应算法文件保持同步。运行 python analysis_b/package_practice.py 会复制或覆盖以下文件：
 
 | 文件 | 用途 |
 |---|---|
 | `启动第3问演练.cmd`、`启动第4问演练.cmd` | Windows双击启动入口 |
 | `practice_q3.py`、`practice_q4.py` | 命令行启动入口 |
 | `practice_robot.py` | 连接模拟器并执行策略 |
-| `model.py`、`optimized.py`、`config.json` | 运行所需模型与参数 |
+| model.py、optimized.py、q3_policy.py、config.json | 运行所需模型、问题三策略与参数 |
 | `requirements.txt` | 最小依赖 |
 | `manifest.json` | 打包文件哈希 |
 
@@ -78,6 +81,6 @@ python analysis_b/package_practice.py
 ## 当前整理建议
 
 - 保持现有目录结构：源码、结果、题目附件和演练包已经按用途分开。
-- 同名源码以 `analysis_b/` 为准；`B题演练程序/` 是由打包脚本生成的运行副本。
+- 两目录中的对应算法源码保持同步；双击入口实际读取B题演练程序。修改后应核对同步状态，再执行打包，避免覆盖已验证版本。
 - 后续新增报告优先放在 `analysis_b/` 或根目录，并在本索引补一行说明。
 - 后续新增真实演练日志不要放入 Git；如需汇总成绩，建议另建脱敏摘要文件。

@@ -3,7 +3,7 @@ from pathlib import Path
 import hashlib,json,shutil,zipfile
 
 B=Path(__file__).resolve().parent;DEST=B.parent/'B题演练程序';DEST.mkdir(exist_ok=True)
-names=['practice_robot.py','practice_launcher.py','practice_q3.py','practice_q4.py','model.py','optimized.py','config.json']
+names=['practice_robot.py','practice_launcher.py','practice_q3.py','practice_q4.py','model.py','optimized.py','q3_policy.py','config.json']
 for name in names:shutil.copyfile(B/name,DEST/name)
 (DEST/'requirements.txt').write_text('numpy==2.2.6\nscipy==1.15.3\n',encoding='utf-8')
 for q in (3,4):
@@ -89,7 +89,7 @@ python practice_robot.py --question 4 --robot-id '实际队号' --connect
 
 此包在本机通过真实回环HTTP端到端测试：第3、4问完整进入、检测、清除与退出，计时与原本地模型一致；同时测试了四种接口执行后丢失响应的幂等重试、短现实预算、虚拟预算、请求拒绝、断线未决保护及结果文件。所用HTTP服务是本地测试服务，不是官方模拟器。
 
-本轮未进行官方演练或正式测试。当前第三问7站方案在新增100个本地配对案例中全部清除，平均虚拟秒/源从654.53降至346.62；另有开发、压力与第四问回归测试。历史840次运行对应修改前的25站版本，不能当作当前代码的实验次数。详见项目根目录 experiments_summary.md。
+本轮未进行官方演练或正式测试。当前第三问7站方案在新增100个本地配对案例中全部清除，平均虚拟秒/源从654.53降至346.62；另有开发、压力与第四问回归测试。历史840次运行对应修改前的25站版本，不能当作当前代码的实验次数。详见项目docs/experiments_summary.md。
 '''
 (DEST/'使用说明.md').write_text(readme,encoding='utf-8')
 manifest={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in DEST.iterdir() if p.is_file() and p.name!='manifest.json'}

@@ -43,15 +43,15 @@ P95为872.27→430.66秒/源；配对bootstrap的平均节约95%区间为[284.37
 
 ## 图与数据
 
-![第三问覆盖与第四问保留方案](../experiments/round1/figures/coverage.png)
+![第三问覆盖与第四问保留方案](experiments/round1/figures/coverage.png)
 
-![第二检测点候选区域与交角](../experiments/round1/figures/q2_candidates.png)
+![第二检测点候选区域与交角](experiments/round1/figures/q2_candidates.png)
 
-![同案例对照与时间组成](../experiments/round1/figures/performance.png)
+![同案例对照与时间组成](experiments/round1/figures/performance.png)
 
-![预先固定首个验证案例的路径示例](../experiments/round1/figures/sample_paths.png)
+![预先固定首个验证案例的路径示例](experiments/round1/figures/sample_paths.png)
 
-![保存日志重建的可行域收缩](../experiments/round1/figures/localization.png)
+![保存日志重建的可行域收缩](experiments/round1/figures/localization.png)
 
 案例级总表：`experiments/results.csv`；逐动作日志：`experiments/round1/baseline_logs.jsonl.gz`与`candidate_logs.jsonl.gz`；汇总、退步案例、环境哈希、覆盖验证、Q2逐情景值均在同目录。图由这些保存结果生成。
 

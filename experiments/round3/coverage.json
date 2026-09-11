@@ -1,0 +1,8 @@
+{
+  "stations": 7,
+  "ring_m": 1150,
+  "checked_positions": 61445,
+  "analytic_worst_distance_m": 988.5114204360133,
+  "sampled_worst_distance_m": 988.5114204360132,
+  "margin_m": 11.488579563986718
+}

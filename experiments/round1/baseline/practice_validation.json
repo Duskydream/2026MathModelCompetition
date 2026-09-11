@@ -1,0 +1,27 @@
+{
+  "http_unittest_methods_passed": 7,
+  "end_to_end_q3": {
+    "cleared": 10,
+    "total": 10,
+    "virtual_seconds": 8672.652697,
+    "accepted_actions": 372
+  },
+  "end_to_end_q4": {
+    "cleared": 10,
+    "total": 10,
+    "virtual_seconds": 14547.254581,
+    "accepted_actions": 857
+  },
+  "lost_responses_tested": [
+    "enter",
+    "measure",
+    "clear",
+    "exit"
+  ],
+  "all_four_retries_idempotent": true,
+  "package_compile_passed": true,
+  "package_manifest_verified": true,
+  "policy_hash_matches_frozen_evaluation": true,
+  "official_simulator_tested": false,
+  "zip_bytes": 15841
+}
