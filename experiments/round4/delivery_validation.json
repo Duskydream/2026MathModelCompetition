@@ -1,0 +1,25 @@
+{
+  "package_manifest_valid": true,
+  "zip_matches_folder": true,
+  "source_matches_package": true,
+  "outer_matches_worktree": true,
+  "synced_files": 226,
+  "tests_passed": 30,
+  "q4_replay": {
+    "cases": 160,
+    "all_actions_match": true,
+    "all_cleared": true
+  },
+  "q3_replay": {
+    "cases": 170,
+    "all_actions_match": true,
+    "all_cleared": true
+  },
+  "algorithm_sha256": {
+    "model.py": "c3b97b1b163f592ea17cb8c7d0648ad92bb1b3dde614a9347c36bac8ff8b91b6",
+    "optimized.py": "4ff03fcf46a55eff46f0ac6a9182ed371e95f46d7445b8e6923656ad86238b60",
+    "q3_policy.py": "1d27552679cc3f42b1af078f5640158df45954d50e3282ae005f1b5c314de3e4",
+    "q4_policy.py": "a14ae1cef3071abc9c9a53859a5660e68cb3c16a8c8de01e98e628df6c4c1448",
+    "config.json": "9b868d02679d1d090b8ec49f663ae6664fb554222d51c559ef680527ad0ac69b"
+  }
+}

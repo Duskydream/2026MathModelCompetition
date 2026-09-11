@@ -3,7 +3,7 @@ from pathlib import Path
 import hashlib,json,shutil,zipfile
 
 B=Path(__file__).resolve().parent;DEST=B.parent/'B题演练程序';DEST.mkdir(exist_ok=True)
-names=['practice_robot.py','practice_launcher.py','practice_q3.py','practice_q4.py','model.py','optimized.py','q3_policy.py','q4_policy.py','config.json']
+names=['practice_robot.py','practice_launcher.py','practice_q3.py','practice_q4.py','model.py','optimized.py','q3_policy.py','config.json']
 for name in names:shutil.copyfile(B/name,DEST/name)
 (DEST/'requirements.txt').write_text('numpy==2.2.6\nscipy==1.15.3\n',encoding='utf-8')
 for q in (3,4):
@@ -21,7 +21,7 @@ pause
     (DEST/f'启动第{q}问演练.cmd').write_bytes(cmd.replace('\n','\r\n').encode('utf-8'))
 readme='''# 第3问和第4问演练程序
 
-默认使用已经验证的优化方案：覆盖搜索、目标顺序调整、左右第二测站选择、多目标共用测站及光学清除兜底。第3问保持 main 的7站与联合调度方案；第4问使用圆心加双12环共25站、区域约束与联合调度。算法仅使用接口反馈，不读取模拟器隐藏数据。将config.json中的q4_policy改为legacy可恢复main的第四问27站对照。
+默认使用已经验证的优化方案：覆盖搜索、目标顺序调整、左右第二测站选择、多目标共用测站及光学清除兜底。第3问用圆心与六个环形点共7个覆盖站，最坏覆盖距离900米；第4问用49个方向覆盖站。算法仅使用接口反馈，不读取模拟器隐藏数据。将config.json中的q3_survey_layout改为grid可恢复第三问25站对照。
 
 ## 一次准备
 
@@ -89,7 +89,7 @@ python practice_robot.py --question 4 --robot-id '实际队号' --connect
 
 此包在本机通过真实回环HTTP端到端测试：第3、4问完整进入、检测、清除与退出，计时与原本地模型一致；同时测试了四种接口执行后丢失响应的幂等重试、短现实预算、虚拟预算、请求拒绝、断线未决保护及结果文件。所用HTTP服务是本地测试服务，不是官方模拟器。
 
-本轮未进行官方演练或正式测试。第四问25站方案在100个独立随机案例中全部清除，平均虚拟秒/源从792.16降至566.30，P95从1068.52降至712.57；60个压力案例也全部清除。尚未达到稳定500秒/源以内。详见项目docs/experiment4_report.md；旧轮次结果不代表当前第四问算法。
+本轮未进行官方演练或正式测试。当前第三问7站方案在新增100个本地配对案例中全部清除，平均虚拟秒/源从654.53降至346.62；另有开发、压力与第四问回归测试。历史840次运行对应修改前的25站版本，不能当作当前代码的实验次数。详见项目docs/experiments_summary.md。
 '''
 (DEST/'使用说明.md').write_text(readme,encoding='utf-8')
 manifest={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in DEST.iterdir() if p.is_file() and p.name!='manifest.json'}

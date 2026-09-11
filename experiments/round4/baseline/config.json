@@ -24,8 +24,5 @@
   "q3_policy": "mixed",
   "q3_ring_radius_m": 1150,
   "q3_second_forward_m": 200,
-  "q3_second_lateral_m": 100,
-  "q4_policy": "mixed_ring",
-  "q4_second_forward_m": 200,
-  "q4_second_lateral_m": 100
+  "q3_second_lateral_m": 100
 }
