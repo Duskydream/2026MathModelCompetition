@@ -1,0 +1,13 @@
+{
+  "first_station": [
+    0,
+    0
+  ],
+  "bearing_deg": 0,
+  "epsilon_deg": 1.005,
+  "constraints": [
+    "a^2+b^2 <= 1000^2",
+    "a^2+b^2 <= 2000*(a*cos(eps)-abs(b)*sin(eps))"
+  ],
+  "note": "Sufficient reception region; scenario extrema are not continuous minimax optima. No probability model assumed."
+}

@@ -1,0 +1,32 @@
+{
+  "original_unittest_count": 10,
+  "original_unittest_passed": true,
+  "final_unittest_count": 15,
+  "final_unittest_passed": true,
+  "old_http_unresolved_timeout_probe": [
+    "enter",
+    "unresolved_timeout",
+    "exit"
+  ],
+  "probe_network_requests": 0,
+  "official_requests_sent": 0,
+  "decision": "KEEP",
+  "q3_loopback_baseline": {
+    "sources": 10,
+    "cleared": 10,
+    "virtual_s": 8672.846287,
+    "accepted_actions": 372
+  },
+  "q3_loopback_candidate": {
+    "sources": 10,
+    "cleared": 10,
+    "virtual_s": 4144.269191,
+    "accepted_actions": 132
+  },
+  "q4_loopback_both": {
+    "sources": 10,
+    "cleared": 10,
+    "virtual_s": 12927.693634,
+    "accepted_actions": 743
+  }
+}

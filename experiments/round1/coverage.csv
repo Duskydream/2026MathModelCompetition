@@ -1,0 +1,3 @@
+﻿question,layout,stations,sample_count,sampled_max_nearest_distance_m,worst_x,worst_y,analytic_max_distance_m,survey_only_nearest_neighbor_path_m,full_20_channel_measure_count,no_source_survey_only_time_s
+3,grid,25,421474,707.1067811865476,-500.0,-1500.0,707.1067811865474,24000.0,500,7775.0
+3,hexagon,7,421474,900.0000000000005,-3.3065463576978535e-13,-1800.0,900.0,9353.074360871939,140,2703.6148721743875
