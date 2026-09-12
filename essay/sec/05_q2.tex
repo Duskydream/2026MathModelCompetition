@@ -1,0 +1,170 @@
+\section{问题二：第二检测点的选择策略与候选区域}\label{sec:q2}
+
+\subsection{问题的形式化与两个必须同时满足的要求}
+
+设首个检测点为 $s_1$，测得某\emph{全向}源的示向度为 $\theta_1$。建立以 $s_1$ 为原点、$\uvec{\theta_1}$ 为 $x$ 轴正向、$\uvec{\theta_1+90^\circ}$ 为 $y$ 轴正向的局部坐标系。记真源在局部坐标下为
+\begin{equation}\label{eq:localg}
+  g=r\bigl(\cos\delta,\ \sin\delta\bigr),\qquad |\delta|\le\varepsilon,\quad 0\le r\le\rho\le\rho_{\max}=1500\mmet ,
+\end{equation}
+其中 $r$ 与该源的真实接收半径 $\rho$ 都\textbf{未知}，只知道 $\rho\ge\rho_{\min}=1000\mmet$，且因首站收到了信号必有 $r\le\rho$。第二检测点记为 $q=(a,b)$，其在原坐标下为 $q=s_1+a\,\uvec{\theta_1}+b\,\uvec{\theta_1+90^\circ}$。
+
+一个“好”的第二检测点必须同时满足两个要求：
+
+\begin{description}
+  \item[要求 A（可用性）.] 在 $q$ 处必须\emph{确实能收到}该源的信号，否则这次移动与检测不能提供任何新的方位约束。由于 $r$ 与 $\rho$ 未知，这必须是一个\textbf{不依赖未知量的充分条件}。
+  \item[要求 B（有效性）.] 两条视线的交会必须足够“横”，使得定位区域 $P=W_1\cap W_2$ 足够小。
+\end{description}
+
+二者与\textbf{移动代价} $\|q\|/v$ 构成三方权衡。下面分别给出要求 A 的精确刻画（\cref{thm:csafe}）与要求 B 的定量刻画（\cref{lem:psi}、\cref{eq:Rapprox}），再由二者导出选点策略。
+
+\subsection{要求 A：保证接收的候选区域}
+
+\begin{theorem}[保证接收的候选区域]\label{thm:csafe}
+若第二检测点 $q=(a,b)$ 满足
+\begin{equation}\label{eq:csafe}
+  \mathcal C_{\rm safe}:\quad
+  \begin{cases}
+    a^2+b^2\le \rho_{\min}^2, \\[2pt]
+    a^2+b^2\le 2\rho_{\min}\bigl(a\cos\varepsilon-|b|\sin\varepsilon\bigr),
+  \end{cases}
+\end{equation}
+则\emph{无论真实源距 $r$ 与真实接收半径 $\rho$ 取何值}，在 $q$ 处一定能收到该全向源的信号。等价地，
+\begin{equation}\label{eq:lens}
+  \mathcal C_{\rm safe}
+  = B\bigl(\bm 0,\rho_{\min}\bigr)\ \cap\
+    B\bigl(\rho_{\min}\uvec{\varepsilon},\rho_{\min}\bigr)\ \cap\
+    B\bigl(\rho_{\min}\uvec{-\varepsilon},\rho_{\min}\bigr),
+\end{equation}
+即三个半径为 $\rho_{\min}$ 的圆盘之交。
+\end{theorem}
+
+\begin{proof}
+需要证明 $\|q-g\|\le\rho$。因 $\rho\ge\max(\rho_{\min},r)$，只需证 $\|q-g\|\le\max(\rho_{\min},r)$。
+
+\emph{情形一：$r\le\rho_{\min}$.} 此时只需 $\|q-g\|\le\rho_{\min}$。函数 $h(r)=\|q-r\uvec{\delta}\|^2=r^2-2r\,q^{\!\top}\uvec{\delta}+\|q\|^2$ 关于 $r$ 是凸二次函数，故在区间 $[0,\rho_{\min}]$ 上的最大值必在端点取到。$r=0$ 时 $h=\|q\|^2\le\rho_{\min}^2$，即\cref{eq:csafe}第一式；$r=\rho_{\min}$ 时要求 $\|q-\rho_{\min}\uvec{\delta}\|\le\rho_{\min}$，展开即 $\|q\|^2\le2\rho_{\min}q^{\!\top}\uvec{\delta}$。由于 $|\delta|\le\varepsilon$，
+$q^{\!\top}\uvec{\delta}=a\cos\delta+b\sin\delta\ge a\cos\varepsilon-|b|\sin\varepsilon$，于是\cref{eq:csafe}第二式是对所有允许的 $\delta$ 成立的充分条件。
+
+\emph{情形二：$r>\rho_{\min}$.} 此时 $\rho\ge r$，只需 $\|q-g\|\le r$，即 $\|q\|^2\le 2r\,q^{\!\top}\uvec{\delta}$。由第二式可知 $q^{\!\top}\uvec{\delta}>0$，故右端关于 $r$ 单调增，最紧的情形是 $r=\rho_{\min}$，回到第二式。
+
+最后，$\|q\|^2\le2\rho_{\min}q^{\!\top}\uvec{\pm\varepsilon}$ 等价于 $\|q-\rho_{\min}\uvec{\pm\varepsilon}\|\le\rho_{\min}$，而第二式恰为 $\delta=+\varepsilon$ 与 $\delta=-\varepsilon$ 两种情形同时成立，故得\cref{eq:lens}。
+\end{proof}
+
+\begin{corollary}[候选区域的极值点]\label{cor:extreme}
+$\mathcal C_{\rm safe}$ 中横向偏移的最大值为
+\begin{equation}\label{eq:bmax}
+  |b|_{\max}=\rho_{\min}\sin(60^\circ-\varepsilon)=1000\sin59^\circ=857.167\mmet ,
+\end{equation}
+在 $a=\rho_{\min}\cos(60^\circ-\varepsilon)=515.038\mmet$ 处取到；前向偏移的最大值为 $a_{\max}=\rho_{\min}=1000\mmet$（此时 $b=0$）。
+\end{corollary}
+\begin{proof}
+$B(\bm 0,\rho_{\min})$ 与 $B(\rho_{\min}\uvec{-\varepsilon},\rho_{\min})$ 是两个半径相等、圆心相距 $\rho_{\min}$ 的圆盘，其边界交点位于 $\rho_{\min}\uvec{-\varepsilon\pm60^\circ}$，上方交点即 $\rho_{\min}\uvec{60^\circ-\varepsilon}$，代入即得。
+\end{proof}
+
+\begin{figure}[!htbp]
+  \centering
+  \fbox{\parbox[c][6.5cm][c]{0.9\textwidth}{\centering\textbf{【此处插图】图~\thefigure：第二检测点的候选区域 $\mathcal C_{\rm safe}$}\\[4pt]
+  \small 画法建议：在局部坐标系中画三个半径 $1000\mmet$ 的圆（圆心分别在原点、$1000\uvec{1^\circ}$、$1000\uvec{-1^\circ}$），
+  其公共部分填色即 $\mathcal C_{\rm safe}$；标出极值点 $(515.0,\pm857.2)$ 与 $(1000,0)$；
+  叠加首测楔形（$\pm1^\circ$ 的窄扇形）；再用等值线叠加“$r_1=1500$ 时的 $\mecr$ 一阶估计”，
+  可直观看到 $\mecr$ 随 $|b|$ 增大而下降、随移动距离增大而代价上升；
+  最后标出本文实际采用的 $(200,100)$ 与历史基线 $(650,250)$ 两个点。}}
+  \caption{保证接收的第二检测点候选区域及其等代价线}\label{fig:q2-region}
+\end{figure}
+
+\cref{fig:q2-region}给出了 $\mathcal C_{\rm safe}$ 的形状及其与定位精度、移动代价的关系。
+
+\paragraph{关于候选区域的两点说明.} 其一，$\mathcal C_{\rm safe}$ 是\emph{充分}条件而非充要条件：实际可用的点可能更多（例如源距很近时），但那需要用到未知的 $r$ 与 $\rho$，不能作为策略依据。其二，$\mathcal C_{\rm safe}$ 允许 $q$ 落在 $1800\mmet$ 目标圆之外，这是合法的——附件明确允许机器狗走出目标区域。
+
+\subsection{要求 B：交会角与定位区域尺度}
+
+\begin{lemma}[交会角由横向偏移单独决定]\label{lem:psi}
+设 $\psi$ 为两条视线在真源 $g$ 处的夹角，$L$ 为过 $s_1$ 与 $g$ 的直线，则
+\begin{equation}\label{eq:sinpsi}
+  \sin\psi=\frac{\dist(q,L)}{\|q-g\|},\qquad
+  \dist(q,L)=\bigl|b\cos\delta-a\sin\delta\bigr|\ \ge\ |b|\cos\varepsilon-a\sin\varepsilon .
+\end{equation}
+\end{lemma}
+\begin{proof}
+在三角形 $s_1gq$ 中，$g$ 处的内角为 $\psi$（或其补角，正弦相同）。由正弦定理
+$\|q-s_1\|/\sin\psi=\|q-g\|/\sin\angle(s_1)$，而 $\dist(q,L)=\|q-s_1\|\sin\angle(s_1)$，整理即得。第二式由 $L$ 与局部 $x$ 轴夹角为 $\delta$、$|\delta|\le\varepsilon$ 直接算出。
+\end{proof}
+
+\cref{lem:psi}给出了本问最重要的结构性结论：\textbf{交会角的下界只由横向偏移 $|b|$（相对于第二段视距 $r_2=\|q-g\|$）决定，与前进距离 $a$ 无关}。“沿着示向度方向一直往前走”对改善交会角毫无帮助，只能缩短 $r_2$。
+
+在 $\varepsilon$ 为小角的一阶近似下，两条楔形在 $g$ 附近可视为宽度 $w_1=2r_1\tan\bar\varepsilon$、$w_2=2r_2\tan\bar\varepsilon$ 的条带（$r_1=\|g-s_1\|$），其交为平行四边形，长对角线与最小包围圆半径为
+\begin{equation}\label{eq:Rapprox}
+  D\approx\frac{\sqrt{w_1^2+w_2^2+2w_1w_2|\cos\psi|}}{\sin\psi},\qquad
+  \mecr=\frac{D}{2}\ \lesssim\ \frac{(r_1+r_2)\,r_2\tan\bar\varepsilon}{2\,\dist(q,L)} .
+\end{equation}
+（平行四边形满足 $\mecr=D/2$，与\cref{tab:q1-example}的精确计算一致。）\cref{eq:Rapprox}是一阶估计：由于楔形宽度沿距离线性增长，精确枚举得到的直径略大于该式，因此下文的定量结论一律以\emph{精确枚举}为准，\cref{eq:Rapprox}只用于解释趋势。
+
+\subsection{两次测向不足以保证认证清除}
+
+\begin{theorem}[两测向的能力上限]\label{thm:twobearing}
+在 $\mathcal C_{\rm safe}$ 内任取第二检测点，当 $r_1$ 接近 $\rho_{\max}=1500\mmet$ 时，均无法保证 $\mecr(P)\le r_c=20\mmet$。按\cref{eq:Rapprox}在 $\mathcal C_{\rm safe}$ 上做全域搜索，$r_1=1500\mmet$ 时可达到的最小 $\mecr$ 约为 $32.5\mmet$（取 $q\approx(837,547)$，此时 $\|q\|\approx1000\mmet$，移动即需 $200\msec$），仍显著大于 $20\mmet$。
+\end{theorem}
+
+这一结论有三个直接后果，贯穿第三、四问：
+
+\begin{enumerate}
+  \item \textbf{光学覆盖兜底不可省略.} 任何“先两次测向、再一次清除”的流水线都是不完备的；必须保留一个对整个可行域 $P$ 的、有连续覆盖证明的清除点列。
+  \item \textbf{不能盲目追求正交交会.} 既然远距离源本来就注定要进入光学覆盖，为了把 $\mecr$ 从 $300\mmet$ 降到 $40\mmet$ 而多走 $800\mmet$（$160\msec$）常常是不划算的——省下的光学扫描未必抵得上多走的路。
+  \item \textbf{近距离源应优先获得第二次测向.} 由\cref{eq:Rapprox}，$\mecr$ 近似正比于 $r_1r_2$，因此对近源而言两次测向往往足以认证。\cref{tab:q2-need}给出以 $(200,100)$ 为第二点时的一阶估计：$r_1\lesssim400\mmet$ 的源基本可以一次认证清除，更远的则需进入光学覆盖。
+\end{enumerate}
+
+\begin{table}[!htbp]
+  \caption{不同候选第二点的定位效果（一阶估计 $\mecr$，单位 m）与移动代价}\label{tab:q2-need}\centering
+  \begin{tabular}{cccccc}
+    \toprule[1.5pt]
+    候选点 $(a,b)$ & 移动距离/m & 移动时间/s & $r_1=500$ & $r_1=1000$ & $r_1=1500$ \\
+    \midrule[1pt]
+    $(200,100)$ & $223.6$ & $44.7$ & $22.6$ & $127.7$ & $320.7$ \\
+    $(250,100)$ & $269.3$ & $53.9$ & $18.2$ & $116.6$ & $302.9$ \\
+    $(300,300)$ & $424.3$ & $84.9$ & $9.1$  & $39.2$  & $99.0$  \\
+    $(500,250)$ & $559.0$ & $111.8$& $6.6$  & $30.6$  & $91.5$  \\
+    $(650,250)$ & $696.4$ & $139.3$& $8.1$  & $21.6$  & $74.2$  \\
+    $(750,450)$ & $874.6$ & $174.9$& $10.2$ & $15.2$  & $40.5$  \\
+    $(515,857)^{\dagger}$ & $999.8$ & $200.0$& $11.9$ & $20.0$  & $37.5$  \\
+    \bottomrule[1.5pt]
+  \end{tabular}\\[2pt]
+  \footnotesize $\dagger$ 为\cref{cor:extreme}给出的最大横向偏移点。所有候选点均落在 $\mathcal C_{\rm safe}$ 内。
+\end{table}
+
+\subsection{精确枚举验证与选点策略}
+
+为避免只依赖一阶近似，本文对 $12$ 个候选点做了精确枚举：源距取 $21$ 个值、首测偏差取 $3$ 个方向、第二测偏差取 $3$ 个方向，共 $189$ 个组合，逐一按\cref{alg:diam}计算精确的交会多边形与其直径，取样本内最坏值，结果见\cref{tab:q2-enum}。
+
+\begin{table}[!htbp]
+  \caption{$12$ 个候选第二点的精确枚举结果（每点 $189$ 个组合，$\varepsilon=1^\circ$）}\label{tab:q2-enum}\centering\small
+  \begin{tabular}{@{}cccc@{\hspace{2.2em}}cccc@{}}
+    \toprule[1.5pt]
+    前进 $a$/m & 侧移 $b$/m & 移动/s & 最坏直径/m & 前进 $a$/m & 侧移 $b$/m & 移动/s & 最坏直径/m \\
+    \midrule[1pt]
+    $250$ & $100$ & $53.85$  & $631.03$ & $650$ & $100$ & $131.53$ & $414.19$ \\
+    $250$ & $250$ & $70.71$  & $361.97$ & $650$ & $250$ & $139.28$ & $230.30$ \\
+    $250$ & $450$ & $102.96$ & $240.56$ & $650$ & $450$ & $158.11$ & $156.35$ \\
+    $500$ & $100$ & $101.98$ & $494.05$ & $750$ & $100$ & $151.33$ & $362.11$ \\
+    $500$ & $250$ & $111.80$ & $277.46$ & $750$ & $250$ & $158.11$ & $200.52$ \\
+    $500$ & $450$ & $134.54$ & $185.97$ & $750$ & $450$ & $174.93$ & $138.06$ \\
+    \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
+数据印证了\cref{lem:psi}：\textbf{固定 $a$ 时，最坏直径随 $b$ 增大而迅速下降（$250\to450$ 的侧移可使直径减半）；而固定 $b$ 时，增大 $a$ 的收益明显更小}。同时，最好的候选 $(750,450)$ 的最坏直径仍有 $138.06\mmet$，远大于 $\sqrt3 r_c=34.64\mmet$，再次印证\cref{thm:twobearing}。
+
+\paragraph{选点策略.} 综上，第二检测点的选择应当按下列顺序：
+\begin{enumerate}
+  \item \textbf{可行性优先}：$q\in\mathcal C_{\rm safe}$（\cref{eq:csafe}），保证一定收得到信号；
+  \item \textbf{左右镜像取近}：$b$ 取正负两个镜像位置中综合代价更小的一侧；
+  \item \textbf{以“完成任务所需时间”而非“区域面积”为目标}：最小化
+  \begin{equation}\label{eq:q2cost}
+    J(q)=\underbrace{\frac{\|q-p_{\rm cur}\|}{v}}_{\text{走到第二点}}
+        +\underbrace{t_m+t_s}_{\text{检测与切频}}
+        +\underbrace{\widehat{C}_{\rm clear}\bigl(P(q)\bigr)}_{\text{此后清除该源的估计代价}},
+  \end{equation}
+  其中 $\widehat C_{\rm clear}$ 为“若 $\mecr\le r_c$ 则走到圆心清除，否则按光学覆盖点列走一遍”的保守估计。
+\end{enumerate}
+
+\paragraph{单目标最优不等于整局最优.} 本文在第三、四问中实际采用的是较短的 $(a,b)=(200,\pm100)$，而不是\cref{tab:q2-enum}中单目标意义下更优的 $(750,450)$。原因有三：其一，由\cref{thm:twobearing}，远距离源无论如何都要走光学覆盖，把 $\mecr$ 从 $320\mmet$ 降到 $40\mmet$ 换来的扫描节省，抵不过多走 $650\mmet$（$130\msec$）的代价；其二，多目标场景中\emph{同一次移动可以为多个频道提供观测}（共享测站，见\cref{sec:q3:shared}），第二测点不再需要为单个目标“专程”远行；其三，走远之后机器狗离主巡站路线更远，会带来后续折返。
+
+本文用固定种子的配对实验验证了这一判断：在 $\{100,150,200,250,300\}\times\{50,100,150,200\}$ 的离散集合上按信息增益与移动代价\emph{自适应}选点，与固定 $(200,100)$ 相比，第三问 $263.920\to265.518\msec/$源、第四问 $505.344\to508.205\msec/$源，两问均值与最坏值均无改善（清除率均为 $100\%$）。因此正式方案保留固定的 $(200,\pm100)$，并把“要不要再测一次”的判断交给\cref{sec:q3:refine}的补测精化与\cref{sec:q4:online}的扫描成本门控。

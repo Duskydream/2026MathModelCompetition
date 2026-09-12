@@ -118,6 +118,19 @@ def triangular_survey_points(cfg):
                     selected.update(ids)
     return sorted((vertex(*ij) for ij in selected),key=lambda p:(p[0],p[1]))
 
+def worst_uncovered_distance(stations,region,spacing=5.):
+    """Largest distance from any disk point to its nearest station (grid plus rim)."""
+    stations=np.asarray(stations,float)
+    xs=np.arange(-region,region+spacing,spacing);X,Y=np.meshgrid(xs,xs)
+    points=np.column_stack((X.ravel(),Y.ravel()));points=points[np.hypot(points[:,0],points[:,1])<=region]
+    angles=np.linspace(0,2*np.pi,int(2*np.pi*region/spacing)+1,endpoint=False)
+    points=np.vstack((points,region*np.column_stack((np.cos(angles),np.sin(angles)))))
+    worst=0.
+    for start in range(0,len(points),100000):
+        block=points[start:start+100000]
+        worst=max(worst,float(np.min(np.linalg.norm(block[:,None,:]-stations[None,:,:],axis=2),axis=1).max()))
+    return worst+spacing/math.sqrt(2)
+
 def survey_points(question,cfg):
     if question==3:
         layout=cfg.get('q3_survey_layout','grid')
@@ -135,6 +148,21 @@ def survey_points(question,cfg):
             if worst>cfg['receiver_radius_min_m']-1e-6:
                 raise ValueError('Q3 ring does not guarantee minimum-radius coverage')
             return [np.zeros(2)]+[ring*direction(60*k) for k in range(6)]
+        if layout=='six':
+            # EXPERIMENTAL, NOT GUARANTEED: six unit disks cannot cover a disk of
+            # radius ratio 1.8 (Bezdek's bound is 1.7988), so a thin boundary band
+            # stays farther than the minimum reception radius. The caller must
+            # accept a nonzero miss probability; see docs/q3_six_station_trial.md.
+            stations=np.asarray(cfg.get('q3_station_list'),float)
+            if stations.ndim!=2 or stations.shape[1]!=2 or not np.all(np.isfinite(stations)) or len(stations)<3:
+                raise ValueError('Q3 six-station layout requires q3_station_list with finite planar points')
+            allowed=cfg.get('q3_uncovered_tolerance_m')
+            if not (isinstance(allowed,(int,float)) and math.isfinite(allowed) and 0<allowed<=100):
+                raise ValueError('Q3 six-station layout requires an explicit q3_uncovered_tolerance_m in (0,100]')
+            worst=worst_uncovered_distance(stations,cfg['region_radius_m'])
+            if worst>cfg['receiver_radius_min_m']+allowed:
+                raise ValueError(f'Q3 station list leaves points {worst:.1f} m from every station, beyond the declared tolerance')
+            return list(stations)
         if layout!='grid':raise ValueError(f'Unknown Q3 survey layout: {layout}')
     if question==4:
         layout=cfg.get('q4_survey_layout','grid')

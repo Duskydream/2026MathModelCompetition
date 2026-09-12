@@ -1,0 +1,61 @@
+\section{模型假设与符号说明}
+
+\subsection{模型假设}
+
+本文的全部几何保证都建立在下列假设之上。本文刻意把假设写得窄而明确，以便在\cref{sec:eval}中逐条检查其失效后果。
+
+\begin{assumption}[静态环境]\label{asu:static}
+在一次任务过程中，干扰源的位置、频道、有效接收半径与定向方向均不随时间变化；机器狗可沿任意直线自由行走，不考虑障碍、地形与高度差。
+\end{assumption}
+
+\begin{assumption}[确定性阈值]\label{asu:threshold}
+接收（距离不超过 $\rho_i$ 且在覆盖角内）、近场（不超过 $5\mmet$）与清除（不超过 $20\mmet$）三个判据均为确定性阈值，不存在概率性漏检或误清除；不同干扰源的信号互不影响。
+\end{assumption}
+
+\begin{assumption}[有界测向误差]\label{asu:bounded}
+若在点 $s$ 对源 $g$ 获得示向度读数 $\theta$，则真实方位角 $\theta^{\rm true}$ 满足 $|\theta-\theta^{\rm true}|\le\varepsilon$，其中题目给出 $\varepsilon=1^\circ$。算法内部统一使用保守界 $\bar\varepsilon=1.005^\circ$，以吸收“误差先产生、再按两位小数取整”可能带来的额外偏差。除有界性外，\textbf{不假设}误差的任何分布、独立性或零均值性质。
+\end{assumption}
+
+\begin{assumption}[信息边界]\label{asu:info}
+策略只能使用 \texttt{/measure} 与 \texttt{/clear} 的返回值（\texttt{no\_signal}、\texttt{near}、\texttt{direction} 与示向度、清除成败），不得读取源的个数、位置、频道集合、接收半径或定向方向。所有本地实验中生成的真值仅用于事后核验，不参与任何决策。
+\end{assumption}
+
+\begin{assumption}[计时模型]\label{asu:time}
+虚拟时间严格按附件规则累加：一条 \texttt{/measure} 指令的耗时为“移动距离除以 $5$，加上是否切频对应的 $0$ 或 $1$ 秒，再加 $5$ 秒”；一条 \texttt{/clear} 指令的耗时为“移动距离除以 $5$，再加 $3$ 秒（失败）或 $5$ 秒（成功）”。\texttt{/clear} 的频道参数不改变测向机当前频道，\texttt{/enter} 与 \texttt{/exit} 本身不耗时。
+\end{assumption}
+
+\begin{assumption}[本地实验生成器，仅用于离线比较]\label{asu:gen}
+本地配对实验中，源数在 $10\sim16$ 均匀抽取，位置在圆盘内按面积均匀生成，频道无放回抽样，接收半径在 $[1000,1500]$ 均匀生成；第四问每个源以 $0.5$ 的概率为定向源且方向均匀。测向误差由“种子、频道与坐标”的哈希确定，使同一地点重复检测得到同一误差。\textbf{这些分布是本地假设，不是题目事实}，官方案例的分布未公开，因此本地均值只用于\emph{版本之间的配对比较}，不作为对官方成绩的预测。
+\end{assumption}
+
+\subsection{符号说明}
+
+\begin{center}
+\begin{tabular}{cl}
+  \toprule[1.5pt]
+  \makebox[.18\textwidth][c]{符号} & \makebox[.66\textwidth][l]{意义} \\
+  \midrule[1pt]
+  $\Dreg$ & 目标区域圆盘，半径 $R=1800\mmet$，圆心在原点 \\
+  $g_i,\ c_i,\ \rho_i,\ d_i$ & 第 $i$ 个源的位置、频道、有效接收半径、定向方向单位向量 \\
+  $\rho_{\min},\ \rho_{\max}$ & 接收半径的已知界，$1000\mmet$ 与 $1500\mmet$ \\
+  $\varepsilon,\ \bar\varepsilon$ & 示向度误差真界 $1^\circ$ 与算法采用的保守界 $1.005^\circ$ \\
+  $\uvec{\alpha}$ & 单位向量 $(\cos\alpha,\sin\alpha)^{\!\top}$ \\
+  $[\bm a,\bm b]$ & 二维叉积 $a_xb_y-a_yb_x$ \\
+  $s_k,\ \theta_k$ & 第 $k$ 个检测点及其示向度读数 \\
+  $W_k$ & 由 $(s_k,\theta_k)$ 生成的前向楔形（两条半平面之交） \\
+  $P$ & 定位区域（可行域），$P=\bigcap_k W_k$ 再与先验约束求交 \\
+  $D=\diam(P)$ & 定位区域的直径 \\
+  $\mecr(P),\ c_*(P)$ & $P$ 的最小包围圆半径与圆心 \\
+  $\mathcal S$ & 搜索站集合；$|\mathcal S|$ 为站数 \\
+  $\mathcal N_\rho(g)$ & 与 $g$ 距离不超过 $\rho$ 的测站之集，见\cref{eq:Tset} \\
+  $v,\ t_m,\ t_s$ & 速度 $5\mmet/\msec$，检测 $5\msec$，切频 $1\msec$ \\
+  $t_f,\ t_c$ & 清除失败 $3\msec$，清除成功 $5\msec$ \\
+  $r_c,\ r_n$ & 清除半径 $20\mmet$，近场半径 $5\mmet$ \\
+  $L,\ N_m,\ N_s$ & 累计移动距离、检测次数、切频次数 \\
+  $N_f,\ N_c$ & 清除失败次数、成功清除数 \\
+  $T,\ \bar T$ & 整局虚拟总时间；平均定位清除时间 $\bar T=T/N_c$ \\
+  \bottomrule[1.5pt]
+\end{tabular}
+\end{center}
+
+\noindent 全文内部计算一律使用弧度，接口输入输出保持度与米。方位角一律采用题目约定：东为 $0^\circ$、逆时针为正、取值范围 $[0^\circ,360^\circ)$，不使用“以北为零、顺时针”的航海约定。

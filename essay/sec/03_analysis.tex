@@ -1,0 +1,103 @@
+\section{问题分析与总体框架}\label{sec:analysis}
+
+\subsection{目标函数的精确形式}
+
+按\cref{asu:time}，把一局任务中的全部动作按类型归并，整局虚拟总时间可以写成一个\emph{精确}而非近似的线性式：
+\begin{equation}\label{eq:objective}
+  T \;=\; \underbrace{\frac{L}{v}}_{\text{移动}}
+        \;+\; \underbrace{t_m N_m}_{\text{检测}}
+        \;+\; \underbrace{t_s N_s}_{\text{切频}}
+        \;+\; \underbrace{t_f N_f}_{\text{光学失败}}
+        \;+\; \underbrace{t_c N_c}_{\text{成功清除}}
+  \;=\; \frac{L}{5}+5N_m+N_s+3N_f+5N_c .
+\end{equation}
+这里 $t_c=5\msec$ 已经包含了成功那一次的光学精确定位 $3\msec$ 与激光清除 $2\msec$，\textbf{不能再额外叠加一次 $3\msec$}。题目要求的两个统计量是
+\begin{equation}\label{eq:metric}
+  \text{清除比例}=\frac{N_c}{n},\qquad
+  \bar T=\frac{T}{N_c},
+\end{equation}
+其中 $n$ 为该局真实源数。于是优化问题为
+\begin{equation}\label{eq:opt}
+  \min_{\pi}\ \mathbb E\!\left[T(\pi)\right]
+  \quad\text{s.t.}\quad N_c(\pi)=n\ \text{以概率 }1,
+\end{equation}
+$\pi$ 是一个只依赖历史观测的在线策略（\cref{asu:info}）。约束写成“以概率 $1$”而不是“以高概率”，是本文所有布局设计的出发点：\textbf{本文以清除率为硬约束，时间为目标，不以牺牲覆盖保证换取时间}（该取舍的定量代价在\cref{sec:eval}中另行讨论）。
+
+由\cref{eq:metric}可见，$\bar T$ 的分母是 $n$。下面的\cref{sec:analysis:fixed}将说明，$T$ 的主体是与 $n$ 关系较弱的\emph{固定成本}，因此 $\bar T$ 随 $n$ 下降主要是分母效应。这一点在解释三次正式测试成绩时至关重要。
+
+\subsection{时间去哪儿了：固定成本主导}\label{sec:analysis:fixed}
+
+对官方模拟器演练日志按动作类型做分解（第三问 $14$ 局、第四问 $10$ 局，均为当前版本，见\cref{sec:results}），得到\cref{tab:breakdown}。
+
+\begin{table}[!htbp]
+  \caption{官方演练中虚拟时间的构成（按动作类型累计占比）}\label{tab:breakdown}\centering
+  \begin{tabular}{lccccc}
+    \toprule[1.5pt]
+    问题 & 移动 & 检测 & 切频 & 光学失败 & 激光清除 \\
+    \midrule[1pt]
+    问题三（$7$ 站，$14$ 局，$185$ 源） & $73.2\%$ & $18.6\%$ & $3.5\%$ & $3.9\%$ & $0.8\%$ \\
+    问题四（$22$ 站，$10$ 局，$123$ 源） & $73.4\%$ & $21.2\%$ & $3.9\%$ & $1.1\%$ & $0.4\%$ \\
+    \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
+\textbf{移动占七成以上、检测占两成，二者合计约 $92\%$；真正用于“清除”的时间不到 $1\%$。} 进一步把总时间对源数做线性回归，得到
+\begin{equation}\label{eq:fixedcost}
+  T_{Q3}\approx 1886+106\,n\ \ (\msec),\qquad
+  T_{Q4}\approx 5765+46\,n\ \ (\msec).
+\end{equation}
+截距即\textbf{固定成本}：巡站路线加上对空频道的排除性扫描。正式测试不告知源数，$20$ 个频道中未被占用的那些必须在\emph{所有}测站上都测过一遍才能宣告不存在，这部分开销与 $n$ 无关。斜率则是每多一个源所需的定位与清除增量。由\cref{eq:fixedcost}可得
+\begin{equation}
+  \bar T_{Q3}\approx\frac{1886}{n}+106,\qquad
+  \bar T_{Q4}\approx\frac{5765}{n}+46 ,
+\end{equation}
+即 $n=10$ 与 $n=16$ 的 $\bar T$ 可以相差近一倍。据此可以得到两条结论：
+
+\begin{enumerate}
+  \item \textbf{优化的主战场是固定成本，即测站布局.} 第四问每减少一个测站，约节省 $120\msec$ 的空频道扫描加上 $140\msec$ 的巡站移动，合计约 $260\msec$；第三问每站约 $320\msec$。相比之下，调度层的精细改进在第五轮实验中总共只换来约 $15\msec/$源。
+  \item \textbf{减站受覆盖保证的硬约束.} 因此“能减到几站”本身是一个需要证明的几何问题，这正是\cref{sec:q3}与\cref{sec:q4}的核心内容。
+\end{enumerate}
+
+\subsection{四层求解框架}
+
+综合上述分析，本文把四个问题统一在同一个框架下（\cref{fig:framework}）：
+
+\begin{description}
+  \item[第一层：覆盖保证（发现）.] 预先构造一个测站集 $\mathcal S$，使得\emph{无论源在哪里、朝向如何}，都至少存在一个测站能收到它。第三问只需距离覆盖；第四问还需方向覆盖，二者的数学条件截然不同（\cref{thm:hull}）。这一层给出了算法的\emph{终止证明}：所有测站访问完且已发现目标全部清除，则不可能还有漏网之鱼。
+  \item[第二层：布局下界（省时）.] 在覆盖保证成立的前提下，测站数与巡回长度决定了固定成本。本文分别证明第三问 $7$ 站为最小（\cref{thm:seven}）、第四问 $22$ 站通过严格网格证书而 $21$ 站不可行（\cref{sec:q4:lower}）。
+  \item[第三层：在线调度（降低移动成本）.] 把“去下一个测站”与“处理一个已发现目标”放进同一个任务池，按当前移动代价贪心选择，使巡站与定位清除交错执行，避免“先扫完再回头”的长距离折返。
+  \item[第四层：有界误差定位与认证清除（保证清除正确性）.] 用集员方法维护每个频道的可行域 $P$，$P$ 始终包含真源；当 $\mecr(P)\le r_c$ 时一次认证清除，否则用具有连续覆盖证明的光学点列兜底。第一、二问正是这一层的理论基础。
+\end{description}
+
+\begin{figure}[!htbp]
+  \centering
+  \fbox{\parbox[c][6.5cm][c]{0.9\textwidth}{\centering\textbf{【此处插图】图~\thefigure：总体求解框架流程图}\\[4pt]
+  \small 画法建议：自上而下四个横向色带，分别标注“覆盖保证层 / 布局下界层 / 在线调度层 / 定位与清除层”。
+  左侧主流程为：\texttt{/enter} $\to$ 生成测站集 $\to$ \{任务池决策：最近未访问测站 vs.\ 最低成本目标\} $\to$
+  到站扫描未清除频道 $\to$ 新增/更新可行域 $\to$ 补测或精化 $\to$ MEC 认证清除或光学覆盖 $\to$ 共享测站扫描 $\to$
+  终止判据（全站访问完毕且目标清空 / 已清除 $16$ 个）$\to$ \texttt{/exit}。
+  右侧用虚线箭头标出每一层对应的定理编号。}}
+  \caption{总体求解框架}\label{fig:framework}
+\end{figure}
+
+\subsection{四个问题之间的关系}
+
+\cref{tab:relation}给出四问的输入、决策与关键陷阱。需要强调，第三、四问\textbf{不是}已知坐标的旅行商问题，而是部分可观测的在线搜索控制问题：在没有把所有测站走完之前，算法根本不知道还有几个源、在哪里。可以借鉴路径优化的思想，但必须先回答“哪里还可能藏着未发现的源”和“什么时候可以安全地结束”。
+
+\begin{table}[!htbp]
+  \caption{四个问题的输入、目标与关键陷阱}\label{tab:relation}\centering
+  \begin{tabularx}{\textwidth}{c L L L}
+    \toprule[1.5pt]
+    问题 & 输入与决策 & 目标 & 必须处理的陷阱 \\
+    \midrule[1pt]
+    一 & 检测点与示向度；求交会可行域 & 算出直径，判断同直径圆能否覆盖 &
+      是前向楔形（单侧锥）而非双向直线带；空集、无界、线段、单点；\textbf{直径 $\ne$ 包围圆直径} \\
+    二 & 一次全向源示向度；选第二点 & 在移动代价与定位精度之间取舍 &
+      源距未知；第二点必须收得到信号；不能只追求正交交会 \\
+    三 & 在线选择位置、频道、测向或清除 & 先保证全清，再缩短总时间 &
+      不知道真实总数；检测不能并行；停止必须有证据 \\
+    四 & 再加入未知源类型与定向方向 & 同上 &
+      \texttt{no\_signal} 不能按距离直接排除；边界朝外源需要区域外测站 \\
+    \bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}

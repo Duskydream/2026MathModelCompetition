@@ -48,4 +48,20 @@ class Round8Tests(unittest.TestCase):
             self.assertTrue(any(sim.measure(p,1)['measure_result']!='no_signal' for p in stations))
 
 
+
+class SixStationTests(unittest.TestCase):
+    """Experimental Q3 six-station layout: explicit tolerance, never silently accepted."""
+    def test_six_layout_requires_tolerance_and_respects_it(self):
+        from model import survey_points,worst_uncovered_distance
+        six=json.loads((ROOT/'analysis_b/config_q3_six.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(survey_points(3,six)),6)
+        worst=worst_uncovered_distance(six['q3_station_list'],six['region_radius_m'])
+        self.assertGreater(worst,six['receiver_radius_min_m'])   # genuinely not a guaranteed cover
+        self.assertLessEqual(worst,six['receiver_radius_min_m']+six['q3_uncovered_tolerance_m'])
+        with self.assertRaises(ValueError):survey_points(3,dict(six,q3_uncovered_tolerance_m=None))
+        with self.assertRaises(ValueError):survey_points(3,dict(six,q3_uncovered_tolerance_m=10))
+        with self.assertRaises(ValueError):survey_points(3,dict(six,q3_station_list=six['q3_station_list'][:2]))
+        self.assertEqual(len(survey_points(3,CFG)),7)   # default entry untouched
+
+
 if __name__=='__main__':unittest.main(verbosity=2)

@@ -1,0 +1,390 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand*\HyPL@Entry[1]{}
+\HyPL@Entry{0<</S/D>>}
+\citation{kaelbling}
+\@writefile{toc}{\contentsline {section}{\numberline {一、}问题重述}{3}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1\,.\,1}问题背景}{3}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1\,.\,2}需要解决的问题}{3}{subsection.1.2}\protected@file@percent }
+\citation{milanese}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1\,.\,3}关键物理与计时规则}{4}{subsection.1.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces 题目给定的物理规则与计时常数}}{4}{table.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:rules}{{1}{4}{题目给定的物理规则与计时常数}{table.caption.1}{}}
+\newlabel{tab:rules@cref}{{[table][1][]1}{[1][4][]4}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {二、}模型假设与符号说明}{5}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2\,.\,1}模型假设}{5}{subsection.2.1}\protected@file@percent }
+\newlabel{asu:static}{{1}{5}{静态环境}{assumption.1}{}}
+\newlabel{asu:static@cref}{{[assumption][1][]1}{[1][5][]5}{}{}{}}
+\newlabel{asu:threshold}{{2}{5}{确定性阈值}{assumption.2}{}}
+\newlabel{asu:threshold@cref}{{[assumption][2][]2}{[1][5][]5}{}{}{}}
+\newlabel{asu:bounded}{{3}{5}{有界测向误差}{assumption.3}{}}
+\newlabel{asu:bounded@cref}{{[assumption][3][]3}{[1][5][]5}{}{}{}}
+\newlabel{asu:info}{{4}{5}{信息边界}{assumption.4}{}}
+\newlabel{asu:info@cref}{{[assumption][4][]4}{[1][5][]5}{}{}{}}
+\newlabel{asu:time}{{5}{5}{计时模型}{assumption.5}{}}
+\newlabel{asu:time@cref}{{[assumption][5][]5}{[1][5][]5}{}{}{}}
+\newlabel{asu:gen}{{6}{5}{本地实验生成器，仅用于离线比较}{assumption.6}{}}
+\newlabel{asu:gen@cref}{{[assumption][6][]6}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2\,.\,2}符号说明}{6}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {三、}问题分析与总体框架}{7}{section.3}\protected@file@percent }
+\newlabel{sec:analysis}{{三、}{7}{问题分析与总体框架}{section.3}{}}
+\newlabel{sec:analysis@cref}{{[section][3][]三、}{[1][6][]7}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3\,.\,1}目标函数的精确形式}{7}{subsection.3.1}\protected@file@percent }
+\newlabel{eq:objective}{{1}{7}{目标函数的精确形式}{equation.1}{}}
+\newlabel{eq:objective@cref}{{[equation][1][]1}{[1][6][]7}{}{}{}}
+\newlabel{eq:metric}{{2}{7}{目标函数的精确形式}{equation.2}{}}
+\newlabel{eq:metric@cref}{{[equation][2][]2}{[1][7][]7}{}{}{}}
+\newlabel{eq:opt}{{3}{7}{目标函数的精确形式}{equation.3}{}}
+\newlabel{eq:opt@cref}{{[equation][3][]3}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3\,.\,2}时间去哪儿了：固定成本主导}{7}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:analysis:fixed}{{3\,.\,2}{7}{时间去哪儿了：固定成本主导}{subsection.3.2}{}}
+\newlabel{sec:analysis:fixed@cref}{{[subsection][2][3]3\,.\,2}{[1][7][]7}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces 官方演练中虚拟时间的构成（按动作类型累计占比）}}{7}{table.caption.2}\protected@file@percent }
+\newlabel{tab:breakdown}{{2}{7}{官方演练中虚拟时间的构成（按动作类型累计占比）}{table.caption.2}{}}
+\newlabel{tab:breakdown@cref}{{[table][2][]2}{[1][7][]7}{}{}{}}
+\newlabel{eq:fixedcost}{{4}{7}{时间去哪儿了：固定成本主导}{equation.4}{}}
+\newlabel{eq:fixedcost@cref}{{[equation][4][]4}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3\,.\,3}四层求解框架}{8}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3\,.\,4}四个问题之间的关系}{8}{subsection.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces 总体求解框架}}{9}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:framework}{{1}{9}{总体求解框架}{figure.caption.3}{}}
+\newlabel{fig:framework@cref}{{[figure][1][]1}{[1][8][]9}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces 四个问题的输入、目标与关键陷阱}}{9}{table.caption.4}\protected@file@percent }
+\newlabel{tab:relation}{{3}{9}{四个问题的输入、目标与关键陷阱}{table.caption.4}{}}
+\newlabel{tab:relation@cref}{{[table][3][]3}{[1][8][]9}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {四、}问题一：交会定位区域的直径算法与覆盖性判定}{9}{section.4}\protected@file@percent }
+\newlabel{sec:q1}{{四、}{9}{问题一：交会定位区域的直径算法与覆盖性判定}{section.4}{}}
+\newlabel{sec:q1@cref}{{[section][4][]四、}{[1][8][]9}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,1}从示向度读数到线性约束}{9}{subsection.4.1}\protected@file@percent }
+\newlabel{eq:wedge}{{6}{9}{从示向度读数到线性约束}{equation.6}{}}
+\newlabel{eq:wedge@cref}{{[equation][6][]6}{[1][8][]9}{}{}{}}
+\newlabel{eq:P}{{7}{9}{从示向度读数到线性约束}{equation.7}{}}
+\newlabel{eq:P@cref}{{[equation][7][]7}{[1][9][]9}{}{}{}}
+\newlabel{lem:forward}{{1}{10}{两条不等式已自动选出前向分支}{lemma.1}{}}
+\newlabel{lem:forward@cref}{{[lemma][1][]1}{[1][9][]10}{}{}{}}
+\newlabel{eq:poly}{{8}{10}{从示向度读数到线性约束}{equation.8}{}}
+\newlabel{eq:poly@cref}{{[equation][8][]8}{[1][10][]10}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,2}直径的计算：算法与正确性}{10}{subsection.4.2}\protected@file@percent }
+\newlabel{thm:diam}{{1}{10}{直径在顶点上取到}{theorem.1}{}}
+\newlabel{thm:diam@cref}{{[theorem][1][]1}{[1][10][]10}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{复杂度.}{10}{algorithm.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{四类退化的处理.}{10}{algorithm.1}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces 有界误差交会定位区域的直径算法}}{11}{algorithm.1}\protected@file@percent }
+\newlabel{alg:diam}{{1}{11}{有界误差交会定位区域的直径算法}{algorithm.1}{}}
+\newlabel{alg:diam@cref}{{[algorithm][1][]1}{[1][10][]11}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,3}以定位区域直径为直径的圆能否覆盖定位区域}{11}{subsection.4.3}\protected@file@percent }
+\newlabel{thm:jung}{{2}{11}{覆盖性的充要条件与紧界}{theorem.2}{}}
+\newlabel{thm:jung@cref}{{[theorem][2][]2}{[1][10][]11}{}{}{}}
+\newlabel{eq:jung}{{9}{11}{覆盖性的充要条件与紧界}{equation.9}{}}
+\newlabel{eq:jung@cref}{{[equation][9][]9}{[1][10][]11}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{结论：一般不能覆盖.}{11}{equation.9}\protected@file@percent }
+\newlabel{exa:tri}{{1}{11}{三站交会给出 Jung 界上的正三角形}{example.1}{}}
+\newlabel{exa:tri@cref}{{[example][1][]1}{[1][11][]11}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces 以定位区域直径为直径的圆一般不能覆盖定位区域}}{12}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:q1-counter}{{2}{12}{以定位区域直径为直径的圆一般不能覆盖定位区域}{figure.caption.5}{}}
+\newlabel{fig:q1-counter@cref}{{[figure][2][]2}{[1][12][]12}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{什么时候可以覆盖：两站交会的情形.}{12}{figure.caption.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,4}本问结论对后两问的决定性影响}{12}{subsection.4.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces 两站交会的数值算例（真源 $g=(600,400)$，$\varepsilon =1^\circ $，读数含 $+0.6^\circ $ 与 $-0.4^\circ $ 的偏差）}}{13}{table.caption.6}\protected@file@percent }
+\newlabel{tab:q1-example}{{4}{13}{两站交会的数值算例（真源 $g=(600,400)$，$\varepsilon =1^\circ $，读数含 $+0.6^\circ $ 与 $-0.4^\circ $ 的偏差）}{table.caption.6}{}}
+\newlabel{tab:q1-example@cref}{{[table][4][]4}{[1][12][]13}{}{}{}}
+\newlabel{cor:certify}{{1}{13}{认证清除判据}{corollary.1}{}}
+\newlabel{cor:certify@cref}{{[corollary][1][]1}{[1][12][]13}{}{}{}}
+\newlabel{eq:diamsuff}{{10}{13}{认证清除判据}{equation.10}{}}
+\newlabel{eq:diamsuff@cref}{{[equation][10][]10}{[1][12][]13}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {五、}问题二：第二检测点的选择策略与候选区域}{13}{section.5}\protected@file@percent }
+\newlabel{sec:q2}{{五、}{13}{问题二：第二检测点的选择策略与候选区域}{section.5}{}}
+\newlabel{sec:q2@cref}{{[section][5][]五、}{[1][13][]13}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5\,.\,1}问题的形式化与两个必须同时满足的要求}{13}{subsection.5.1}\protected@file@percent }
+\newlabel{eq:localg}{{11}{13}{问题的形式化与两个必须同时满足的要求}{equation.11}{}}
+\newlabel{eq:localg@cref}{{[equation][11][]11}{[1][13][]13}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5\,.\,2}要求 A：保证接收的候选区域}{14}{subsection.5.2}\protected@file@percent }
+\newlabel{thm:csafe}{{3}{14}{保证接收的候选区域}{theorem.3}{}}
+\newlabel{thm:csafe@cref}{{[theorem][3][]3}{[1][13][]14}{}{}{}}
+\newlabel{eq:csafe}{{12}{14}{保证接收的候选区域}{equation.12}{}}
+\newlabel{eq:csafe@cref}{{[equation][12][]12}{[1][13][]14}{}{}{}}
+\newlabel{eq:lens}{{13}{14}{保证接收的候选区域}{equation.13}{}}
+\newlabel{eq:lens@cref}{{[equation][13][]13}{[1][14][]14}{}{}{}}
+\newlabel{cor:extreme}{{2}{14}{候选区域的极值点}{corollary.2}{}}
+\newlabel{cor:extreme@cref}{{[corollary][2][]2}{[1][14][]14}{}{}{}}
+\newlabel{eq:bmax}{{14}{14}{候选区域的极值点}{equation.14}{}}
+\newlabel{eq:bmax@cref}{{[equation][14][]14}{[1][14][]14}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{关于候选区域的两点说明.}{14}{figure.caption.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces 保证接收的第二检测点候选区域及其等代价线}}{15}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:q2-region}{{3}{15}{保证接收的第二检测点候选区域及其等代价线}{figure.caption.7}{}}
+\newlabel{fig:q2-region@cref}{{[figure][3][]3}{[1][14][]15}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5\,.\,3}要求 B：交会角与定位区域尺度}{15}{subsection.5.3}\protected@file@percent }
+\newlabel{lem:psi}{{2}{15}{交会角由横向偏移单独决定}{lemma.2}{}}
+\newlabel{lem:psi@cref}{{[lemma][2][]2}{[1][14][]15}{}{}{}}
+\newlabel{eq:sinpsi}{{15}{15}{交会角由横向偏移单独决定}{equation.15}{}}
+\newlabel{eq:sinpsi@cref}{{[equation][15][]15}{[1][14][]15}{}{}{}}
+\newlabel{eq:Rapprox}{{16}{15}{要求 B：交会角与定位区域尺度}{equation.16}{}}
+\newlabel{eq:Rapprox@cref}{{[equation][16][]16}{[1][15][]15}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5\,.\,4}两次测向不足以保证认证清除}{15}{subsection.5.4}\protected@file@percent }
+\newlabel{thm:twobearing}{{4}{15}{两测向的能力上限}{theorem.4}{}}
+\newlabel{thm:twobearing@cref}{{[theorem][4][]4}{[1][15][]15}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces 不同候选第二点的定位效果（一阶估计 $R_{*}$，单位 m）与移动代价}}{16}{table.caption.8}\protected@file@percent }
+\newlabel{tab:q2-need}{{5}{16}{不同候选第二点的定位效果（一阶估计 $\mecr $，单位 m）与移动代价}{table.caption.8}{}}
+\newlabel{tab:q2-need@cref}{{[table][5][]5}{[1][16][]16}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5\,.\,5}精确枚举验证与选点策略}{16}{subsection.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{选点策略.}{16}{table.caption.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces $12$ 个候选第二点的精确枚举结果（每点 $189$ 个组合，$\varepsilon =1^\circ $）}}{17}{table.caption.9}\protected@file@percent }
+\newlabel{tab:q2-enum}{{6}{17}{$12$ 个候选第二点的精确枚举结果（每点 $189$ 个组合，$\varepsilon =1^\circ $）}{table.caption.9}{}}
+\newlabel{tab:q2-enum@cref}{{[table][6][]6}{[1][16][]17}{}{}{}}
+\newlabel{eq:q2cost}{{17}{17}{选点策略}{equation.17}{}}
+\newlabel{eq:q2cost@cref}{{[equation][17][]17}{[1][16][]17}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{单目标最优不等于整局最优.}{17}{equation.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {六、}问题三：全向干扰源的自动搜索、定位与清除}{17}{section.6}\protected@file@percent }
+\newlabel{sec:q3}{{六、}{17}{问题三：全向干扰源的自动搜索、定位与清除}{section.6}{}}
+\newlabel{sec:q3@cref}{{[section][6][]六、}{[1][17][]17}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6\,.\,1}三层结构与终止证明}{17}{subsection.6.1}\protected@file@percent }
+\newlabel{def:cover3}{{1}{17}{距离覆盖测站集}{definition.1}{}}
+\newlabel{def:cover3@cref}{{[definition][1][]1}{[1][17][]17}{}{}{}}
+\newlabel{eq:cover3}{{18}{17}{距离覆盖测站集}{equation.18}{}}
+\newlabel{eq:cover3@cref}{{[equation][18][]18}{[1][17][]17}{}{}{}}
+\newlabel{thm:term3}{{5}{18}{终止的正确性}{theorem.5}{}}
+\newlabel{thm:term3@cref}{{[theorem][5][]5}{[1][17][]18}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6\,.\,2}发现层：七站布局及其最优性}{18}{subsection.6.2}\protected@file@percent }
+\newlabel{sec:q3:layout}{{6\,.\,2}{18}{发现层：七站布局及其最优性}{subsection.6.2}{}}
+\newlabel{sec:q3:layout@cref}{{[subsection][2][6]6\,.\,2}{[1][18][]18}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6\,.\,2\,.\,1}最坏覆盖距离的解析式}{18}{subsubsection.6.2.1}\protected@file@percent }
+\newlabel{eq:hex}{{19}{18}{最坏覆盖距离的解析式}{equation.19}{}}
+\newlabel{eq:hex@cref}{{[equation][19][]19}{[1][18][]18}{}{}{}}
+\newlabel{thm:hexcover}{{6}{18}{七站布局的最坏覆盖距离}{theorem.6}{}}
+\newlabel{thm:hexcover@cref}{{[theorem][6][]6}{[1][18][]18}{}{}{}}
+\newlabel{eq:dmax}{{20}{18}{七站布局的最坏覆盖距离}{equation.20}{}}
+\newlabel{eq:dmax@cref}{{[equation][20][]20}{[1][18][]18}{}{}{}}
+\newlabel{cor:ring}{{3}{18}{环半径的可行区间与最优值}{corollary.3}{}}
+\newlabel{cor:ring@cref}{{[corollary][3][]3}{[1][18][]18}{}{}{}}
+\newlabel{eq:ringrange}{{21}{18}{环半径的可行区间与最优值}{equation.21}{}}
+\newlabel{eq:ringrange@cref}{{[equation][21][]21}{[1][18][]18}{}{}{}}
+\citation{bezdek}
+\citation{bezdek2}
+\citation{kershner}
+\@writefile{toc}{\contentsline {paragraph}{为什么不取覆盖最优的 $r^\star $.}{19}{equation.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6\,.\,2\,.\,2}七站是保证发现的最小站数}{19}{subsubsection.6.2.2}\protected@file@percent }
+\newlabel{thm:seven}{{7}{19}{站数下界}{theorem.7}{}}
+\newlabel{thm:seven@cref}{{[theorem][7][]7}{[1][19][]19}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces 六站布局实验（独立入口，默认方案未采用）}}{19}{table.caption.10}\protected@file@percent }
+\newlabel{tab:q3six}{{7}{19}{六站布局实验（独立入口，默认方案未采用）}{table.caption.10}{}}
+\newlabel{tab:q3six@cref}{{[table][7][]7}{[1][19][]19}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces 七站布局的覆盖证明与环半径的可行区间}}{20}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:q3-layout}{{4}{20}{七站布局的覆盖证明与环半径的可行区间}{figure.caption.11}{}}
+\newlabel{fig:q3-layout@cref}{{[figure][4][]4}{[1][19][]20}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6\,.\,3}定位层：有界误差可行域}{20}{subsection.6.3}\protected@file@percent }
+\newlabel{sec:q3:loc}{{6\,.\,3}{20}{定位层：有界误差可行域}{subsection.6.3}{}}
+\newlabel{sec:q3:loc@cref}{{[subsection][3][6]6\,.\,3}{[1][19][]20}{}{}{}}
+\newlabel{eq:invariant}{{23}{20}{定位层：有界误差可行域}{equation.23}{}}
+\newlabel{eq:invariant@cref}{{[equation][23][]23}{[1][19][]20}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{（i）初始化.}{20}{equation.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{（ii）新方位裁剪.}{20}{equation.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{（iii）目标圆外包约束.}{20}{equation.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{（iv）无信号的距离排除（仅第三问）.}{20}{equation.24}\protected@file@percent }
+\newlabel{thm:nosignal}{{8}{20}{无信号排除}{theorem.8}{}}
+\newlabel{thm:nosignal@cref}{{[theorem][8][]8}{[1][20][]20}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{一次必须记录的失败.}{21}{theorem.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces 有界误差可行域的收缩过程}}{21}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:q3-shrink}{{5}{21}{有界误差可行域的收缩过程}{figure.caption.12}{}}
+\newlabel{fig:q3-shrink@cref}{{[figure][5][]5}{[1][21][]21}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6\,.\,4}清除层：认证清除、光学兜底与补测精化}{21}{subsection.6.4}\protected@file@percent }
+\newlabel{sec:q3:refine}{{6\,.\,4}{21}{清除层：认证清除、光学兜底与补测精化}{subsection.6.4}{}}
+\newlabel{sec:q3:refine@cref}{{[subsection][4][6]6\,.\,4}{[1][21][]21}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{（i）认证清除.}{21}{subsection.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{（ii）光学覆盖兜底.}{22}{subsection.6.4}\protected@file@percent }
+\newlabel{eq:grid}{{25}{22}{（ii）光学覆盖兜底}{equation.25}{}}
+\newlabel{eq:grid@cref}{{[equation][25][]25}{[1][21][]22}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{（iii）补测精化.}{22}{equation.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6\,.\,5}调度层：搜索与目标处理的混合贪心}{22}{subsection.6.5}\protected@file@percent }
+\newlabel{sec:q3:shared}{{6\,.\,5}{22}{调度层：搜索与目标处理的混合贪心}{subsection.6.5}{}}
+\newlabel{sec:q3:shared@cref}{{[subsection][5][6]6\,.\,5}{[1][22][]22}{}{}{}}
+\newlabel{eq:q3cost}{{26}{22}{调度层：搜索与目标处理的混合贪心}{equation.26}{}}
+\newlabel{eq:q3cost@cref}{{[equation][26][]26}{[1][22][]22}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{共享测站（shared scan）.}{22}{equation.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6\,.\,6}算法总览}{22}{subsection.6.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces 共享测站的筛选条件}}{23}{table.caption.13}\protected@file@percent }
+\newlabel{tab:shared}{{8}{23}{共享测站的筛选条件}{table.caption.13}{}}
+\newlabel{tab:shared@cref}{{[table][8][]8}{[1][22][]23}{}{}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces 第三问：七站覆盖 $+$ 混合贪心的在线搜索、定位与清除}}{23}{algorithm.2}\protected@file@percent }
+\newlabel{alg:q3}{{2}{23}{第三问：七站覆盖 $+$ 混合贪心的在线搜索、定位与清除}{algorithm.2}{}}
+\newlabel{alg:q3@cref}{{[algorithm][2][]2}{[1][22][]23}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{虚拟时间上界.}{23}{algorithm.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6\,.\,7}实验结果与消融}{24}{subsection.6.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces 第三问历次结构性改进的配对实验（单位：虚拟秒/源，两版均 $100\%$ 清除）}}{24}{table.caption.14}\protected@file@percent }
+\newlabel{tab:q3paired}{{9}{24}{第三问历次结构性改进的配对实验（单位：虚拟秒/源，两版均 $100\%$ 清除）}{table.caption.14}{}}
+\newlabel{tab:q3paired@cref}{{[table][9][]9}{[1][24][]24}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces 第三问典型局的行走轨迹与时间累积}}{24}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:q3-track}{{6}{24}{第三问典型局的行走轨迹与时间累积}{figure.caption.15}{}}
+\newlabel{fig:q3-track@cref}{{[figure][6][]6}{[1][24][]24}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces 第三问被否决的改进方案（均完成完整配对实验，清除率均为 $100\%$）}}{25}{table.caption.16}\protected@file@percent }
+\newlabel{tab:q3reject}{{10}{25}{第三问被否决的改进方案（均完成完整配对实验，清除率均为 $100\%$）}{table.caption.16}{}}
+\newlabel{tab:q3reject@cref}{{[table][10][]10}{[1][25][]25}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6\,.\,8}理论下界与优化空间}{25}{subsection.6.8}\protected@file@percent }
+\newlabel{sec:q3:lb}{{6\,.\,8}{25}{理论下界与优化空间}{subsection.6.8}{}}
+\newlabel{sec:q3:lb@cref}{{[subsection][8][6]6\,.\,8}{[1][25][]25}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces 第三问的时间下界与现有方案的差距（单位：虚拟秒）}}{25}{table.caption.17}\protected@file@percent }
+\newlabel{tab:q3lb}{{11}{25}{第三问的时间下界与现有方案的差距（单位：虚拟秒）}{table.caption.17}{}}
+\newlabel{tab:q3lb@cref}{{[table][11][]11}{[1][25][]25}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {七、}问题四：混合全向源与定向源的检测与清除}{26}{section.7}\protected@file@percent }
+\newlabel{sec:q4}{{七、}{26}{问题四：混合全向源与定向源的检测与清除}{section.7}{}}
+\newlabel{sec:q4@cref}{{[section][7][]七、}{[1][25][]26}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7\,.\,1}第三问的覆盖条件为什么不能照搬}{26}{subsection.7.1}\protected@file@percent }
+\newlabel{eq:visible}{{28}{26}{第三问的覆盖条件为什么不能照搬}{equation.28}{}}
+\newlabel{eq:visible@cref}{{[equation][28][]28}{[1][25][]26}{}{}{}}
+\newlabel{eq:Tset}{{29}{26}{第三问的覆盖条件为什么不能照搬}{equation.29}{}}
+\newlabel{eq:Tset@cref}{{[equation][29][]29}{[1][26][]26}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7\,.\,2}方向覆盖的充要条件}{26}{subsection.7.2}\protected@file@percent }
+\newlabel{thm:hull}{{9}{26}{凸包等价条件}{theorem.9}{}}
+\newlabel{thm:hull@cref}{{[theorem][9][]9}{[1][26][]26}{}{}{}}
+\newlabel{eq:hullcond}{{30}{26}{凸包等价条件}{equation.30}{}}
+\newlabel{eq:hullcond@cref}{{[equation][30][]30}{[1][26][]26}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{与三角剖分条件的比较.}{26}{equation.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7\,.\,3}连续域的网格证书}{27}{subsection.7.3}\protected@file@percent }
+\newlabel{sec:q4:cert}{{7\,.\,3}{27}{连续域的网格证书}{subsection.7.3}{}}
+\newlabel{sec:q4:cert@cref}{{[subsection][3][7]7\,.\,3}{[1][27][]27}{}{}{}}
+\newlabel{thm:cert}{{10}{27}{网格证书}{theorem.10}{}}
+\newlabel{thm:cert@cref}{{[theorem][10][]10}{[1][27][]27}{}{}{}}
+\newlabel{eq:certcond}{{31}{27}{网格证书}{equation.31}{}}
+\newlabel{eq:certcond@cref}{{[equation][31][]31}{[1][27][]27}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{认证结果.}{27}{equation.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7\,.\,4}最终布局与站数下界}{27}{subsection.7.4}\protected@file@percent }
+\newlabel{sec:q4:lower}{{7\,.\,4}{27}{最终布局与站数下界}{subsection.7.4}{}}
+\newlabel{sec:q4:lower@cref}{{[subsection][4][7]7\,.\,4}{[1][27][]27}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces 第四问采用的 $22$ 站认证布局}}{27}{table.caption.18}\protected@file@percent }
+\newlabel{tab:q4layout}{{12}{27}{第四问采用的 $22$ 站认证布局}{table.caption.18}{}}
+\newlabel{tab:q4layout@cref}{{[table][12][]12}{[1][27][]27}{}{}{}}
+\newlabel{lem:outer12}{{3}{28}{外环至少 $12$ 站}{lemma.3}{}}
+\newlabel{lem:outer12@cref}{{[lemma][3][]3}{[1][27][]28}{}{}{}}
+\newlabel{lem:center}{{4}{28}{圆心站必需}{lemma.4}{}}
+\newlabel{lem:center@cref}{{[lemma][4][]4}{[1][28][]28}{}{}{}}
+\newlabel{lem:inner9}{{5}{28}{内环至少 $9$ 站}{lemma.5}{}}
+\newlabel{lem:inner9@cref}{{[lemma][5][]5}{[1][28][]28}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces 布局搜索结果（严格证书取 $h=1\,\mathrm  {m}$、$\delta =0.7071\,\mathrm  {m}$）}}{28}{table.caption.19}\protected@file@percent }
+\newlabel{tab:q4search}{{13}{28}{布局搜索结果（严格证书取 $h=1\mmet $、$\delta =0.7071\mmet $）}{table.caption.19}{}}
+\newlabel{tab:q4search@cref}{{[table][13][]13}{[1][28][]28}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces $22$ 站布局的方向覆盖证书}}{28}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:q4-layout}{{7}{28}{$22$ 站布局的方向覆盖证书}{figure.caption.20}{}}
+\newlabel{fig:q4-layout@cref}{{[figure][7][]7}{[1][28][]28}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7\,.\,5}在线层：选择性测量、有界等待与认证条带覆盖}{29}{subsection.7.5}\protected@file@percent }
+\newlabel{sec:q4:online}{{7\,.\,5}{29}{在线层：选择性测量、有界等待与认证条带覆盖}{subsection.7.5}{}}
+\newlabel{sec:q4:online@cref}{{[subsection][5][7]7\,.\,5}{[1][28][]29}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7\,.\,5\,.\,1}选择性重测}{29}{subsubsection.7.5.1}\protected@file@percent }
+\newlabel{eq:selective}{{32}{29}{选择性重测}{equation.32}{}}
+\newlabel{eq:selective@cref}{{[equation][32][]32}{[1][29][]29}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7\,.\,5\,.\,2}有界等待}{29}{subsubsection.7.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7\,.\,5\,.\,3}圆心补测精化}{29}{subsubsection.7.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7\,.\,5\,.\,4}认证条带覆盖}{29}{subsubsection.7.5.4}\protected@file@percent }
+\newlabel{eq:strip}{{33}{29}{认证条带覆盖}{equation.33}{}}
+\newlabel{eq:strip@cref}{{[equation][33][]33}{[1][29][]29}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces 两种具有连续覆盖证明的光学清除点列}}{30}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:q4-strip}{{8}{30}{两种具有连续覆盖证明的光学清除点列}{figure.caption.21}{}}
+\newlabel{fig:q4-strip@cref}{{[figure][8][]8}{[1][29][]30}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7\,.\,5\,.\,5}扫描成本门控与 \texttt  {near} 即时清除}{30}{subsubsection.7.5.5}\protected@file@percent }
+\newlabel{eq:routecost}{{34}{30}{扫描成本门控与 \texttt {near} 即时清除}{equation.34}{}}
+\newlabel{eq:routecost@cref}{{[equation][34][]34}{[1][29][]30}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7\,.\,6}实验结果}{30}{subsection.7.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces 第四问历次结构性改进的配对实验（单位：虚拟秒/源，两版均 $100\%$ 清除）}}{30}{table.caption.22}\protected@file@percent }
+\newlabel{tab:q4paired}{{14}{30}{第四问历次结构性改进的配对实验（单位：虚拟秒/源，两版均 $100\%$ 清除）}{table.caption.22}{}}
+\newlabel{tab:q4paired@cref}{{[table][14][]14}{[1][30][]30}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces $25$ 站 $\to $ $22$ 站的留出验证（新种子 $2026100000$ 起，与全部开发种子不重叠；$220$ 例全部清除）}}{31}{table.caption.23}\protected@file@percent }
+\newlabel{tab:q4holdout}{{15}{31}{$25$ 站 $\to $ $22$ 站的留出验证（新种子 $2026100000$ 起，与全部开发种子不重叠；$220$ 例全部清除）}{table.caption.23}{}}
+\newlabel{tab:q4holdout@cref}{{[table][15][]15}{[1][30][]31}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces 第四问典型局轨迹与 $25$ 站／$22$ 站逐例配对}}{31}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:q4-track}{{9}{31}{第四问典型局轨迹与 $25$ 站／$22$ 站逐例配对}{figure.caption.24}{}}
+\newlabel{fig:q4-track@cref}{{[figure][9][]9}{[1][30][]31}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7\,.\,7}被否决的改进路线}{31}{subsection.7.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7\,.\,8}理论下界与“放弃保证”的代价}{31}{subsection.7.8}\protected@file@percent }
+\newlabel{sec:q4:lb}{{7\,.\,8}{31}{理论下界与“放弃保证”的代价}{subsection.7.8}{}}
+\newlabel{sec:q4:lb@cref}{{[subsection][8][7]7\,.\,8}{[1][31][]31}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{下界.}{31}{subsection.7.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{若放弃覆盖保证.}{31}{subsection.7.8}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces 第四问被否决的改进方案（全部完成完整实验，清除率均为 $100\%$）}}{32}{table.caption.25}\protected@file@percent }
+\newlabel{tab:q4reject}{{16}{32}{第四问被否决的改进方案（全部完成完整实验，清除率均为 $100\%$）}{table.caption.25}{}}
+\newlabel{tab:q4reject@cref}{{[table][16][]16}{[1][31][]32}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {17}{\ignorespaces 放弃方向覆盖保证的收益与风险（$40$ 万随机定向源蒙特卡洛，$13$ 源、半数定向）}}{32}{table.caption.26}\protected@file@percent }
+\newlabel{tab:q4tradeoff}{{17}{32}{放弃方向覆盖保证的收益与风险（$40$ 万随机定向源蒙特卡洛，$13$ 源、半数定向）}{table.caption.26}{}}
+\newlabel{tab:q4tradeoff@cref}{{[table][17][]17}{[1][32][]32}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {八、}演练测试与正式测试结果}{33}{section.8}\protected@file@percent }
+\newlabel{sec:results}{{八、}{33}{演练测试与正式测试结果}{section.8}{}}
+\newlabel{sec:results@cref}{{[section][8][]八、}{[1][32][]33}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8\,.\,1}测试环境与客户端}{33}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8\,.\,2}演练测试结果}{33}{subsection.8.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {18}{\ignorespaces 问题三演练测试逐局结果（官方模拟器）}}{33}{table.caption.27}\protected@file@percent }
+\newlabel{tab:q3practice}{{18}{33}{问题三演练测试逐局结果（官方模拟器）}{table.caption.27}{}}
+\newlabel{tab:q3practice@cref}{{[table][18][]18}{[1][33][]33}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {19}{\ignorespaces 问题四演练测试逐局结果（官方模拟器，$22$ 站认证布局）}}{34}{table.caption.28}\protected@file@percent }
+\newlabel{tab:q4practice}{{19}{34}{问题四演练测试逐局结果（官方模拟器，$22$ 站认证布局）}{table.caption.28}{}}
+\newlabel{tab:q4practice@cref}{{[table][19][]19}{[1][33][]34}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8\,.\,3}本地模型与官方模拟器的一致性}{34}{subsection.8.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {20}{\ignorespaces 问题四官方演练与本地预测的分层比较}}{34}{table.caption.29}\protected@file@percent }
+\newlabel{tab:q4match}{{20}{34}{问题四官方演练与本地预测的分层比较}{table.caption.29}{}}
+\newlabel{tab:q4match@cref}{{[table][20][]20}{[1][34][]34}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8\,.\,4}正式测试结果}{34}{subsection.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8\,.\,5}成绩的正确解读}{34}{subsection.8.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces 演练成绩随源数的变化与时间构成}}{35}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:results}{{10}{35}{演练成绩随源数的变化与时间构成}{figure.caption.30}{}}
+\newlabel{fig:results@cref}{{[figure][10][]10}{[1][34][]35}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {21}{\ignorespaces 问题三正式测试结果}}{35}{table.caption.31}\protected@file@percent }
+\newlabel{tab:formal3}{{21}{35}{问题三正式测试结果}{table.caption.31}{}}
+\newlabel{tab:formal3@cref}{{[table][21][]21}{[1][34][]35}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {22}{\ignorespaces 问题四正式测试结果}}{35}{table.caption.32}\protected@file@percent }
+\newlabel{tab:formal4}{{22}{35}{问题四正式测试结果}{table.caption.32}{}}
+\newlabel{tab:formal4@cref}{{[table][22][]22}{[1][34][]35}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {九、}模型的检验、灵敏度分析与评价}{36}{section.9}\protected@file@percent }
+\newlabel{sec:eval}{{九、}{36}{模型的检验、灵敏度分析与评价}{section.9}{}}
+\newlabel{sec:eval@cref}{{[section][9][]九、}{[1][36][]36}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9\,.\,1}正确性检验的内容}{36}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9\,.\,2}灵敏度分析}{36}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9\,.\,2\,.\,1}对测向误差界的灵敏度}{36}{subsubsection.9.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {23}{\ignorespaces 测向误差幅度的灵敏度（同一批种子，单位：虚拟秒/源，均 $100\%$ 清除）}}{36}{table.caption.33}\protected@file@percent }
+\newlabel{tab:senserr}{{23}{36}{测向误差幅度的灵敏度（同一批种子，单位：虚拟秒/源，均 $100\%$ 清除）}{table.caption.33}{}}
+\newlabel{tab:senserr@cref}{{[table][23][]23}{[1][36][]36}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{但误差界失配是危险的.}{37}{table.caption.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9\,.\,2\,.\,2}对最小接收半径 $\rho _{\min }$ 的灵敏度}{37}{subsubsection.9.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {24}{\ignorespaces 方向覆盖余量对最小接收半径的灵敏度（$20\,\mathrm  {m}$ 粗网格；$-\infty $ 表示存在无法覆盖的点）}}{37}{table.caption.34}\protected@file@percent }
+\newlabel{tab:sensrho}{{24}{37}{方向覆盖余量对最小接收半径的灵敏度（$20\mmet $ 粗网格；$-\infty $ 表示存在无法覆盖的点）}{table.caption.34}{}}
+\newlabel{tab:sensrho@cref}{{[table][24][]24}{[1][37][]37}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {9\,.\,2\,.\,3}对光学格距与其他阈值的灵敏度}{38}{subsubsection.9.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9\,.\,3}稳健性（压力场景）}{38}{subsection.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9\,.\,4}模型的优点}{38}{subsection.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9\,.\,5}模型的缺点与局限}{39}{subsection.9.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9\,.\,6}模型的推广}{39}{subsection.9.6}\protected@file@percent }
+\bibcite{bezdek}{1}
+\bibcite{bezdek2}{2}
+\bibcite{jung}{3}
+\bibcite{welzl}{4}
+\bibcite{bhh}{5}
+\bibcite{rockafellar}{6}
+\bibcite{toth}{7}
+\bibcite{torrieri}{8}
+\bibcite{cumcm2026}{9}
+\bibcite{kaelbling}{10}
+\bibcite{milanese}{11}
+\bibcite{kershner}{12}
+\@writefile{toc}{\contentsline {section}{参考文献}{40}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{附录 \numberline {A}支撑材料清单}{41}{appendix.1.A}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {25}{\ignorespaces 支撑材料目录说明}}{41}{table.caption.36}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{附录 \numberline {B}关键参数配置}{41}{appendix.1.B}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{附录 \numberline {C}调试记录：一次边界顶点的浮点失稳}{41}{appendix.1.C}\protected@file@percent }
+\newlabel{app:debug}{{C}{41}{调试记录：一次边界顶点的浮点失稳}{appendix.1.C}{}}
+\newlabel{app:debug@cref}{{[section][3][]C}{[1][41][]41}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {26}{\ignorespaces 算法参数及其来源}}{42}{table.caption.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{附录 \numberline {D}核心源程序}{42}{appendix.1.D}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,1}有界误差几何与测站布局：\texttt  {model.py}}{42}{subsection.1.D.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{code/model.py}{42}{lstlisting.-1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,2}在线策略主体：\texttt  {optimized.py}}{47}{subsection.1.D.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{code/optimized.py}{47}{lstlisting.-2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,3}第三问专用策略：\texttt  {q3\_policy.py}}{50}{subsection.1.D.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{code/q3\textunderscore policy.py}{50}{lstlisting.-3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,4}第四问专用策略：\texttt  {q4\_policy.py}}{52}{subsection.1.D.4}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{code/q4\textunderscore policy.py}{52}{lstlisting.-4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,5}认证条带覆盖：\texttt  {q4\_optical.py}}{58}{subsection.1.D.5}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{code/q4\textunderscore optical.py}{58}{lstlisting.-5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,6}方向覆盖余量与网格证书：\texttt  {layout\_opt.py}、\texttt  {certify22.py}}{59}{subsection.1.D.6}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{code/layout\textunderscore opt.py}{59}{lstlisting.-6}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{code/certify22.py}{61}{lstlisting.-7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,7}模拟器通信客户端：\texttt  {practice\_robot.py}}{62}{subsection.1.D.7}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{code/practice\textunderscore robot.py}{62}{lstlisting.-8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4\,.\,8}参数配置：\texttt  {config.json}}{68}{subsection.1.D.8}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{code/config.json}{68}{lstlisting.-9}\protected@file@percent }
+\gdef \@abspage@last{70}

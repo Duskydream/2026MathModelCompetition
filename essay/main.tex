@@ -1,0 +1,150 @@
+%==============================================================================
+%  2026 高教社杯全国大学生数学建模竞赛  B 题
+%  无线电干扰源的快速自动定位与清除
+%
+%  编译方式： xelatex main  (建议 latexmk -xelatex main，连编两次以更新交叉引用)
+%  模板来源： CUMCMThesis (cumcmthesis.cls) + 2026 年格式补丁 (cumcm2026.sty)
+%  电子版提交要求：去封面与编号页、无目录、首页为摘要，故使用 withoutpreface
+%==============================================================================
+\documentclass[withoutpreface,bwprint]{cumcmthesis}
+
+\usepackage{cumcm2026}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath}
+
+% ---- 算法环境本地化 ----
+\floatname{algorithm}{算法}
+\algrenewcommand\algorithmicrequire{\textbf{输入：}}
+\algrenewcommand\algorithmicensure{\textbf{输出：}}
+\algrenewcommand\algorithmicreturn{\textbf{返回}}
+\algrenewtext{While}[1]{\textbf{当} #1 \textbf{时循环}}
+\algrenewtext{EndWhile}{\textbf{循环结束}}
+\algrenewtext{For}[1]{\textbf{对} #1 \textbf{循环}}
+\algrenewtext{EndFor}{\textbf{循环结束}}
+\algrenewtext{If}[1]{\textbf{若} #1 \textbf{则}}
+\algrenewtext{ElsIf}[1]{\textbf{否则若} #1 \textbf{则}}
+\algrenewtext{Else}{\textbf{否则}}
+\algrenewtext{EndIf}{\textbf{判断结束}}
+
+% ---- cleveref 的中文名称补充（模板已定义图/表/公式/定理等，此处补节与算法）----
+\crefformat{section}{#2第#1节#3}
+\crefformat{subsection}{#2第#1节#3}
+\crefformat{subsubsection}{#2第#1节#3}
+\crefformat{algorithm}{#2算法~#1#3}
+\crefname{algorithm}{算法}{算法}
+
+% ---- 证明环境改为不编号 ----
+\makeatletter
+\renewenvironment{proof}{\par\noindent\textbf{证明．}\ \ignorespaces}%
+  {\hfill$\square$\par\medskip}
+\makeatother
+
+% ---- 关键词标签改为更规范的“关键词” ----
+\makeatletter
+\renewcommand{\mcm@cap@keywordsname}{关键词}
+\makeatother
+
+% ---- 常用记号宏 ----
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\mecr}{R_{*}}
+\newcommand{\uvec}[1]{\bm{u}(#1)}
+\providecommand{\R}{}\renewcommand{\R}{\mathbb{R}}
+\newcommand{\Dreg}{\mathcal{D}}
+\newcommand{\msec}{\,\mathrm{s}}
+\newcommand{\mmet}{\,\mathrm{m}}
+
+\title{无线电干扰源的快速自动定位与清除\\——覆盖保证、布局下界与在线调度的一体化模型}
+
+%==== 以下信息在 withoutpreface 模式下不会输出，保留以备打印版使用 ====
+\tihao{B}
+\baominghao{}
+\schoolname{}
+\membera{}
+\memberb{}
+\memberc{}
+\supervisor{}
+\yearinput{2026}
+\monthinput{9}
+\dayinput{14}
+%=====================================================================
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+本文把“机器狗自动定位并清除无线电干扰源”建模为\textbf{部分可观测环境下、带覆盖保证的在线搜索--定位--清除问题}，按“\emph{覆盖保证} $\to$ \emph{布局下界} $\to$ \emph{在线调度} $\to$ \emph{有界误差定位与认证清除}”四层求解。全文坚持一条准则：\textbf{清除率必须为 100\%，只有在此前提下才比较时间}。
+
+针对\textbf{问题一}，把每个示向度读数转化为两条线性半平面约束，定位区域是有限个\emph{前向楔形}的交 $P=\bigcap_i W_i$。据此设计“线性规划判空与判无界 $\to$ 边界线两两求交并过滤 $\to$ 极角排序 $\to$ 顶点对枚举”的求直径算法，复杂度 $O(m^3+k^2)$，并完整处理空集、无界、线段与单点四类退化。对后半问给出\textbf{否定回答}与紧的定量结论：由 Jung 定理 $D/2\le\mecr\le D/\sqrt3$，故同直径圆一般\emph{不能}覆盖定位区域；本文由三个真实检测点构造出交集恰为边长 $40\mmet$ 正三角形的算例，$D=40.0000\mmet$ 而 $\mecr=23.0940\mmet>20\mmet$。由此确立全文的清除判据：\textbf{$\mecr\le20\mmet$ 才可一次认证清除}，$D\le20\sqrt3=34.641\mmet$ 是其只依赖直径的充分条件。
+
+针对\textbf{问题二}，导出一个\textbf{不依赖未知源距与未知接收半径}的保证接收区域 $\mathcal{C}_{\rm safe}$——它是三个半径 $1000\mmet$ 圆盘之交（见\cref{eq:csafe}），并证明其充分性。本文进一步证明 $\sin\psi=\dist(q,L)/\|q-g\|$，即\emph{横向偏移单独决定交会角的下界，前进距离对此无贡献}。在 $\mathcal{C}_{\rm safe}$ 上做全域搜索表明，对 $r_1=1500\mmet$ 的源，两次测向最好也只能把 $\mecr$ 降到约 $32.5\mmet$，故\textbf{光学覆盖兜底不可省略}，这决定了后两问的算法结构。
+
+针对\textbf{问题三}，证明七站布局（圆心加半径 $r$ 的正六边形）的最坏覆盖距离为
+$d_{\max}=\max\{r/\sqrt3,\ \sqrt{R^2+r^2-\sqrt3Rr}\}$，可行区间 $r\in[1122.96,1732.05]\mmet$；取 $r=1150\mmet$ 得 $d_{\max}=988.5114\mmet<1000\mmet$。再由 Bezdek 界 $1.7988<1.8$ 证明\textbf{七站是保证发现的最小站数}。在线层由“搜索与目标混合贪心调度、有界误差可行域递推、目标圆外切约束与 \texttt{no\_signal} 圆盘排除、最小包围圆认证清除与 $25\mmet$ 网格兜底、圆心补测精化”构成。官方模拟器演练 $14$ 局、$185$ 个源全部清除，合并 $248.3\msec/$源，距路线下界 $6\%\sim9\%$。
+
+针对\textbf{问题四}，给出方向覆盖的\textbf{充要条件}：位于 $g$ 的源对任意未知朝向都能被发现，当且仅当 $g\in\conv\mathcal N_\rho(g)$，其中 $\mathcal N_\rho(g)$ 为与 $g$ 距离不超过 $\rho$ 的测站集。该条件比常用的“剖分边长小于 $\rho$”宽松，据此把测站由 $49\to27\to25$ 进一步压到 \textbf{22 站}，并用 $h=1\mmet$ 网格证书（$1018.68$ 万个网格点，最小余量 $1.7331\mmet>\delta=0.7071\mmet$）完成连续域严格验证，同时以三条引理证明 $21$ 站及以下不可行。在线层增加选择性重测、内环目标有界等待、\textbf{认证条带覆盖}（矩形四角到中心不超过 $19.9\mmet$）与扫描成本门控。$220$ 例新种子留出验证全部清除（随机集 $494.5\to478.4\msec/$源）；官方演练 $10$ 局、$123$ 个源全部清除，合并 $514.6\msec/$源，按源数分层后与本地预测的最大偏差仅 $23\msec/$源。
+
+本文进一步给出一个结构性结论：\textbf{整局总时间主要由与源数无关的固定成本决定}（演练拟合 $T_{Q3}\approx1886+106n$，$T_{Q4}\approx5765+46n$），故“平均定位清除时间”随源数下降主要是\emph{分母效应}，正式测试成绩将主要由抽到的源数决定；所建立的下界模型表明现有方案距理论极限约 $8\%\sim10\%$。
+
+\keywords{交会定位；有界误差可行域；覆盖保证；凸包方向覆盖；在线调度；最小包围圆}
+\end{abstract}
+
+% 按 2026 格式规范，正文不设目录
+% \tableofcontents
+
+\input{sec/01_restatement}
+\input{sec/02_assumptions}
+\input{sec/03_analysis}
+\input{sec/04_q1}
+\input{sec/05_q2}
+\input{sec/06_q3}
+\input{sec/07_q4}
+\input{sec/08_results}
+\input{sec/09_evaluation}
+
+\CumcmAIUsed{语言润色与表述打磨、\LaTeX{} 排版与公式规范化、以及程序语法层面的调试；问题的分析、建模、定理证明、算法设计与全部实验均由参赛队员独立完成}
+
+\begin{thebibliography}{9}
+  \bibitem{bezdek} K.~Bezdek.
+  \newblock \"{U}ber einige Kreis\"{u}berdeckungen [J].
+  \newblock \emph{Beitr\"{a}ge zur Algebra und Geometrie}, 1983, 14: 7--13.
+  \bibitem{bezdek2} K.~Bezdek.
+  \newblock \"{U}ber einige optimale Konfigurationen von Kreisen [J].
+  \newblock \emph{Ann. Univ. Sci. Budapest. E\"{o}tv\"{o}s Sect. Math.}, 1984, 27: 143--151.
+  \bibitem{jung} H.~W.~E.~Jung.
+  \newblock \"{U}ber die kleinste Kugel, die eine r\"{a}umliche Figur einschlie{\ss}t [J].
+  \newblock \emph{Journal f\"{u}r die reine und angewandte Mathematik}, 1901, 123: 241--257.
+  \bibitem{welzl} E.~Welzl.
+  \newblock Smallest enclosing disks (balls and ellipsoids) [M].
+  \newblock \emph{New Results and New Trends in Computer Science}, LNCS 555, Springer, 1991: 359--370.
+  \bibitem{bhh} J.~Beardwood, J.~H.~Halton, J.~M.~Hammersley.
+  \newblock The shortest path through many points [J].
+  \newblock \emph{Mathematical Proceedings of the Cambridge Philosophical Society}, 1959, 55(4): 299--327.
+  \bibitem{rockafellar} R.~T.~Rockafellar.
+  \newblock \emph{Convex Analysis} [M].
+  \newblock Princeton University Press, 1970.
+  \bibitem{toth} G.~Fejes T\'{o}th.
+  \newblock Thinnest covering of a circle by eight, nine, or ten congruent circles [J].
+  \newblock \emph{Combinatorial and Computational Geometry}, MSRI Publications 52, 2005: 361--376.
+  \bibitem{torrieri} D.~J.~Torrieri.
+  \newblock Statistical theory of passive location systems [J].
+  \newblock \emph{IEEE Transactions on Aerospace and Electronic Systems}, 1984, AES-20(2): 183--198.
+  \bibitem{cumcm2026} 2026 年高教社杯全国大学生数学建模竞赛 B 题《无线电干扰源的快速自动定位与清除》及附件 1、附件 2.
+  \bibitem{kaelbling} L.~P.~Kaelbling, M.~L.~Littman, A.~R.~Cassandra.
+  \newblock Planning and acting in partially observable stochastic domains [J].
+  \newblock \emph{Artificial Intelligence}, 1998, 101(1--2): 99--134.
+  \bibitem{milanese} M.~Milanese, A.~Vicino.
+  \newblock Optimal estimation theory for dynamic systems with set membership uncertainty: an overview [J].
+  \newblock \emph{Automatica}, 1991, 27(6): 997--1009.
+  \bibitem{kershner} R.~Kershner.
+  \newblock The number of circles covering a set [J].
+  \newblock \emph{American Journal of Mathematics}, 1939, 61(3): 665--671.
+\end{thebibliography}
+
+\newpage
+\input{sec/10_appendix}
+
+\end{document}

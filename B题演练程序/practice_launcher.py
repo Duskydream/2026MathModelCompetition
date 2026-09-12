@@ -2,8 +2,8 @@
 import importlib.util
 import sys
 
-def launch(question):
-    print(f'第{question}问演练程序（优化版）')
+def launch(question,config='config.json',title=None):
+    print(title or f'第{question}问演练程序（优化版）')
     print('请在模拟器中登录，选择对应的演练测试，等待接口就绪。')
     print('接口不能识别演练/正式模式，请确认没有选中正式测试。')
     missing=[name for name in ['numpy','scipy'] if importlib.util.find_spec(name) is None]
@@ -27,7 +27,7 @@ def launch(question):
         print(f'\n===== 第 {index}/{count} 次测试 =====')
         print('请在模拟器中启动对应的演练测试，等待接口就绪。')
         input('接口就绪后按回车开始本次连接：')
-        code=main(['--question',str(question),'--robot-id',robot_id,'--base-url',f'http://127.0.0.1:{port}','--connect'])
+        code=main(['--question',str(question),'--robot-id',robot_id,'--base-url',f'http://127.0.0.1:{port}','--config',config,'--connect'])
         results.append(code)
         print(f'第 {index} 次测试完成。' if code==0 else f'第 {index} 次测试未完成（退出码 {code}）。')
         if index<count:

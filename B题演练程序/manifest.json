@@ -1,16 +1,19 @@
 {
   "config.json": "94ed8d3dcfe64496859e321afc6c8589a84466a18a948d3a15cbca2dace9592c",
+  "config_q3_six.json": "5dd40122f2f30e70eab6e4d07e556a3293a7cfba12e38ef3f3933044047aec5a",
   "docs/使用说明.md": "e0e37fa4afdda59c7f3f6571b244e12ab72bf9fd856887b5bd27c408285e198d",
-  "model.py": "c3b97b1b163f592ea17cb8c7d0648ad92bb1b3dde614a9347c36bac8ff8b91b6",
+  "model.py": "daeec4f1544c3f037713cb040573255bf480a9532a5eca02583d91b72e6dc998",
   "optimized.py": "565c8edefa429e586adf60d9a1dbf0662f90ffa89d23abfd62b153ce733ba7fb",
-  "practice_launcher.py": "7980a746faac42d667a22f7d0d02d913a06da925f1d2ca95a88fa77d4e46a8c3",
+  "practice_launcher.py": "413010e68543d7fb37cfdeb7e7d070047f9c5ce202265124ed3aa7f321e051ea",
   "practice_q3.py": "cd27ab9205d23f0ded0719d1e6e1d5b40bb4cf24db9ac2fa6656c9430c4810dc",
+  "practice_q3_six.py": "ce07232355447c194525ea5ddb9c5200aea31594fea062ce7ed1a6df99a4264f",
   "practice_q4.py": "4a7a0e4963964a4068af9200fe21ecf7c3496c8abbc55222a7fc9369fc89d7b1",
-  "practice_robot.py": "5b56c2359f79c608856276eb7213fccc812e4851d407c164437cb25bd583ec87",
+  "practice_robot.py": "c285bf0d3b44a5cae07865715d46780619a5e662867d535f1d1403553e924a65",
   "q3_policy.py": "d12fa3a590786ffec398983be56397257fcfd7b56993eb45f6bcdf1f17de9c49",
   "q4_optical.py": "8b3fbd901df91df1a42443bef1bb4f56694bba1ccb5221e4f19591de2a4e13b4",
   "q4_policy.py": "3de0e9a0e98fb34add444a7ce89c76022e99f2285f794cfb96d465d5a1437e68",
   "requirements.txt": "6d83f698e170f2f7f67623fd5be22465dc795cd9f58ff9ee1d7012a8f01cafa4",
   "启动第3问演练.cmd": "f201d8cb9b3166212e8c6403e9e859c55026a612700dd8a2863f11c5bd884ded",
-  "启动第4问演练.cmd": "b32b7b30c76b9b124491d284ccbc18aeabbec3222af2ccc6924fad68f2b9483f"
+  "启动第4问演练.cmd": "b32b7b30c76b9b124491d284ccbc18aeabbec3222af2ccc6924fad68f2b9483f",
+  "实验_第3问6站演练.cmd": "86b81614b32ec24911940eec0a9d4bce28adaedf734f2defbdfc433440319c46"
 }

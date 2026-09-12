@@ -1,0 +1,276 @@
+\section{问题四：混合全向源与定向源的检测与清除}\label{sec:q4}
+
+\subsection{第三问的覆盖条件为什么不能照搬}
+
+第四问中每个源可能是定向源，其有效覆盖范围是以定向方向 $d$ 为轴、张角 $180^\circ$ 的\textbf{闭半平面}。于是“可见”的判据从单纯的距离变成距离与方向的合取：
+\begin{equation}\label{eq:visible}
+  \text{测站 } s \text{ 能发现位于 } g\text{、朝向 } d \text{ 的源}
+  \iff \|s-g\|\le\rho\ \ \text{且}\ \ d^{\!\top}(s-g)\ge0 .
+\end{equation}
+
+这带来两个本质变化：
+
+\begin{enumerate}
+  \item \textbf{“附近有一个站”不再足够.} 离源最近的那个站可能落在天线背面。
+  \item \textbf{\texttt{no\_signal} 不再携带距离信息.} 在 $s$ 处收不到频道 $c$，可能是距离超限，也可能只是背向。因此\cref{thm:nosignal}的圆盘排除在第四问\textbf{不再适用}，必须在实现上加以隔离——这是两问算法最重要的一处不对称。
+\end{enumerate}
+
+记
+\begin{equation}\label{eq:Tset}
+  \mathcal N_\rho(g)=\bigl\{s\in\mathcal S\ \big|\ \|s-g\|\le\rho\bigr\} .
+\end{equation}
+
+\subsection{方向覆盖的充要条件}
+
+\begin{theorem}[凸包等价条件]\label{thm:hull}
+位于 $g$ 的源\emph{对任意未知朝向 $d$} 都存在可见测站，当且仅当
+\begin{equation}\label{eq:hullcond}
+  g\in\conv \mathcal N_\rho(g).
+\end{equation}
+\end{theorem}
+\begin{proof}
+（充分性）设 $g\in\conv \mathcal N_\rho(g)$，则存在 $s_1,\dots,s_k\in \mathcal N_\rho(g)$ 与 $\lambda_i\ge0$，$\sum\lambda_i=1$，使 $g=\sum\lambda_is_i$。于是对任意单位向量 $d$，
+\[
+  \sum_{i}\lambda_i\,d^{\!\top}(s_i-g)=d^{\!\top}\Bigl(\sum_i\lambda_is_i-g\Bigr)=0 .
+\]
+一组和为零的加权项不可能全部严格为负，故存在 $i$ 使 $d^{\!\top}(s_i-g)\ge0$；又 $\|s_i-g\|\le\rho$，由\cref{eq:visible}该站可见。
+
+（必要性）设 $g\notin\conv \mathcal N_\rho(g)$。$\conv \mathcal N_\rho(g)$ 是紧凸集，由凸集分离定理存在单位向量 $d$ 与 $\alpha>0$ 使 $d^{\!\top}(s-g)\le-\alpha<0$ 对一切 $s\in \mathcal N_\rho(g)$ 成立。取该 $d$ 为定向方向，则所有距离足够近的站都落在天线背面，而距离超过 $\rho$ 的站本来就收不到，故无可见站。
+\end{proof}
+
+取 $\rho=\rho_{\min}=1000\mmet$，\cref{eq:hullcond}对区域内每一点成立即给出保证发现的\textbf{充要}条件。
+
+\paragraph{与三角剖分条件的比较.} 早期版本（$49$ 站 $600\mmet$ 方格、$27$ 站 $950\mmet$ 三角网格、$25$ 站双环）使用的是一个\emph{充分}条件：把区域剖分成直径小于 $\rho_{\min}$ 的三角形（或方格），源必落在某个单元内，而单元顶点既在接收范围内、又由凸组合关系保证至少一个位于前发射半平面。这一条件要求\textbf{相邻站之间的距离都小于 $\rho_{\min}$}，因而站数下不去。
+
+\cref{thm:hull}放松了这一点：$\mathcal N_\rho(g)$ 中的站\emph{不必两两相邻}，只要 $g$ 落在它们的凸包内即可。正是这一差别使测站数得以从 $25$ 个减到 $22$ 个。事实上，当前 $22$ 站布局中内环 $(990,0)$ 与外环 $(1616,933)$ 的距离达 $1123.6\mmet>1000\mmet$，任何基于“边长小于 $1000$ 的剖分”的论证都无法覆盖它，而凸包条件依然成立。
+
+\subsection{连续域的网格证书}\label{sec:q4:cert}
+
+\cref{eq:hullcond}是对\emph{连续统}中每一点的要求，不能靠有限采样“验证”。本文用一个带余量的网格证书把连续域问题化为有限检查。
+
+\begin{theorem}[网格证书]\label{thm:cert}
+取网格步长 $h$，令 $\delta=h/\sqrt2$。若对覆盖 $\Dreg$ 外扩 $\delta$ 的\emph{每一个}网格点 $g$ 都有
+\begin{equation}\label{eq:certcond}
+  B(g,\delta)\ \subseteq\ \conv \mathcal N_{\rho-\delta}(g),
+\end{equation}
+则 $\Dreg$ 中\emph{任意}一点 $p$ 都满足 $p\in\conv \mathcal N_{\rho}(p)$。
+\end{theorem}
+\begin{proof}
+任取 $p\in\Dreg$，设 $g$ 为距 $p$ 最近的网格点，则 $\|p-g\|\le h/\sqrt2=\delta$。
+其一，对任意 $s\in \mathcal N_{\rho-\delta}(g)$，有 $\|s-p\|\le\|s-g\|+\|g-p\|\le(\rho-\delta)+\delta=\rho$，故
+$\mathcal N_{\rho-\delta}(g)\subseteq \mathcal N_\rho(p)$，从而 $\conv \mathcal N_{\rho-\delta}(g)\subseteq\conv \mathcal N_\rho(p)$。
+其二，$p\in B(g,\delta)\subseteq\conv \mathcal N_{\rho-\delta}(g)$。二者合并即得 $p\in\conv \mathcal N_\rho(p)$。
+\end{proof}
+
+\cref{eq:certcond}中“包含一个半径 $\delta$ 的圆盘”这一要求等价于 $g$ 到凸包各支撑超平面的距离都不小于 $\delta$，即\textbf{余量} $\mathrm{slack}(g)\ge\delta$，可由凸包的超平面表示直接算出（负值表示 $g$ 在凸包外）。
+
+\paragraph{认证结果.} 布局搜索的完整结果见\cref{tab:q4search}，最终采用的布局见\cref{fig:q4-layout}。对该 $22$ 站布局取 $h=1\mmet$、$\delta=0.7071\mmet$，检查 $10\,186\,813$ 个网格点，全部通过，\textbf{最小余量为 $1.7331\mmet>\delta$}（最坏点位于 $(-1738,-471)$），计算耗时约 $12\msec$。运行时程序还会用 $20\mmet$ 粗网格再做一次凸包检查（余量 $2.417\mmet$），测站列表不满足覆盖时\emph{拒绝运行}。
+
+\subsection{最终布局与站数下界}\label{sec:q4:lower}
+
+\begin{table}[!htbp]
+  \caption{第四问采用的 $22$ 站认证布局}\label{tab:q4layout}\centering
+  \begin{tabular}{lccc}
+    \toprule[1.5pt]
+    组成 & 站数 & 半径/m & 角度 \\
+    \midrule[1pt]
+    圆心站 & $1$  & $0$    & --- \\
+    内环   & $9$  & $990$  & $0^\circ,40^\circ,\dots,320^\circ$ \\
+    外环   & $12$ & $1866$ & $0^\circ,30^\circ,\dots,330^\circ$ \\
+    \bottomrule[1.5pt]
+  \end{tabular}\\[2pt]
+  \footnotesize 最近邻巡回长度 $17940.2\mmet$（约 $3588\msec$）；相邻内环站间距 $677.1\mmet$；相邻外环站间距 $966.0\mmet$。
+\end{table}
+
+\begin{lemma}[外环至少 $12$ 站]\label{lem:outer12}
+目标圆边界上的点 $g$ 要满足\cref{eq:hullcond}，必须存在位于 $g$ 外侧的测站；所有“外侧站”所成多边形的内切圆半径须不小于 $R=1800\mmet$。若该多边形为正 $n$ 边形，则其边长为 $2R\tan(\pi/n)$。$n=11$ 时边长为 $1057.1\mmet>\rho_{\min}$，相邻两站之间的边界段上存在无法被同时“夹住”的点；$n=12$ 时边长 $964.6\mmet<\rho_{\min}$。故外环至少需要 $12$ 个站。
+\end{lemma}
+
+\begin{lemma}[圆心站必需]\label{lem:center}
+考虑距圆心约 $300\mmet$、朝外发射的源。在没有圆心站时，$\mathcal N_{\rho_{\min}}(g)$ 只包含近侧的若干内环站，它们全部位于 $g$ 的同一侧，$g\notin\conv \mathcal N_{\rho_{\min}}(g)$，由\cref{thm:hull}存在使其不可见的朝向。
+\end{lemma}
+
+\begin{lemma}[内环至少 $9$ 站]\label{lem:inner9}
+内环取 $8$ 站时相邻站相距 $2\times990\sin22.5^\circ=757.7\mmet$，与外环围成的四边形在 $(-100,100)$ 附近存在这样的点：只有 $3$ 个站落在其 $1000\mmet$ 范围内，且该点位于这三站凸包之外，网格证书给出的余量为 $-0.5$ 到 $-5.9\mmet$。内环取 $9$ 站时余量转正为 $2.42\mmet$；继续增大内环半径又会使内外环间距超过 $1000\mmet$。
+\end{lemma}
+
+\begin{table}[!htbp]
+  \caption{布局搜索结果（严格证书取 $h=1\mmet$、$\delta=0.7071\mmet$）}\label{tab:q4search}\centering\small
+  \begin{tabularx}{\textwidth}{@{}L c Y L@{}}
+    \toprule[1.5pt]
+    布局 & 站数 & 边界最小余量/m & 严格证书 \\
+    \midrule[1pt]
+    圆心 $+12@999+12@1863.5$（上一版） & $25$ & $0.0$（解析三角剖分证明成立） & 通过 \\
+    \textbf{圆心 $+9@990+12@1866$（采用）} & $\bm{22}$ & $\bm{2.42}$ & \textbf{通过，最小余量 $1.73$} \\
+    圆心 $+8@990+12@1866$ & $21$ & $-0.5$ & 不通过 \\
+    圆心 $+7@990+12@1866$ & $20$ & $-29$ & 不通过 \\
+    三核 $+6@1050+12@1866$ 等 & $20\sim22$ & $-8\sim-43$ & 不通过 \\
+    随机局部搜索所得布局 & $19\sim22$ & $-42\sim-92$ & 不通过 \\
+    圆心 $+6@1200+8@2000$ 等稀疏布局 & $14\sim19$ & $-176\sim-596$ & 不通过 \\
+    \bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}
+
+\begin{figure}[!htbp]
+  \centering
+  \fbox{\parbox[c][7cm][c]{0.9\textwidth}{\centering\textbf{【此处插图】图~\thefigure：第四问 $22$ 站认证布局与方向覆盖余量}\\[4pt]
+  \small 画法建议：左子图画 $1800\mmet$ 目标圆、$22$ 个测站（圆心／内环 $9$ 个／外环 $12$ 个用不同标记），
+  并画出最近邻巡回路径（$17940\mmet$）；对一个典型边界点 $g$ 画出 $\mathcal N_{1000}(g)$ 及其凸包，直观展示 $g$ 落在凸包内。
+  右子图画方向覆盖余量 $\mathrm{slack}(g)$ 在目标圆上的热力图（顺序色标，$0$ 处用醒目分界色），
+  标出最小余量点 $(-1738,-471)$ 及其值 $1.73\mmet$；可加一个子图对比 $21$ 站时出现的负余量区域。}}
+  \caption{$22$ 站布局的方向覆盖证书}\label{fig:q4-layout}
+\end{figure}
+
+\subsection{在线层：选择性测量、有界等待与认证条带覆盖}\label{sec:q4:online}
+
+第四问的定位层与第三问共用\cref{sec:q3:loc}的可行域递推与目标圆外包，但\textbf{去掉}\cref{thm:nosignal}的圆盘排除。在此基础上加入下列针对定向源的改进。
+
+\subsubsection{选择性重测}
+
+到达一个测站后，\emph{未发现的频道必须全部检测}（这是终止证明的要求，不可省略）；但对\emph{已发现}的频道，重复测量常常价值很低。设当前站为 $s$、目标可行域为 $P_c$，只有同时满足
+\begin{equation}\label{eq:selective}
+  \dist(s,P_c)\le950\mmet
+  \quad\text{且}\quad
+  \Bigl(\sin\widehat\psi\ge0.3\ \ \text{或}\ \ \min_{p\in\mathcal P_c}\|s-p\|\ge300\mmet\Bigr)
+\end{equation}
+时才重测，其中 $\widehat\psi$ 是以 $c_*(P_c)$ 为顶点、由已有采样点与 $s$ 张成的估计交会角，$\mathcal P_c$ 为已有采样点集。已经可以认证清除或已收到 \texttt{near} 的目标直接跳过。
+
+\subsubsection{有界等待}
+
+若某目标只有一条方位线，而后续巡站路线上\emph{正好}存在能提供第二条方位线的测站（距可行域 $\le950\mmet$），则可以推迟处理，等待顺手可达的观测，从而避免一次专程往返。为避免无限等待与错误等待，加了三重限制：只等待\emph{一次}；首次发现点距当前位置超过 $1400\mmet$ 时不等待；\textbf{在目标圆之外首次发现的目标不等待}——因为外环站首次发现意味着该源很可能朝外发射，后续站往往全部落在天线背面。
+
+\subsubsection{圆心补测精化}
+
+与第三问同理，但阈值更紧：$\mecr\in(20,150]\mmet$ 时先走到 $c_*(P_c)$ 补测一次，若仍不足则沿新方位垂线横移 $3r_c=60\mmet$ 再补一次。
+
+\subsubsection{认证条带覆盖}
+
+$25\mmet$ 方格兜底（\cref{eq:grid}）只利用了清除圆的内接正方形，面积利用率为 $2/\pi\approx63.7\%$。本文改用\textbf{沿首测方向的条带矩形覆盖}：把 $P_c$ 沿 $\uvec{\theta}$ 切成宽 $w$ 的条，再在每条内沿横向切成高
+\begin{equation}\label{eq:strip}
+  h(w)=2\sqrt{r'^2-\left(\frac{w}{2}\right)^{2}},\qquad r'=r_c-0.1=19.9\mmet
+\end{equation}
+的矩形，取矩形中心为清除点。此时矩形四角到中心的距离恰为 $\sqrt{(w/2)^2+(h/2)^2}=r'<r_c$，由凸性整个矩形都落在清除圆内，覆盖性得证。$w$ 在 $\{1.25,1.5,1.7,1.9\}\times r'$ 中取；例如 $w=1.5r'=29.85\mmet$ 时 $h=26.32\mmet$，单点覆盖面积 $785.7\ \mathrm{m}^2$，比 $25\mmet$ 方格的 $625\ \mathrm{m}^2$ 高出 $25.7\%$。两种覆盖的对比见\cref{fig:q4-strip}。
+
+\begin{figure}[!htbp]
+  \centering
+  \fbox{\parbox[c][6cm][c]{0.9\textwidth}{\centering\textbf{【此处插图】图~\thefigure：认证条带覆盖与 $25\mmet$ 方格覆盖的对比}\\[4pt]
+  \small 画法建议：同一个细长可行域 $P_c$ 上并排两种覆盖。左图为 $25\mmet$ 方格：画出与 $P_c$ 相交的所有方格、
+  每格中心的清除点与蛇形路径，标注格数与路径长度；右图为条带覆盖：沿首测方向切条（$w=1.5r'=29.85\mmet$），
+  每条内按 $h=26.32\mmet$ 切矩形，画出矩形、中心点与半径 $19.9\mmet$ 的清除圆（显示四角恰在圆上），标注点数与路径长度。
+  下方用一行文字给出两者按\cref{eq:routecost}算出的成本，说明门控如何二选一。}}
+  \caption{两种具有连续覆盖证明的光学清除点列}\label{fig:q4-strip}
+\end{figure}
+
+\subsubsection{扫描成本门控与 \texttt{near} 即时清除}
+
+条带覆盖并非总是更优（条带更宽意味着列数少但每列更长，路径未必更短）。因此算法\textbf{同时生成方格路线与各个 $w$ 对应的条带路线，按}
+\begin{equation}\label{eq:routecost}
+  \widehat C_{\rm route}=\frac{\|x_1-p_{\rm cur}\|+\sum_{i}\|x_{i+1}-x_i\|}{v}+|\{x_i\}|\cdot t_f
+\end{equation}
+\textbf{取最小者}。同样的思想用于补测决策：若估计的光学覆盖成本已经不高于“走到补测点再测”的成本，就直接进入光学清除，跳过价值不足的补测。最后，收到 \texttt{near} 时在当前测站\emph{立即}清除，而不是等到本站扫描结束——因为真源就在 $5\mmet$ 之内，任何推迟都只会增加往返。
+
+\subsection{实验结果}
+
+第四问历次结构性改进的配对实验见\cref{tab:q4paired}，最后一次布局升级（$25\to22$ 站）的留出验证见\cref{tab:q4holdout}，典型局的轨迹与逐例配对散点见\cref{fig:q4-track}。
+
+\begin{table}[!htbp]
+  \caption{第四问历次结构性改进的配对实验（单位：虚拟秒/源，两版均 $100\%$ 清除）}\label{tab:q4paired}\centering
+  \begin{tabular}{lcccc}
+    \toprule[1.5pt]
+    改进 & 数据集 & 对照 & 候选 & 下降 \\
+    \midrule[1pt]
+    $49$ 站方格 $\to$ $27$ 站三角网格 & $100$ 例，$1310$ 源 & $928.46$ & $767.64$ & $17.32\%$ \\
+    （同上，压力集） & $50$ 例，$670$ 源 & $916.49$ & $727.66$ & $20.60\%$ \\
+    $27$ 站 $\to$ $25$ 站双环 $+$ 混合调度 & $100$ 例随机 & $792.16$ & $566.30$ & $28.51\%$ \\
+    选择性重测 $+$ 有界等待 $+$ 精化 & $220$ 例，$2908$ 源 & $534.05$ & $499.98$ & $6.38\%$ \\
+    认证条带 $+$ \texttt{near} 即清 $+$ 成本门控 & $450$ 例，$5935$ 源 & $499.45$ & $493.55$ & $1.18\%$ \\
+    \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
+\begin{table}[!htbp]
+  \caption{$25$ 站 $\to$ $22$ 站的留出验证（新种子 $2026100000$ 起，与全部开发种子不重叠；$220$ 例全部清除）}
+  \label{tab:q4holdout}\centering
+  \begin{tabular}{lcccccc}
+    \toprule[1.5pt]
+    场景 & 案例数 & $25$ 站均值 & $22$ 站均值 & $25$ 站 $\mathrm{P}_{95}$ & $22$ 站 $\mathrm{P}_{95}$ & $22$ 站更快 \\
+    \midrule[1pt]
+    随机       & $100$ & $494.5$ & $478.4$ & $675.5$ & $659.6$ & $73/100$ \\
+    边界向外   & $30$  & $588.7$ & $557.9$ & $725.5$ & $683.8$ & $24/30$ \\
+    最小接收半径 & $30$ & $517.0$ & $502.7$ & $677.0$ & $611.1$ & $20/30$ \\
+    全部定向   & $30$  & $606.1$ & $574.9$ & $776.5$ & $726.3$ & $26/30$ \\
+    圆心聚集   & $30$  & $450.9$ & $431.1$ & $598.2$ & $568.8$ & $28/30$ \\
+    \bottomrule[1.5pt]
+  \end{tabular}\\[2pt]
+  \footnotesize 按源数分层（随机集）：$10$ 源 $666\to642$，$13$ 源 $491\to475$，$16$ 源 $361\to346$（虚拟秒/源）。
+\end{table}
+
+\begin{figure}[!htbp]
+  \centering
+  \fbox{\parbox[c][6.5cm][c]{0.9\textwidth}{\centering\textbf{【此处插图】图~\thefigure：第四问一局完整轨迹与逐例配对结果}\\[4pt]
+  \small 画法建议：左图与\cref{fig:q3-track}同样画法，但用 $22$ 个测站，并对定向源额外画出其定向方向的半平面扇区
+  （浅色扇形），以显示“为什么必须有区域外的外环站”。右图为 $25$ 站与 $22$ 站的逐例配对散点图：
+  横轴 $25$ 站的 $\bar T$、纵轴 $22$ 站的 $\bar T$，画 $y=x$ 参考线，五类场景用不同标记；
+  位于参考线下方的点即为改善案例（随机集 $73/100$）。}}
+  \caption{第四问典型局轨迹与 $25$ 站／$22$ 站逐例配对}\label{fig:q4-track}
+\end{figure}
+
+\cref{tab:q4holdout}显示 $22$ 站在\emph{全部五类场景}上都优于 $25$ 站，而且在最困难的“边界向外”“全部定向”两类压力场景上改善最明显（$30.8$ 与 $31.2\msec/$源）——这与“外环负担了约 $60\%$ 的搜索到达移动”的诊断一致。
+
+\subsection{被否决的改进路线}
+
+本文把所有完成了完整配对实验但最终\emph{未采用}的方案列在\cref{tab:q4reject}。它们构成本文的消融实验，也说明了为什么最终算法是现在这个形态。
+
+\begin{table}[!htbp]
+  \caption{第四问被否决的改进方案（全部完成完整实验，清除率均为 $100\%$）}\label{tab:q4reject}\centering
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4.2cm} L}
+    \toprule[1.5pt]
+    方案 & 实验结果与否决原因 \\
+    \midrule[1pt]
+    绕行代价阈值调度\newline $D_{\rm detour}=d(x,g)+d(g,s)-d(x,s)$ &
+      在 $27$ 站与 $25$ 站上各做 $1050$ 次仿真，最佳阈值 $A500$ 分别恶化 $8.54\%$ 与 $9.15\%$，
+      $\mathrm{P}_{95}$ 同步恶化，$89/100$ 个随机案例退步。
+      “返回主路线”移动确实降了 $16\%$，但光学扫描移动 $+49.7\%$、目标测量移动 $+88.0\%$。
+      \textbf{局部绕路指标不能代替整局目标函数。} \\
+    价值门控的重复测量裁剪（B1） &
+      测量次数 $-14.36\%$、平均时间 $-3.35\%$，但光学扫描距离 $+39\%$，最坏案例 $+296.49\msec$、额外光学距离 $+2786\mmet$。
+      裁剪过度会让少数困难源失去关键方向而进入长距离搜索。 \\
+    光学风险保护的测量裁剪（B1.5） &
+      在 B1 前加 \texttt{path}／\texttt{attempts} 风险门；最佳参数使光学距离增幅压到 $2.17\%$、平均改善 $1.72\%$，
+      但出现新的最坏案例 $+950.86\msec$（某频道只拿到 $1$ 条方位便进入 $84$ 次光学尝试）。
+      \textbf{平均值改善不足以抵消尾部风险。} \\
+    固定巡回路线与 $2$-opt &
+      当前“最近未访问站”路线长 $18233.1\mmet$；最近邻 $+2$-opt 与 $100$ 个确定性多起点 $+2$-opt 给出同样的 $18233.1\mmet$。
+      现有路线已与简单确定性方法找到的最好解持平，不替换。 \\
+    低价值测站逐一删除 &
+      在 $1120$ 个案例上统计每站的新源发现、新方向贡献与到达成本；对 $25$ 站逐一做留一实验。
+      虽然若干外环站平均信息价值偏低，但每个外环站都能构造独占方向覆盖的反例，\textbf{没有任何站获得连续域安全删除证书}。 \\
+    运行时动态跳站 &
+      只有在“剩余测站仍能对所有未发现频道提供完整连续覆盖证明”时才允许跳站。
+      $1000$ 个案例中安全证书授权的跳站次数为 $\bm 0$：证书足够安全但过于保守，无实际收益，正式配置关闭。 \\
+    主动搜索（位置--方向联合证书） &
+      用保守单元维护联合证书，按覆盖收益选站。原型曾存在“使用真实源数决定补测”与“有限探针代替连续证明”两处研究有效性缺陷，
+      修正后仍未胜过正式的混合环调度。 \\
+    \bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}
+
+\subsection{理论下界与“放弃保证”的代价}\label{sec:q4:lb}
+
+\paragraph{下界.} 以 $n=13$ 为例：巡站 $17940\mmet\div5=3588\msec$；扫描约 $7$ 个空频道 $\times22$ 站 $\times6\msec$ 加上已发现频道在被发现前平均扫半数站，合计约 $1800\msec$；到达与清除每源约 $26\msec$ 加 $5\msec$，合计约 $400\msec$。总下界约 $5800\msec$，即约 $445\msec/$源。现有方案本地 $475$、官方演练约 $490\sim515$，\textbf{距下界约 $8\%\sim10\%$}。
+
+\paragraph{若放弃覆盖保证.} 本文用 $40$ 万个随机定向源做蒙特卡洛，估计削减测站后的漏检率（\cref{tab:q4tradeoff}）。可见放弃保证确实能换来时间，但代价是\emph{整局出现漏源}的概率迅速上升：$16$ 站时每局期望漏检 $0.14$ 个，意味着约七局就有一局清除率低于 $100\%$。按本文的准则（清除率是硬约束），这些方案一律不采用；此处列出是为了量化“保证”的价格。
+
+\begin{table}[!htbp]
+  \caption{放弃方向覆盖保证的收益与风险（$40$ 万随机定向源蒙特卡洛，$13$ 源、半数定向）}\label{tab:q4tradeoff}\centering
+  \begin{tabular}{lcccc}
+    \toprule[1.5pt]
+    布局 & 站数 & 单定向源漏检率 & 每局期望漏检 & 估计 s/源 \\
+    \midrule[1pt]
+    \textbf{圆心 $+9+12$（采用）} & $22$ & $0$ & $0$ & $\approx490$ \\
+    圆心 $+9+8$ 外环 & $18$ & $0.4\%$ & $0.03$ & $\approx445$ \\
+    圆心 $+9+6$ 外环 & $16$ & $2.1\%$ & $0.14$ & $\approx410$ \\
+    圆心 $+12$ 内环   & $13$ & $17.8\%$ & $1.16$ & $\approx330$ \\
+    \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}

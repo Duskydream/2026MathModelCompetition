@@ -1,0 +1,102 @@
+\begin{appendices}
+
+\section{支撑材料清单}
+
+\begin{table}[!htbp]
+  \caption{支撑材料目录说明}\centering
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4.6cm} L}
+    \toprule[1.5pt]
+    文件／目录 & 内容 \\
+    \midrule[1pt]
+    \texttt{code/model.py} & 有界误差几何：楔形半平面、多边形裁剪、半平面交的空／无界／有界判定、直径、最小包围圆、光学格、测站布局生成与覆盖校验 \\
+    \texttt{code/optimized.py} & 在线策略主体：轨迹维护、共享测站扫描、认证清除与光学兜底入口 \\
+    \texttt{code/q3\_policy.py} & 第三问专用：目标圆外切约束、\texttt{no\_signal} 圆盘排除、第二测点、圆心补测、混合贪心调度 \\
+    \texttt{code/q4\_policy.py} & 第四问专用：$22$ 站列表校验与凸包方向覆盖检查、选择性重测、有界等待、补测精化、条带清除 \\
+    \texttt{code/q4\_optical.py} & 认证条带覆盖与扫描路线成本比较 \\
+    \texttt{code/\allowbreak practice\_robot.py} & 官方模拟器 HTTP 客户端：串行发送、超时原样重试、未决动作保护、逐动作日志与预算控制 \\
+    \texttt{code/config.json} & 当前全部算法参数与 $22$ 站坐标 \\
+    \texttt{code/layout\_opt.py}、\allowbreak\texttt{code/certify22.py} & 方向覆盖余量计算与 $h=1\mmet$ 网格证书 \\
+    \texttt{logs/}（三次正式测试） & 模拟器导出的加密行为日志，文件名未作任何修改 \\
+    \texttt{AI工具使用详情.pdf} & 按 2026 年 AI 工具使用规定提交的详情说明 \\
+    \bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}
+
+\noindent 运行方式：安装 Python 3.10 及以上与 \texttt{numpy}、\texttt{scipy}、\texttt{requests}，在模拟器接口就绪后执行
+\begin{center}
+\texttt{python practice\_robot.py --question 3 --robot-id <队号> --case-code <案例编码> --connect}
+\end{center}
+（第四问将 \texttt{--question} 改为 \texttt{4}）。不加 \texttt{--connect} 时程序不会发送任何请求，便于离线检查。
+
+\section{关键参数配置}
+
+\begin{table}[!htbp]
+  \caption{算法参数及其来源}\centering\small
+  \begin{tabularx}{\textwidth}{@{}l l L l@{}}
+    \toprule[1.5pt]
+    参数 & 取值 & 作用 & 来源 \\
+    \midrule[1pt]
+    \texttt{region\_radius\_m}        & $1800$   & 目标区域半径 & 题目 \\
+    \texttt{receiver\_radius\_min\_m} & $1000$   & 接收半径下界，覆盖证明的基准 & 题目 \\
+    \texttt{receiver\_radius\_max\_m} & $1500$   & 接收半径上界，初始楔形长度 & 题目 \\
+    \texttt{bearing\_bound\_deg}      & $1.005$  & 保守误差界 & \cref{asu:bounded} \\
+    \texttt{clear\_m}                 & $20$     & 认证清除半径 & 题目 \\
+    \texttt{near\_m}                  & $5$      & 近场阈值 & 题目 \\
+    \texttt{optical\_grid\_m}         & $25$     & 光学方格边长，$25/\sqrt2<20$ & \cref{eq:grid} \\
+    \texttt{q3\_survey\_layout}       & hexagon  & 第三问七站布局 & \cref{thm:seven} \\
+    \texttt{q3\_ring\_radius\_m}      & $1150$   & 第三问环半径，可行区间 $[1122.96,1732.05]$ & \cref{cor:ring} \\
+    \texttt{q3\_policy}               & mixed    & 搜索与目标混合贪心调度 & \cref{sec:q3:shared} \\
+    \texttt{q3\_second\_forward/lateral\_m} & $200$／$100$ & 第二测点偏移 & \cref{sec:q2} \\
+    \texttt{q3\_refine\_max\_m}       & $300$    & 圆心补测的适用上限 & \cref{sec:q3:refine} \\
+    \texttt{q3\_refine\_offset\_m}    & $60$     & 补测横移距离 & \cref{sec:q3:refine} \\
+    \texttt{q4\_policy}               & mixed\_ring & 第四问联合调度 & \cref{sec:q4:online} \\
+    \texttt{q4\_station\_list}        & $22$ 点  & 认证布局，删除即回退 $25$ 站 & \cref{tab:q4layout} \\
+    \texttt{q4\_selective\_remeasure} & true     & 选择性重测 & \cref{eq:selective} \\
+    \texttt{q4\_remeasure\_min\_sine} & $0.3$    & 重测的最小交会角正弦 & \cref{eq:selective} \\
+    \texttt{q4\_remeasure\_min\_gap\_m}& $300$   & 重测的最小测点间距 & \cref{eq:selective} \\
+    \texttt{q4\_station\_help\_m}     & $950$    & 判定测站对目标是否有价值 & \cref{eq:selective} \\
+    \texttt{q4\_wait\_for\_survey}／\texttt{q4\_wait\_mode} & true／inner & 有界等待，仅限内环发现的目标 & \cref{sec:q4:online} \\
+    \texttt{q4\_wait\_stale\_m}       & $1400$   & 超过该距离不再等待 & \cref{sec:q4:online} \\
+    \texttt{q4\_refine\_max\_m}       & $150$    & 第四问补测的适用上限 & \cref{sec:q4:online} \\
+    \texttt{q4\_strip\_cover}         & true     & 认证条带覆盖 & \cref{eq:strip} \\
+    \texttt{q4\_scan\_cost\_gate}     & true     & 扫描成本门控 & \cref{eq:routecost} \\
+    \texttt{q4\_immediate\_near}      & true     & 收到 \texttt{near} 立即清除 & \cref{sec:q4:online} \\
+    \bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}
+
+\section{调试记录：一次边界顶点的浮点失稳}\label{app:debug}
+
+在第三问圆盘排除约束的首轮验证中，种子 $2031091108$ 的案例报出
+\texttt{Localization certificate excluded true source by 9.7374 m}：该局虽然最终清除了全部 $15$ 个源，但中间的几何证书已经失效。根因是重复施加圆盘排除时，一个理论上位于边界的交点被浮点判为落在圆盘内部，相应二次方程的根又略微超出线段参数范围，导致边界顶点被错误丢弃，多次裁剪后可行域出现不保守的收缩。修复后改用平方距离容差保留边界顶点、对接近端点的根做范围容许与夹取、点数不足或凸包退化时保留输入多边形，并补充了重复约束的回归测试。本例说明“结果全部清除”不能替代对中间几何不变量的检查（正文\cref{sec:q3:loc}）。
+
+\section{核心源程序}
+
+以下为完整的可运行源程序。为便于核对，文件内容与支撑材料中的副本逐字节一致。
+
+\subsection{有界误差几何与测站布局：\texttt{model.py}}
+\lstinputlisting[language=Python]{code/model.py}
+
+\subsection{在线策略主体：\texttt{optimized.py}}
+\lstinputlisting[language=Python]{code/optimized.py}
+
+\subsection{第三问专用策略：\texttt{q3\_policy.py}}
+\lstinputlisting[language=Python]{code/q3_policy.py}
+
+\subsection{第四问专用策略：\texttt{q4\_policy.py}}
+\lstinputlisting[language=Python]{code/q4_policy.py}
+
+\subsection{认证条带覆盖：\texttt{q4\_optical.py}}
+\lstinputlisting[language=Python]{code/q4_optical.py}
+
+\subsection{方向覆盖余量与网格证书：\texttt{layout\_opt.py}、\texttt{certify22.py}}
+\lstinputlisting[language=Python]{code/layout_opt.py}
+\lstinputlisting[language=Python]{code/certify22.py}
+
+\subsection{模拟器通信客户端：\texttt{practice\_robot.py}}
+\lstinputlisting[language=Python]{code/practice_robot.py}
+
+\subsection{参数配置：\texttt{config.json}}
+\lstinputlisting{code/config.json}
+
+\end{appendices}

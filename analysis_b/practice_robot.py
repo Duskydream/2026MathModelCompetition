@@ -171,6 +171,7 @@ def arguments(argv=None):
     parser.add_argument('--attempts',type=int,default=3)
     parser.add_argument('--case-code',default='',help='可选：从模拟器界面抄录，用于关联日志')
     parser.add_argument('--connect',action='store_true',help='连接已经启动且接口就绪的演练测试')
+    parser.add_argument('--config',default='config.json',help='配置文件名（位于程序目录）；实验入口使用 config_q3_six.json')
     args=parser.parse_args(argv)
     if not args.connect:parser.error('未发送任何请求。请先在模拟器启动对应演练，接口就绪后加 --connect。')
     if not args.robot_id or len(args.robot_id.encode('utf-8'))>64 or any(unicodedata.category(ch).startswith('C') for ch in args.robot_id):parser.error('队号为空、过长或包含不可见字符')
@@ -181,13 +182,15 @@ def arguments(argv=None):
 
 def main(argv=None):
     args=arguments(argv);base=Path(__file__).resolve().parent
-    cfg=json.loads((base/'config.json').read_text(encoding='utf-8'))
+    if Path(args.config).name!=args.config or not (base/args.config).is_file():raise SystemExit(f'配置文件必须位于程序目录：{args.config}')
+    cfg=json.loads((base/args.config).read_text(encoding='utf-8'))
     out=Path(args.output_dir);out.mkdir(parents=True,exist_ok=True)
     run_dir=out/f'q{args.question}_{datetime.now():%Y%m%d_%H%M%S}_{uuid.uuid4().hex[:8]}'
     run_dir.mkdir();io=PracticeHTTP(args.robot_id,args.base_url,run_dir/'actions.jsonl',args.timeout,args.attempts)
-    meta=dict(question=args.question,strategy=args.strategy,declared_mode='practice',mode_verified_by_protocol=False,case_code=args.case_code,config=cfg,python=sys.version,code_sha256={name:hashlib.sha256((base/name).read_bytes()).hexdigest() for name in ['practice_robot.py','model.py','optimized.py','q3_policy.py','q4_policy.py','q4_optical.py','config.json']})
+    meta=dict(question=args.question,strategy=args.strategy,declared_mode='practice',mode_verified_by_protocol=False,case_code=args.case_code,config=cfg,python=sys.version,code_sha256={name:hashlib.sha256((base/name).read_bytes()).hexdigest() for name in ['practice_robot.py','model.py','optimized.py','q3_policy.py','q4_policy.py','q4_optical.py',args.config]},config_file=args.config)
     (run_dir/'run_config.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2),encoding='utf-8')
     print(f'第{args.question}问，策略 {args.strategy}，日志：{run_dir}',flush=True)
+    if args.config!='config.json':print(f'警告：使用实验配置 {args.config}，不保证发现全部干扰源，请勿用于正式测试。',flush=True)
     print('接口无法识别演练/正式模式；当前应为模拟器中已启动的对应演练。',flush=True)
     policy=None;result={};status='failed';error=None;code=1
     try:

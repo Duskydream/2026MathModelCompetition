@@ -14,7 +14,7 @@ def main():
     names = [
         'practice_robot.py', 'practice_launcher.py', 'practice_q3.py', 'practice_q4.py',
         'model.py', 'optimized.py', 'q3_policy.py', 'q4_policy.py', 'q4_optical.py',
-        'config.json',
+        'config.json', 'practice_q3_six.py', 'config_q3_six.json',
     ]
     for name in names:
         shutil.copyfile(source / name, destination / name)
@@ -36,6 +36,21 @@ pause
         name = f'启动第{question}问演练.cmd'
         (destination / name).write_bytes(command.replace('\n', '\r\n').encode('utf-8'))
         names.append(name)
+    experimental = '''@echo off
+chcp 65001 >nul
+cd /d "%~dp0"
+echo 实验入口：第3问 6 站方案，不保证发现全部干扰源，仅用于演练对比。
+where py >nul 2>nul
+if errorlevel 1 (
+    python practice_q3_six.py
+) else (
+    py -3 practice_q3_six.py
+)
+pause
+'''
+    name = '实验_第3问6站演练.cmd'
+    (destination / name).write_bytes(experimental.replace('\n', '\r\n').encode('utf-8'))
+    names.append(name)
     (destination / 'docs').mkdir(exist_ok=True)
     shutil.copyfile(root / 'docs/演练使用说明.md', destination / 'docs/使用说明.md')
     names.append('docs/使用说明.md')
