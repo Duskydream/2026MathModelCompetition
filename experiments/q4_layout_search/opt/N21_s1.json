@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "F:\Download\MathModelGPT\experiments\round6\layout_opt.py", line 87, in <module>
+    val,S=optimize(N,budget,seed)
+  File "F:\Download\MathModelGPT\experiments\round6\layout_opt.py", line 70, in optimize
+    scored=sorted(((objective(S,G,m)[0],i) for i,S in enumerate(cands)),reverse=True)[:6]
+  File "F:\Download\MathModelGPT\experiments\round6\layout_opt.py", line 70, in <genexpr>
+    scored=sorted(((objective(S,G,m)[0],i) for i,S in enumerate(cands)),reverse=True)[:6]
+  File "F:\Download\MathModelGPT\experiments\round6\layout_opt.py", line 37, in objective
+    s=slack(S,G,m);k=int(np.argmin(s));return float(s[k]),G[k]
+  File "F:\Download\MathModelGPT\experiments\round6\layout_opt.py", line 23, in slack
+    S=np.asarray(S);D=np.linalg.norm(G[:,None,:]-S[None,:,:],axis=2);mask=D<=R-m
+  File "F:\Python\lib\site-packages\numpy\linalg\_linalg.py", line 2780, in norm
+    s = (x.conj() * x).real
+numpy._core._exceptions._ArrayMemoryError: Unable to allocate 2.13 MiB for an array with shape (6644, 21, 2) and data type float64

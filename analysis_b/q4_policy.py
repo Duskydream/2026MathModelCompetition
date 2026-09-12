@@ -26,6 +26,45 @@ def ring_stations(cfg):
     return list(np.vstack(([[0.,0.]],inner_points,outer_points)))
 
 
+def hull_coverage_slack(stations,cfg,spacing=20.,margin=0.):
+    """Minimum over a disk grid of the exact directional-coverage slack.
+
+    A source at g with any orientation is detected from some station iff g lies
+    in the convex hull of the stations within reception range of g. The slack is
+    the distance from g to that hull boundary (negative outside), capped by the
+    range margin; a rigorous continuum certificate additionally needs the slack
+    to exceed spacing/sqrt(2) with margin=spacing/sqrt(2) (see
+    experiments/q4_layout_search). This coarse check only guards against typos.
+    """
+    from scipy.spatial import ConvexHull
+    S=np.asarray(stations,float);R=cfg['receiver_radius_min_m'];region=cfg['region_radius_m']
+    xs=np.arange(-region,region+spacing,spacing);X,Y=np.meshgrid(xs,xs)
+    G=np.column_stack((X.ravel(),Y.ravel()));G=G[np.hypot(G[:,0],G[:,1])<=region]
+    angles=np.linspace(0,2*np.pi,int(2*np.pi*region/spacing)+1,endpoint=False)
+    G=np.vstack((G,region*np.column_stack((np.cos(angles),np.sin(angles)))))
+    D=np.linalg.norm(G[:,None,:]-S[None,:,:],axis=2);mask=D<=R-margin
+    worst=math.inf;groups={}
+    for i,row in enumerate(map(bytes,np.packbits(mask,axis=1))):groups.setdefault(row,[]).append(i)
+    for idx in groups.values():
+        T=S[mask[idx[0]]]
+        if len(T)<3:return -math.inf
+        eq=ConvexHull(T).equations;g=G[idx]
+        worst=min(worst,float((-(g@eq[:,:2].T+eq[:,2]).max(axis=1)).min()))
+    return worst
+
+
+def survey_stations(cfg):
+    """Survey layout: the analytic 25-station rings or an explicit certified list."""
+    explicit=cfg.get('q4_station_list')
+    if explicit is None:return ring_stations(cfg)
+    S=np.asarray(explicit,float)
+    if S.ndim!=2 or S.shape[1]!=2 or not np.all(np.isfinite(S)) or len(S)<3:
+        raise ValueError('q4_station_list must be a finite list of planar points')
+    if hull_coverage_slack(S,cfg)<0:
+        raise ValueError('q4_station_list fails the directional coverage check')
+    return list(S)
+
+
 def polygon_distance(poly,point):
     """Euclidean distance to a nonempty convex polygon, including degeneracies."""
     poly=np.asarray(poly,float).reshape(-1,2);point=np.asarray(point,float)
@@ -182,7 +221,7 @@ class Q4Planner:
         raise RuntimeError('Certified optical strip cover exhausted')
 
     def run(self):
-        p=self.p;points=ring_stations(p.cfg);visited=0
+        p=self.p;points=survey_stations(p.cfg);visited=0
         while points or any(ch not in p.cleared for ch in p.tracks):
             pending=[ch for ch in p.tracks if ch not in p.cleared]
             costs={ch:self.target_cost(ch,points) for ch in pending}

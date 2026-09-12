@@ -35,8 +35,14 @@ class Q3Planner:
         self.region_normals=np.column_stack([np.cos(angles),np.sin(angles)])
         self.forward=policy.cfg.get('q3_second_forward_m',200.)
         self.lateral=policy.cfg.get('q3_second_lateral_m',100.)
-        if not all(math.isfinite(x) and x>0 for x in (self.forward,self.lateral)):
+        # Round 6: measure at the region center (then a lateral offset) before
+        # falling back to the optical grid, for regions up to this radius.
+        self.refine_max=policy.cfg.get('q3_refine_max_m',300.)
+        self.refine_offset=policy.cfg.get('q3_refine_offset_m',60.)
+        if not all(math.isfinite(x) and x>0 for x in (self.forward,self.lateral,self.refine_offset)):
             raise ValueError('Q3 second-point offsets must be positive and finite')
+        if not (math.isfinite(self.refine_max) and self.refine_max>=0):
+            raise ValueError('Q3 refinement radius must be non-negative and finite')
     def observe(self,position,ch,response):
         if response['measure_result']=='no_signal':
             self.silent[ch].append(np.asarray(position,float).copy())
@@ -61,6 +67,20 @@ class Q3Planner:
         candidates=[t['origin']+self.forward*u+sign*self.lateral*v for sign in (-1,1)]
         point=min(candidates,key=lambda q:np.linalg.norm(q-p.pos)+np.linalg.norm(q-center))
         return point,True
+    def refine(self,ch):
+        """Shrink a 20-300 m region with one or two close bearings; certified clears stay exact."""
+        p=self.p;t=p.tracks[ch]
+        if t['near'] is not None or self.refine_max<=0:return
+        center,radius=enclosing_circle(t['poly'])
+        if not (p.cfg['clear_m']<radius<=self.refine_max):return
+        response=p.measure(center,ch);p.update(ch,center,response)
+        if response['measure_result']!='direction' or t['near'] is not None:return
+        center2,radius2=enclosing_circle(t['poly'])
+        if radius2<=p.cfg['clear_m']-1e-6:return
+        u=direction(response['svd_deg']);v=np.array([-u[1],u[0]])
+        point=min((center+self.refine_offset*v,center-self.refine_offset*v),
+                  key=lambda q:np.linalg.norm(q-center2))
+        response=p.measure(point,ch);p.update(ch,point,response)
     def cost(self,ch):
         point,needs_measure=self.destination(ch)
         center,_=enclosing_circle(self.p.tracks[ch]['poly'])
@@ -83,7 +103,8 @@ class Q3Planner:
                 if needs_measure:
                     response=p.measure(point,ch);p.update(ch,point,response)
                     p.shared_scan(exclude=ch)
-                # Original certified clear and complete optical fallback.
+                # Refine, then the original certified clear and complete optical fallback.
+                self.refine(ch)
                 p.finish(ch);p.shared_scan()
             if len(p.cleared)==16:break
         return dict(cleared_count=len(p.cleared),visited_survey_points=visited,

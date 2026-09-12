@@ -9,7 +9,7 @@ import numpy as np
 
 from model import enclosing_circle
 from optimized import OptimizedPolicy
-from q4_policy import polygon_distance
+from q4_policy import polygon_distance, survey_stations
 from simulator import LocalSimulator, generate
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -44,9 +44,10 @@ class Round6Tests(unittest.TestCase):
     def test_unseen_channels_are_never_skipped(self):
         policy,sim=self.policy()
         status=policy.run()
-        self.assertEqual(status['visited_survey_points'],25)
+        count=len(survey_stations(CFG))
+        self.assertEqual(status['visited_survey_points'],count)
         self.assertEqual(status['termination'],'full_coverage')
-        self.assertEqual(len(sim.log),25*20)
+        self.assertEqual(len(sim.log),count*20)
         for offset in range(0,len(sim.log),20):
             self.assertEqual({a['channel'] for a in sim.log[offset:offset+20]},set(range(1,21)))
 
@@ -104,7 +105,8 @@ class Round6Tests(unittest.TestCase):
         path=ROOT/'experiments/round6/baseline/q4_policy.py'
         spec=importlib.util.spec_from_file_location('round6_test_baseline',path)
         baseline=importlib.util.module_from_spec(spec);spec.loader.exec_module(baseline)
-        cfg=dict(CFG,q4_selective_remeasure=False,q4_wait_for_survey=False,
+        # The frozen baseline only knows the analytic 25-station rings.
+        cfg=dict(CFG,q4_station_list=None,q4_selective_remeasure=False,q4_wait_for_survey=False,
                  q4_refine_max_m=0,q4_shared_scan=True,q4_strip_cover=False,
                  q4_immediate_near=False,q4_scan_cost_gate=False)
         for seed in [2026100100,2026100101]:
