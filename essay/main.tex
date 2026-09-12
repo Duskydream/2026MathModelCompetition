@@ -12,6 +12,22 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{amsmath}
+\usepackage{multirow}
+
+% ---- 版面微调：在 2.5cm 页边距不变的前提下压缩行距与浮动体间距，
+%      使正文控制在格式规范要求的 30 页以内 ----
+\linespread{1.22}\selectfont
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\setlength{\abovedisplayskip}{5pt plus 1pt minus 1pt}
+\setlength{\belowdisplayskip}{5pt plus 1pt minus 1pt}
+\setlength{\abovedisplayshortskip}{3pt}
+\setlength{\belowdisplayshortskip}{3pt}
+\captionsetup{skip=3pt}
+\titlespacing{\section}{0pt}{0.8em}{0.5em}
+\titlespacing{\subsection}{0pt}{0.6em}{0.3em}
+\titlespacing{\subsubsection}{0pt}{0.5em}{0.25em}
+\setlist{leftmargin=1.8em,labelsep=0.5em,itemsep=0.1em,topsep=0.25em,parsep=0pt}
 
 % ---- 算法环境本地化 ----
 \floatname{algorithm}{算法}
@@ -76,18 +92,17 @@
 \maketitle
 
 \begin{abstract}
-本文把“机器狗自动定位并清除无线电干扰源”建模为\textbf{部分可观测环境下、带覆盖保证的在线搜索--定位--清除问题}，按“\emph{覆盖保证} $\to$ \emph{布局下界} $\to$ \emph{在线调度} $\to$ \emph{有界误差定位与认证清除}”四层求解。全文坚持一条准则：\textbf{清除率必须为 100\%，只有在此前提下才比较时间}。
+本文把“机器狗自动定位并清除无线电干扰源”建模为\textbf{部分可观测环境下、带覆盖保证的在线搜索--定位--清除问题}，按“\emph{覆盖保证} $\to$ \emph{布局下界} $\to$ \emph{在线调度} $\to$ \emph{有界误差定位与认证清除}”四层求解，并坚持一条准则：\textbf{清除率必须为 100\%，只有在此前提下才比较时间}。
 
-针对\textbf{问题一}，把每个示向度读数转化为两条线性半平面约束，定位区域是有限个\emph{前向楔形}的交 $P=\bigcap_i W_i$。据此设计“线性规划判空与判无界 $\to$ 边界线两两求交并过滤 $\to$ 极角排序 $\to$ 顶点对枚举”的求直径算法，复杂度 $O(m^3+k^2)$，并完整处理空集、无界、线段与单点四类退化。对后半问给出\textbf{否定回答}与紧的定量结论：由 Jung 定理 $D/2\le\mecr\le D/\sqrt3$，故同直径圆一般\emph{不能}覆盖定位区域；本文由三个真实检测点构造出交集恰为边长 $40\mmet$ 正三角形的算例，$D=40.0000\mmet$ 而 $\mecr=23.0940\mmet>20\mmet$。由此确立全文的清除判据：\textbf{$\mecr\le20\mmet$ 才可一次认证清除}，$D\le20\sqrt3=34.641\mmet$ 是其只依赖直径的充分条件。
+\textbf{问题一}把每个示向度读数转化为两条线性半平面约束，定位区域即有限个\emph{前向楔形}之交，据此设计“线性规划判空与判无界 $\to$ 边界线两两求交并过滤 $\to$ 极角排序 $\to$ 顶点对枚举”的求直径算法，复杂度 $O(m^3+k^2)$，并完整处理空集、无界、线段与单点四类退化。对后半问给出\textbf{否定回答}与紧的定量结论：由 Jung 定理 $D/2\le\mecr\le D/\sqrt3$，同直径圆一般\emph{不能}覆盖定位区域；本文用三个真实检测点构造出交集恰为边长 $40\mmet$ 正三角形的算例，$D=40.0000\mmet$ 而 $\mecr=23.0940\mmet>20\mmet$。由此确立全文的清除判据：\textbf{$\mecr\le20\mmet$ 才可一次认证清除}，$D\le20\sqrt3=34.641\mmet$ 是仅依赖直径的充分条件。
 
-针对\textbf{问题二}，导出一个\textbf{不依赖未知源距与未知接收半径}的保证接收区域 $\mathcal{C}_{\rm safe}$——它是三个半径 $1000\mmet$ 圆盘之交（见\cref{eq:csafe}），并证明其充分性。本文进一步证明 $\sin\psi=\dist(q,L)/\|q-g\|$，即\emph{横向偏移单独决定交会角的下界，前进距离对此无贡献}。在 $\mathcal{C}_{\rm safe}$ 上做全域搜索表明，对 $r_1=1500\mmet$ 的源，两次测向最好也只能把 $\mecr$ 降到约 $32.5\mmet$，故\textbf{光学覆盖兜底不可省略}，这决定了后两问的算法结构。
+\textbf{问题二}导出一个\textbf{不依赖未知源距与未知接收半径}的保证接收区域 $\mathcal{C}_{\rm safe}$（三个半径 $1000\mmet$ 圆盘之交，见\cref{eq:csafe}）并证明其充分性，又证明 $\sin\psi=\dist(q,L)/\|q-g\|$，即\emph{横向偏移单独决定交会角的下界，前进距离对此无贡献}。更关键的是给出\textbf{严格的分辨极限}：存在相距 $41\mmet$ 的两个源，无论第二检测点取在何处都存在容许误差使两者产生完全相同的观测；因 $41>2r_c=40\mmet$，\textbf{仅凭两次测向无法保证一次清除，光学覆盖兜底不可省略}。这决定了后两问的算法结构。
 
-针对\textbf{问题三}，证明七站布局（圆心加半径 $r$ 的正六边形）的最坏覆盖距离为
-$d_{\max}=\max\{r/\sqrt3,\ \sqrt{R^2+r^2-\sqrt3Rr}\}$，可行区间 $r\in[1122.96,1732.05]\mmet$；取 $r=1150\mmet$ 得 $d_{\max}=988.5114\mmet<1000\mmet$。再由 Bezdek 界 $1.7988<1.8$ 证明\textbf{七站是保证发现的最小站数}。在线层由“搜索与目标混合贪心调度、有界误差可行域递推、目标圆外切约束与 \texttt{no\_signal} 圆盘排除、最小包围圆认证清除与 $25\mmet$ 网格兜底、圆心补测精化”构成。官方模拟器演练 $14$ 局、$185$ 个源全部清除，合并 $248.3\msec/$源，距路线下界 $6\%\sim9\%$。
+\textbf{问题三}证明七站布局（圆心加半径 $r$ 的正六边形）的最坏覆盖距离为 $d_{\max}=\max\{r/\sqrt3,\sqrt{R^2+r^2-\sqrt3Rr}\}$，可行区间 $r\in[1122.96,1732.05]\mmet$；取 $r=1150\mmet$ 得 $988.5114\mmet<1000\mmet$。再由 Bezdek 界 $1.7988<1.8$ 证明\textbf{七站是保证发现的最小站数}。在线层由混合贪心调度、有界误差可行域递推、目标圆外切约束与 \texttt{no\_signal} 圆盘排除、最小包围圆认证清除与 $25\mmet$ 网格兜底、圆心补测精化构成。官方模拟器演练 $50$ 局、$667$ 个源\textbf{全部清除}，平均 $252.0\msec/$源。
 
-针对\textbf{问题四}，给出方向覆盖的\textbf{充要条件}：位于 $g$ 的源对任意未知朝向都能被发现，当且仅当 $g\in\conv\mathcal N_\rho(g)$，其中 $\mathcal N_\rho(g)$ 为与 $g$ 距离不超过 $\rho$ 的测站集。该条件比常用的“剖分边长小于 $\rho$”宽松，据此把测站由 $49\to27\to25$ 进一步压到 \textbf{22 站}，并用 $h=1\mmet$ 网格证书（$1018.68$ 万个网格点，最小余量 $1.7331\mmet>\delta=0.7071\mmet$）完成连续域严格验证，同时以三条引理证明 $21$ 站及以下不可行。在线层增加选择性重测、内环目标有界等待、\textbf{认证条带覆盖}（矩形四角到中心不超过 $19.9\mmet$）与扫描成本门控。$220$ 例新种子留出验证全部清除（随机集 $494.5\to478.4\msec/$源）；官方演练 $10$ 局、$123$ 个源全部清除，合并 $514.6\msec/$源，按源数分层后与本地预测的最大偏差仅 $23\msec/$源。
+\textbf{问题四}给出方向覆盖的\textbf{充要条件}：源 $g$ 对任意未知朝向都能被发现，当且仅当 $g\in\conv\mathcal N_\rho(g)$（$\mathcal N_\rho(g)$ 为距 $g$ 不超过 $\rho$ 的测站集）。该条件比常用的“剖分边长小于 $\rho$”宽松，据此把测站由 $49\to27\to25$ 压到 \textbf{22 站}，并用 $h=1\mmet$ 网格证书（$1018.68$ 万点，最小余量 $1.7331\mmet>\delta=0.7071\mmet$）完成连续域严格验证；在所考察的环形布局族内，$21$ 站及以下均无法通过同一证书。在线层增加选择性重测、内环目标有界等待、\textbf{认证条带覆盖}与扫描成本门控。$220$ 例新种子留出验证全部清除（随机集 $494.5\to478.4\msec/$源）；官方演练 $70$ 局、$887$ 个源\textbf{全部清除}，平均 $511.2\msec/$源。
 
-本文进一步给出一个结构性结论：\textbf{整局总时间主要由与源数无关的固定成本决定}（演练拟合 $T_{Q3}\approx1886+106n$，$T_{Q4}\approx5765+46n$），故“平均定位清除时间”随源数下降主要是\emph{分母效应}，正式测试成绩将主要由抽到的源数决定；所建立的下界模型表明现有方案距理论极限约 $8\%\sim10\%$。
+$120$ 局演练还揭示了一个易被忽略的事实：\textbf{整局总时间几乎完全由与源数无关的固定成本决定}（$T_{Q3}\approx2396+68n$，$T_{Q4}\approx6848-40n$，后者相关系数仅 $-0.18$），故平均定位清除时间随源数下降主要是\emph{分母效应}，三次正式测试成绩的差异将主要由抽到的源数决定。按同一思路构造的成本基准显示现有方案仅高出基准 $1\%\sim11\%$；该基准含经验成分，只用于自我衡量，不是可证下界。
 
 \keywords{交会定位；有界误差可行域；覆盖保证；凸包方向覆盖；在线调度；最小包围圆}
 \end{abstract}
