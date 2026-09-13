@@ -1,54 +1,81 @@
-\section{模型假设与符号说明}
+\section{题设约束、模型假设与符号说明}
+
+\subsection{题设硬约束与计时规则}
+
+题目与附件给出的规则构成模型的全部硬约束，汇总于\cref{tab:rules}。其中三条对建模影响最大。
+
+\textbf{其一，测向误差有界且确定。} 误差只保证落在 $[-1^\circ,1^\circ]$ 内，且同一地点重复检测读数不变，故不能假设零均值或高斯分布，也不宜使用最小二乘、卡尔曼滤波等依赖概率模型的估计器；本文采用\textbf{集员定位}，只维护“真源可能在哪里”的集合。
+
+\textbf{其二，清除判据是距离而不是方向。} 光学定位与激光清除只要求清除点到源不超过 $20\mmet$，与辐射方向无关；因此即使某定向源不再发信号，只要还持有一次方位约束，仍可用光学覆盖清除。
+
+\textbf{其三，动作耗时结构固定。} 移动 $5\mmet/\msec$、切频 $1\msec$、检测 $5\msec$、清除失败 $3\msec$、成功 $5\msec$。这组常数决定了全部成本权衡：一次额外检测约相当于 $25\sim30\mmet$ 的移动。
+
+\begin{table}[!htbp]
+  \caption{题目给定的物理规则与计时常数}\label{tab:rules}\centering\small
+  \begin{tabular}{llc@{\hspace{2em}}llc}
+    \toprule[1.5pt]
+    项目 & 规则 & 取值 & 项目 & 规则 & 取值 \\
+    \midrule[1pt]
+    目标区域 & 圆盘，东为 $x$ 正向 & $R=1800\mmet$ & 移动 & 直线，可出区域 & $5\mmet/\msec$ \\
+    源个数 & 不通过接口返回 & $10\sim16$ & 检测 & 须停止移动 & $5\msec$ \\
+    频道 & 一源一频道，不变 & $1\sim20$ & 切换频道 & 任意两频道之间 & $1\msec$ \\
+    示向度误差 & 同点重复检测固定 & $\pm1^\circ$ & 清除成功／失败 & 与辐射方向无关 & $5\msec$／$3\msec$ \\
+    有效接收半径 & 每源一值，未知 & $1000\sim1500\mmet$ & 近场 & 返回 \texttt{near} & $5\mmet$ \\
+    定向覆盖 & 闭半平面，含边界 & $180^\circ$ & 清除半径 & 确定性阈值 & $20\mmet$ \\
+    虚拟时间上限 & 防止死循环 & $360000\msec$ & 程序运行时间 & 两个限制取早者 & $\le1200\msec$ \\
+    \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
 
 \subsection{模型假设}
 
-本文的全部几何保证都建立在下列假设之上。这些假设刻意写得窄而明确，以便在\cref{sec:eval}中逐条检查它们失效时会发生什么。
+本文的全部几何保证都建立在下列假设之上，其失效后果在\cref{sec:eval}中逐条检查。
 
 \begin{assumption}[静态环境]\label{asu:static}
 一次任务过程中，干扰源的位置、频道、有效接收半径与定向方向均不随时间变化；机器狗可沿任意直线自由行走，不考虑障碍、地形与高度差。
 \end{assumption}
 
 \begin{assumption}[确定性阈值]\label{asu:threshold}
-接收（距离不超过 $\rho_i$ 且在覆盖角内）、近场（不超过 $5\mmet$）与清除（不超过 $20\mmet$）三个判据均为确定性阈值，不存在概率性漏检或误清除；不同干扰源的信号互不影响。
+接收、近场与清除均为确定性阈值，不存在概率性漏检或误清除；不同源的信号互不影响。
 \end{assumption}
 
 \begin{assumption}[有界测向误差]\label{asu:bounded}
-在点 $s$ 对源 $g$ 获得读数 $\theta$ 时，真实方位角 $\theta^{\rm true}$ 满足 $|\theta-\theta^{\rm true}|\le\varepsilon$，题目给出 $\varepsilon=1^\circ$。算法内部统一使用保守界 $\bar\varepsilon=1.005^\circ$，以吸收“误差先产生、再按两位小数取整”可能带来的额外偏差。除有界性外，\textbf{不假设}误差的任何分布、独立性或零均值性质。
+读数误差有界：$|\theta-\theta^{\rm true}|\le\varepsilon=1^\circ$；算法统一取保守界 $\bar\varepsilon=1.005^\circ$ 以吸收取整偏差，且不假设误差的分布、独立性或零均值。
 \end{assumption}
 
 \begin{assumption}[信息边界]\label{asu:info}
-策略只能使用 \texttt{/measure} 与 \texttt{/clear} 的返回值（\texttt{no\_signal}、\texttt{near}、\texttt{direction} 与示向度、清除成败），不得读取源的个数、位置、频道集合、接收半径或定向方向。本地实验中生成的真值仅用于事后核验，不参与任何决策。
+策略只能使用接口返回值，不得读取源的个数、位置、频道集合、接收半径或定向方向；本地实验真值仅用于事后核验。
 \end{assumption}
 
 \begin{assumption}[计时模型]\label{asu:time}
-虚拟时间严格按附件规则累加：一条 \texttt{/measure} 的耗时为“移动距离除以 $5$，加上是否切频对应的 $0$ 或 $1$ 秒，再加 $5$ 秒”；一条 \texttt{/clear} 的耗时为“移动距离除以 $5$，再加 $3$ 秒（失败）或 $5$ 秒（成功）”。\texttt{/clear} 的频道参数不改变测向机当前频道，\texttt{/enter} 与 \texttt{/exit} 本身不耗时。
+虚拟时间按附件规则累加：\texttt{/measure} 为“移动距离$/5$ $+$ 切频 $0/1$ $+5$”秒，\texttt{/clear} 为“移动距离$/5$ $+3$（失败）或 $+5$（成功）”秒；\texttt{/clear} 不改变当前频道，\texttt{/enter}、\texttt{/exit} 不耗时。
 \end{assumption}
 
 \begin{assumption}[本地实验生成器，仅用于离线比较]\label{asu:gen}
-本地配对实验中，源数在 $10\sim16$ 均匀抽取，位置在圆盘内按面积均匀生成，频道无放回抽样，接收半径在 $[1000,1500]$ 均匀生成；第四问每个源以 $0.5$ 的概率为定向源且方向均匀。测向误差由“种子、频道与坐标”的哈希确定，使同一地点重复检测得到同一误差。\textbf{这些分布是本文的假设，不是题目事实}；官方案例的分布未公开，因此本地数值只用于\emph{版本之间的配对比较}，不作为对官方成绩的预测。
+本地配对实验中源数在 $10\sim16$ 均匀抽取、位置按面积均匀、接收半径在 $[1000,1500]$ 均匀、第四问每源以 $0.5$ 概率为定向源；误差由“种子、频道与坐标”哈希确定。\textbf{这些分布是本文假设而非题目事实}，本地数值只用于\emph{版本之间的配对比较}，不作为对官方成绩的预测。
 \end{assumption}
 
 \subsection{符号说明}
 
-\begin{center}\small
-\begin{tabular}{cl@{\hspace{2em}}cl}
-  \toprule[1.5pt]
-  符号 & 意义 & 符号 & 意义 \\
-  \midrule[1pt]
-  $\Dreg$ & 目标区域圆盘，$R=1800\mmet$ & $v$ & 速度 $5\mmet/\msec$ \\
-  $g_i,\ c_i$ & 第 $i$ 个源的位置与频道 & $t_m,\ t_s$ & 检测 $5\msec$，切频 $1\msec$ \\
-  $\rho_i,\ d_i$ & 其接收半径与定向方向 & $t_f,\ t_c$ & 清除失败 $3\msec$、成功 $5\msec$ \\
-  $\rho_{\min},\rho_{\max}$ & $1000\mmet$ 与 $1500\mmet$ & $r_c,\ r_n$ & 清除 $20\mmet$，近场 $5\mmet$ \\
-  $\varepsilon,\ \bar\varepsilon$ & 误差真界 $1^\circ$ 与保守界 $1.005^\circ$ & $L$ & 累计移动距离 \\
-  $\uvec{\alpha}$ & 单位向量 $(\cos\alpha,\sin\alpha)^{\!\top}$ & $N_m,\ N_s$ & 检测次数、切频次数 \\
-  $[\bm a,\bm b]$ & 二维叉积 $a_xb_y-a_yb_x$ & $N_f,\ N_c$ & 清除失败次数、成功数 \\
-  $s_k,\ \theta_k$ & 第 $k$ 个检测点与其读数 & $T,\ \bar T$ & 整局总时间；$\bar T=T/N_c$ \\
-  $W_k$ & 由 $(s_k,\theta_k)$ 生成的前向楔形 & $\mathcal S$ & 搜索站集合 \\
-  $P$ & 定位区域（可行域） & $\mathcal N_\rho(g)$ & 距 $g$ 不超过 $\rho$ 的测站集 \\
-  $D=\diam(P)$ & 定位区域的直径 & $n$ & 该局真实源数 \\
-  $\mecr(P),\ c_*(P)$ & $P$ 的最小包围圆半径与圆心 & & \\
-  \bottomrule[1.5pt]
-\end{tabular}
-\end{center}
+\begin{table}[!htbp]
+  \caption{通用符号（左）与各问专用符号（右）}\label{tab:sym}\centering\small
+  \begin{tabular}{cl@{\hspace{2em}}cl}
+    \toprule[1.5pt]
+    符号 & 意义 & 符号 & 意义 \\
+    \midrule[1pt]
+    $\Dreg$ & 目标圆盘，$R=1800\mmet$ & $v$ & 速度 $5\mmet/\msec$ \\
+    $g_i,\ c_i$ & 源 $i$ 的位置、频道 & $t_m,\ t_s$ & 检测 $5\msec$、切频 $1\msec$ \\
+    $\rho_i,\ d_i$ & 其接收半径、定向方向 & $t_f,\ t_c$ & 清除失败 $3\msec$、成功 $5\msec$ \\
+    $\rho_{\min},\rho_{\max}$ & $1000\mmet$、$1500\mmet$ & $r_c,\ r_n$ & 清除 $20\mmet$、近场 $5\mmet$ \\
+    $\varepsilon,\ \bar\varepsilon$ & 误差界 $1^\circ$、$1.005^\circ$ & $L,\ N_m,\ N_s$ & 移动距离、检测、切频次数 \\
+    $\uvec{\alpha}$ & $(\cos\alpha,\sin\alpha)^{\!\top}$ & $N_f,\ N_c$ & 清除失败、成功次数 \\
+    $[\bm a,\bm b]$ & 叉积 $a_xb_y-a_yb_x$ & $T,\ \bar T$ & 总时间；$\bar T=T/N_c$ \\
+    $s_k,\ \theta_k$ & 第 $k$ 个检测点及其读数 & $\mathcal S$ & 搜索站集合 \\
+    $W_k$ & 前向楔形 & $\mathcal N_\rho(g)$ & 距 $g\le\rho$ 的测站集 \\
+    $P$ & 定位区域（可行域） & $n$ & 该局真实源数 \\
+    $D,\ \mecr,\ c_*$ & 直径、最小包围圆半径与圆心 & & \\
+    \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
 
 \noindent 全文内部计算一律使用弧度，接口输入输出保持度与米。方位角采用题目约定：东为 $0^\circ$、逆时针为正、取值范围 $[0^\circ,360^\circ)$，不使用“以北为零、顺时针”的航海约定。

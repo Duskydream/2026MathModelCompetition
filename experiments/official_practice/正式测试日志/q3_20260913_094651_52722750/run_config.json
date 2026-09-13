@@ -1,0 +1,154 @@
+{
+  "question": 3,
+  "strategy": "shared",
+  "declared_mode": "practice",
+  "mode_verified_by_protocol": false,
+  "case_code": "",
+  "config": {
+    "seed": 20260910,
+    "cases_per_question": 40,
+    "region_radius_m": 1800,
+    "receiver_radius_min_m": 1000,
+    "receiver_radius_max_m": 1500,
+    "bearing_bound_deg": 1.005,
+    "optical_grid_m": 25,
+    "second_forward_m": 650,
+    "second_lateral_m": 250,
+    "q3_grid_m": 1000,
+    "q3_survey_layout": "hexagon",
+    "q4_grid_m": 600,
+    "speed_m_s": 5,
+    "measure_s": 5,
+    "switch_s": 1,
+    "clear_success_s": 5,
+    "clear_failure_s": 3,
+    "near_m": 5,
+    "clear_m": 20,
+    "virtual_limit_s": 360000,
+    "q4_survey_layout": "triangular",
+    "q4_triangle_spacing_m": 950,
+    "q3_policy": "mixed",
+    "q3_ring_radius_m": 1150,
+    "q3_second_forward_m": 200,
+    "q3_second_lateral_m": 100,
+    "q4_policy": "mixed_ring",
+    "q4_second_forward_m": 200,
+    "q4_second_lateral_m": 100,
+    "q4_selective_remeasure": true,
+    "q4_wait_for_survey": true,
+    "q4_wait_mode": "inner",
+    "q4_wait_stale_m": 1400,
+    "q4_station_help_m": 950,
+    "q4_help_distance": "polygon",
+    "q4_remeasure_min_sine": 0.3,
+    "q4_remeasure_min_gap_m": 300,
+    "q4_refine_max_m": 150,
+    "q4_shared_scan": true,
+    "q4_strip_cover": true,
+    "q4_immediate_near": true,
+    "q4_scan_cost_gate": true,
+    "q3_refine_max_m": 300,
+    "q3_refine_offset_m": 60,
+    "q4_station_list": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        990.0,
+        0.0
+      ],
+      [
+        758.4,
+        636.4
+      ],
+      [
+        171.9,
+        975.0
+      ],
+      [
+        -495.0,
+        857.4
+      ],
+      [
+        -930.3,
+        338.6
+      ],
+      [
+        -930.3,
+        -338.6
+      ],
+      [
+        -495.0,
+        -857.4
+      ],
+      [
+        171.9,
+        -975.0
+      ],
+      [
+        758.4,
+        -636.4
+      ],
+      [
+        1866.0,
+        0.0
+      ],
+      [
+        1616.0,
+        933.0
+      ],
+      [
+        933.0,
+        1616.0
+      ],
+      [
+        0.0,
+        1866.0
+      ],
+      [
+        -933.0,
+        1616.0
+      ],
+      [
+        -1616.0,
+        933.0
+      ],
+      [
+        -1866.0,
+        0.0
+      ],
+      [
+        -1616.0,
+        -933.0
+      ],
+      [
+        -933.0,
+        -1616.0
+      ],
+      [
+        -0.0,
+        -1866.0
+      ],
+      [
+        933.0,
+        -1616.0
+      ],
+      [
+        1616.0,
+        -933.0
+      ]
+    ]
+  },
+  "python": "3.12.9 (tags/v3.12.9:fdb8142, Feb  4 2025, 15:27:58) [MSC v.1942 64 bit (AMD64)]",
+  "code_sha256": {
+    "practice_robot.py": "c285bf0d3b44a5cae07865715d46780619a5e662867d535f1d1403553e924a65",
+    "model.py": "daeec4f1544c3f037713cb040573255bf480a9532a5eca02583d91b72e6dc998",
+    "optimized.py": "565c8edefa429e586adf60d9a1dbf0662f90ffa89d23abfd62b153ce733ba7fb",
+    "q3_policy.py": "d12fa3a590786ffec398983be56397257fcfd7b56993eb45f6bcdf1f17de9c49",
+    "q4_policy.py": "3de0e9a0e98fb34add444a7ce89c76022e99f2285f794cfb96d465d5a1437e68",
+    "q4_optical.py": "8b3fbd901df91df1a42443bef1bb4f56694bba1ccb5221e4f19591de2a4e13b4",
+    "config.json": "94ed8d3dcfe64496859e321afc6c8589a84466a18a948d3a15cbca2dace9592c"
+  },
+  "config_file": "config.json"
+}

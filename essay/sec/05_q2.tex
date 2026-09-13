@@ -39,47 +39,25 @@
 \end{theorem}
 
 \begin{proof}
-需要证明 $\|q-g\|\le\rho$。因 $\rho\ge\max(\rho_{\min},r)$，只需证 $\|q-g\|\le\max(\rho_{\min},r)$。
-
-\emph{情形一：$r\le\rho_{\min}$.} 此时只需 $\|q-g\|\le\rho_{\min}$。函数 $h(r)=\|q-r\uvec{\delta}\|^2=r^2-2r\,q^{\!\top}\uvec{\delta}+\|q\|^2$ 关于 $r$ 是凸二次函数，故在区间 $[0,\rho_{\min}]$ 上的最大值必在端点取到。$r=0$ 时 $h=\|q\|^2\le\rho_{\min}^2$，即\cref{eq:csafe}第一式；$r=\rho_{\min}$ 时要求 $\|q-\rho_{\min}\uvec{\delta}\|\le\rho_{\min}$，展开即 $\|q\|^2\le2\rho_{\min}q^{\!\top}\uvec{\delta}$。由于 $|\delta|\le\varepsilon$，
-$q^{\!\top}\uvec{\delta}=a\cos\delta+b\sin\delta\ge a\cos\varepsilon-|b|\sin\varepsilon$，于是\cref{eq:csafe}第二式是对所有允许的 $\delta$ 成立的充分条件。
-
-\emph{情形二：$r>\rho_{\min}$.} 此时 $\rho\ge r$，只需 $\|q-g\|\le r$，即 $\|q\|^2\le 2r\,q^{\!\top}\uvec{\delta}$。由第二式可知 $q^{\!\top}\uvec{\delta}>0$，故右端关于 $r$ 单调增，最紧的情形是 $r=\rho_{\min}$，回到第二式。
-
-最后，$\|q\|^2\le2\rho_{\min}q^{\!\top}\uvec{\pm\varepsilon}$ 等价于 $\|q-\rho_{\min}\uvec{\pm\varepsilon}\|\le\rho_{\min}$，而第二式恰为 $\delta=+\varepsilon$ 与 $\delta=-\varepsilon$ 两种情形同时成立，故得\cref{eq:lens}。
+因 $\rho\ge\max(\rho_{\min},r)$，只需证 $\|q-g\|\le\max(\rho_{\min},r)$。当 $r\le\rho_{\min}$ 时，$\|q-r\uvec\delta\|^2$ 关于 $r$ 是凸二次函数，在 $[0,\rho_{\min}]$ 上的最大值在端点取得，两端分别给出\cref{eq:csafe}的两式（其中 $q^{\!\top}\uvec{\delta}=a\cos\delta+b\sin\delta\ge a\cos\varepsilon-|b|\sin\varepsilon$）；当 $r>\rho_{\min}$ 时只需证 $\|q-g\|\le r$，其右端关于 $r$ 单调增，最紧情形仍为 $r=\rho_{\min}$。又第二式等价于 $\|q-\rho_{\min}\uvec{\pm\varepsilon}\|\le\rho_{\min}$，故得\cref{eq:lens}。
 \end{proof}
 
 \begin{corollary}[候选区域的极值点]\label{cor:extreme}
-$\mathcal C_{\rm safe}$ 中横向偏移的最大值为
-\begin{equation}\label{eq:bmax}
-  |b|_{\max}=\rho_{\min}\sin(60^\circ-\varepsilon)=1000\sin59^\circ=857.167\mmet ,
-\end{equation}
-在 $a=\rho_{\min}\cos(60^\circ-\varepsilon)=515.038\mmet$ 处取到；前向偏移的最大值为 $a_{\max}=\rho_{\min}=1000\mmet$（此时 $b=0$）。
+$\mathcal C_{\rm safe}$ 中横向偏移的最大值为 $|b|_{\max}=\rho_{\min}\sin59^\circ=857.167\mmet$（在 $a=515.038\mmet$ 处取到），前向偏移的最大值为 $a_{\max}=1000\mmet$。证明见附录~\ref{app:q2}。
 \end{corollary}
-\begin{proof}
-$B(\bm 0,\rho_{\min})$ 与 $B(\rho_{\min}\uvec{-\varepsilon},\rho_{\min})$ 是两个半径相等、圆心相距 $\rho_{\min}$ 的圆盘，其边界交点位于 $\rho_{\min}\uvec{-\varepsilon\pm60^\circ}$，上方交点即 $\rho_{\min}\uvec{60^\circ-\varepsilon}$，代入即得。
-\end{proof}
 
 \begin{figure}[!htbp]
   \centering
 
-  %% 画法建议：在局部坐标系中画三个半径 $1000\mmet$ 的圆（圆心分别在原点、$1000\uvec{1^\circ}$、$1000\uvec{-1^\circ}$），
-  %% 其公共部分填色即 $\mathcal C_{\rm safe}$；标出极值点 $(515.0,\pm857.2)$ 与 $(1000,0)$；
-  %% 叠加首测楔形（$\pm1^\circ$ 的窄扇形）；再用等值线叠加“$r_1=1500$ 时的 $\mecr$ 一阶估计”，
-  %% 可直观看到 $\mecr$ 随 $|b|$ 增大而下降、随移动距离增大而代价上升；
-  %% 最后标出本文实际采用的 $(200,100)$ 与历史基线 $(650,250)$ 两个点。
-  \fbox{\parbox[c][2.2cm][c]{0.86\textwidth}{\centering\small
-  【待插图】（绘图要求见本段 \TeX{} 源码注释）}}
+
+  \includegraphics[width=0.6\linewidth]{figures/fig-q2-region.png}
+
   \caption{保证接收的第二检测点候选区域及其等代价线}\label{fig:q2-region}
 \end{figure}
 
 \cref{fig:q2-region}给出了 $\mathcal C_{\rm safe}$ 的形状及其与定位精度、移动代价的关系。
 
-\paragraph{关于候选区域的三点说明.} 其一，$\mathcal C_{\rm safe}$ 是\emph{充分}条件而非充要条件：实际可用的点可能更多（例如源距很近时），但那需要用到未知的 $r$ 与 $\rho$，不能作为策略依据。其二，$\mathcal C_{\rm safe}$ 允许 $q$ 落在 $1800\mmet$ 目标圆之外，这是合法的——附件明确允许机器狗走出目标区域。其三，原点 $q=\bm 0$ 虽然平凡地满足\cref{eq:csafe}，却必须排除：在同一地点重复检测得到的是同一读数（\cref{asu:bounded}），不提供任何新约束，而下文的交会角与点线距离公式在该点也同时退化为零。实现中要求
-\begin{equation}\label{eq:qnonzero}
-  \|q-s_1\|\ \ge\ q_{\min}=100\mmet ,
-\end{equation}
-这一门槛同时被共享测站的“与已有采样点至少相距 $100\mmet$”规则复用（见\cref{tab:shared}）。
+\paragraph{关于候选区域的三点说明.} 其一，$\mathcal C_{\rm safe}$ 是\emph{充分}而非充要条件，实际可用点可能更多，但那依赖未知的 $r$ 与 $\rho$，不能作为策略依据。其二，它允许 $q$ 落在目标圆之外（附件允许）。其三，原点 $q=\bm0$ 虽满足约束但必须排除——同点重复检测不提供新约束，且交会角与点线距离公式在该点同时退化为零；实现中要求 $\|q-s_1\|\ge q_{\min}=100\mmet$，该门槛与共享测站规则复用。
 
 \subsection{要求 B：交会角与定位区域尺度}
 
@@ -97,23 +75,15 @@ $\|q-s_1\|/\sin\psi=\|q-g\|/\sin\angle(s_1)$，而 $\dist(q,L)=\|q-s_1\|\sin\ang
 
 \cref{lem:psi}给出了本问最重要的结构性结论：\textbf{交会角的下界只由横向偏移 $|b|$（相对于第二段视距 $r_2=\|q-g\|$）决定，与前进距离 $a$ 无关}。“沿着示向度方向一直往前走”对改善交会角毫无帮助，只能缩短 $r_2$。
 
-在 $\bar\varepsilon$ 为小角的一阶近似下，两条楔形在 $g$ 附近可视为宽度
-$w_1=2r_1\tan\bar\varepsilon$、$w_2=2r_2\tan\bar\varepsilon$ 的直条带（$r_1=\|g-s_1\|$，$r_2=\|g-q\|$），其交为平行四边形。由\cref{lem:para}，该平行四边形的最小包围圆半径恰为长对角线之半：
+在小角一阶近似下，两条楔形在 $g$ 附近可视为等宽条带，其交为平行四边形（\cref{lem:para}），由此得到定位尺度的一阶估计
 \begin{equation}\label{eq:Rapprox}
-  \mecr\ \approx\ \frac{1}{2}\cdot\frac{\sqrt{w_1^2+w_2^2+2w_1w_2|\cos\psi|}}{\sin\psi},
-  \qquad \sin\psi=\frac{\dist(q,L)}{r_2}.
+  \mecr\ \propto\ \frac{r_1r_2}{\dist(q,L)},
 \end{equation}
-把 $w_i$ 代入并用 $\sqrt{w_1^2+w_2^2+2w_1w_2|\cos\psi|}\le w_1+w_2$ 放大，可得一个便于讨论趋势的上界
-\begin{equation}\label{eq:Rbound}
-  \mecr\ \lesssim\ \frac{(r_1+r_2)\,r_2\tan\bar\varepsilon}{\dist(q,L)} .
-\end{equation}
-它清楚地显示：$\mecr$ 大致正比于 $r_1r_2$、反比于横向偏移。
-
-\paragraph{一阶估计的适用范围.} \cref{eq:Rapprox}把楔形当成等宽条带，忽略了“楔形宽度沿距离线性增长”这一事实，因此只在 $r_2$ 相对区域尺度足够大、且交会角不过分尖锐时才准确。把它与\cref{tab:q2-enum}的精确枚举对照可以看到：横向偏移较大（$b\ge450\mmet$）时两者相差约 $15\%$，而 $b=100\mmet$ 的极尖锐交会下一阶估计会高估近一倍。\textbf{因此本文只用\cref{eq:Rapprox}解释趋势与做量级判断，所有作为结论依据的数值一律取自精确枚举或严格构造。}
+即 $\mecr$ 大致正比于源距、反比于横向偏移。该式把楔形当成等宽条带、只在交会角不特别尖锐时准确，故仅用于解释趋势；其推导、适用范围以及作为结论依据的精确枚举见附录~\ref{app:q2}。
 
 \subsection{两次测向不足以保证认证清除}
 
-一个自然的想法是：既然第二次测向能把区域缩小，那么再挑得讲究一些，是不是就能把 $\mecr$ 压进 $20\mmet$，从而省掉光学覆盖？答案是否定的，而且这一点可以\emph{严格}地证明——不依赖任何近似公式。
+进一步考察两次测向是否足以保证认证清除：既然第二次测向能把区域缩小，那么再挑得讲究一些，是不是就能把 $\mecr$ 压进 $20\mmet$，从而省掉光学覆盖？答案是否定的，而且这一点可以\emph{严格}地证明——不依赖任何近似公式。
 
 \begin{theorem}[两次测向的分辨极限]\label{thm:twobearing}
 存在两个相距 $41\mmet$ 的源位置，使得无论第二检测点取在 $\mathcal C_{\rm safe}$ 中的哪一点，都存在一组容许的测向误差，令两个源产生\emph{完全相同}的两次观测。由于 $41\mmet>2r_c=40\mmet$，不存在任何一点能同时位于两源的 $20\mmet$ 清除范围内。因此，仅凭两次测向无法保证一次认证清除。
@@ -141,11 +111,9 @@ $w_1=2r_1\tan\bar\varepsilon$、$w_2=2r_2\tan\bar\varepsilon$ 的直条带（$r_
 因此 $g_1$ 与 $g_2$ 产生同一组观测 $\{(s_1,\theta_1),(q,\theta_2)\}$，任何只依赖观测的算法都无法区分二者。若某个清除点 $x$ 能保证成功，则必须同时有 $\|x-g_1\|\le20$ 与 $\|x-g_2\|\le20$，从而 $\|g_1-g_2\|\le40<41$，矛盾。
 \end{proof}
 
-\cref{eq:resolve}还顺带给出了一个有用的刻画：\textbf{两次测向能分辨的最小间距随源距急剧变差}。在 $\rho_q=1000\mmet$ 下，$r_1=1100,1200,1300,1400,1500\mmet$ 对应的不可分辨间距分别为 $7.1,\ 14.7,\ 23.0,\ 31.9,\ 41.5\mmet$；它恰在 $r_1\approx1485\mmet$ 处越过 $2r_c=40\mmet$。也就是说，\emph{只有最远的那一小段距离上才会出现“两次测向原理上不够用”的情形}，而题目给定的接收半径上界正好是 $1500\mmet$，这一段无法回避。
+\cref{eq:resolve}还给出一个刻画：两次测向能分辨的最小间距随源距变差，在 $\|q\|=1000\mmet$ 下 $r_1=1500\mmet$ 时约为 $41.5\mmet$，恰在 $r_1\approx1485\mmet$ 处越过 $2r_c=40\mmet$——即只有最远的一段会“原理上不够用”。
 
-按\cref{eq:Rapprox}在 $\mathcal C_{\rm safe}$ 上做一阶全域搜索，也得到一致的结论：$r_1=1500\mmet$ 时可达到的最小 $\mecr$ 约为 $61\mmet$（取 $q\approx(816,578)$，此处 $\|q\|=1000\mmet$，光走过去就要 $200\msec$）。这个数字是一阶估计，量级上与\cref{thm:twobearing}的严格结论相符。
-
-这一结论有三个直接后果，贯穿第三、四问。\textbf{其一，光学覆盖兜底不可省略}：任何“先两次测向、再一次清除”的流水线都不完备，必须保留一个对整个可行域的、有连续覆盖证明的清除点列。\textbf{其二，不宜盲目追求正交交会}：远距离源反正要进入光学覆盖，为把 $\mecr$ 从数百米降到几十米而多走 $800\mmet$（$160\msec$）往往并不划算。\textbf{其三，近源应优先获得第二次测向}：由\cref{eq:Rbound}，$\mecr$ 大致正比于 $r_1r_2$，对近源而言两次测向常常已经够用——以 $(200,100)$ 为第二点时，首测距离在 $380\mmet$ 以内的源基本可一次认证清除（\cref{tab:q2-need}）。
+\cref{thm:twobearing}有三个直接后果。\textbf{其一，光学覆盖兜底不可省略}：任何“两次测向再清除”的流水线都不完备，必须保留对可行域有连续覆盖证明的清除点列。\textbf{其二，不宜盲目追求正交交会}：远源反正要进入光学覆盖，为降低 $\mecr$ 而多走数百米往往不划算。\textbf{其三，近源应优先获得第二次测向}：由一阶估计 $\mecr\propto r_1r_2$，对近源两次测向常常够用——以 $(200,100)$ 为第二点时，首测距离在 $380\mmet$ 以内基本可一次认证清除（\cref{tab:q2-need}）。
 
 \begin{table}[!htbp]
   \caption{不同候选第二点的定位效果与移动代价（$\mecr$ 为按\cref{eq:Rapprox}算出的一阶估计，$\bar\varepsilon=1.005^\circ$，单位 m）}\label{tab:q2-need}\centering\small
@@ -154,10 +122,7 @@ $w_1=2r_1\tan\bar\varepsilon$、$w_2=2r_2\tan\bar\varepsilon$ 的直条带（$r_
     候选点 $(a,b)$ & 移动/m & 移动/s & $r_1=500$ & $r_1=1000$ & $r_1=1500$ & 可认证的最大 $r_1$ \\
     \midrule[1pt]
     $(200,100)$ & $223.6$ & $44.7$ & $44.7$ & $255.0$ & $640.8$ & $377\mmet$ \\
-    $(250,100)$ & $269.3$ & $53.9$ & $35.7$ & $232.7$ & $605.3$ & $416\mmet$ \\
-    $(300,300)$ & $424.3$ & $84.9$ & $16.1$ & $76.9$  & $196.5$ & $556\mmet$ \\
     $(500,250)$ & $559.0$ & $111.8$& $9.8$  & $59.7$  & $181.7$ & --- \\
-    $(650,250)$ & $696.4$ & $139.3$& $14.2$ & $41.4$  & $146.9$ & --- \\
     $(750,450)$ & $874.6$ & $174.9$& $17.6$ & $26.7$  & $78.2$  & --- \\
     $(515,857)^{\dagger}$ & $999.8$ & $200.0$& $17.5$ & $34.6$  & $70.3$ & --- \\
     \bottomrule[1.5pt]
@@ -168,27 +133,7 @@ $w_1=2r_1\tan\bar\varepsilon$、$w_2=2r_2\tan\bar\varepsilon$ 的直条带（$r_
 
 \subsection{精确枚举验证与选点策略}
 
-为避免只依赖一阶近似，本文对 $12$ 个候选点做了精确枚举：源距取 $21$ 个值、首测偏差取 $3$ 个方向、第二测偏差取 $3$ 个方向，共 $189$ 个组合，逐一按\cref{alg:diam}计算精确的交会多边形与其直径，取样本内最坏值，结果见\cref{tab:q2-enum}。
-
-\begin{table}[!htbp]
-  \caption{$12$ 个候选第二点的精确枚举结果（每点 $189$ 个组合，$\varepsilon=1^\circ$）}\label{tab:q2-enum}\centering\small
-  \begin{tabular}{@{}cccc@{\hspace{2.2em}}cccc@{}}
-    \toprule[1.5pt]
-    前进 $a$/m & 侧移 $b$/m & 移动/s & 最坏直径/m & 前进 $a$/m & 侧移 $b$/m & 移动/s & 最坏直径/m \\
-    \midrule[1pt]
-    $250$ & $100$ & $53.85$  & $631.03$ & $650$ & $100$ & $131.53$ & $414.19$ \\
-    $250$ & $250$ & $70.71$  & $361.97$ & $650$ & $250$ & $139.28$ & $230.30$ \\
-    $250$ & $450$ & $102.96$ & $240.56$ & $650$ & $450$ & $158.11$ & $156.35$ \\
-    $500$ & $100$ & $101.98$ & $494.05$ & $750$ & $100$ & $151.33$ & $362.11$ \\
-    $500$ & $250$ & $111.80$ & $277.46$ & $750$ & $250$ & $158.11$ & $200.52$ \\
-    $500$ & $450$ & $134.54$ & $185.97$ & $750$ & $450$ & $174.93$ & $138.06$ \\
-    \bottomrule[1.5pt]
-  \end{tabular}
-\end{table}
-
-数据印证了\cref{lem:psi}：\textbf{固定 $a$ 时，最坏直径随 $b$ 增大而迅速下降（侧移由 $250$ 加到 $450\mmet$ 可使直径减半）；而固定 $b$ 时，增大 $a$ 的收益明显更小}。同时，$12$ 个候选中表现最好的 $(750,450)$ 最坏直径仍有 $138.06\mmet$，对应 $\mecr\approx69.0\mmet$，远大于 $r_c=20\mmet$——这与\cref{thm:twobearing}的严格结论互相印证。
-
-\paragraph{数字口径的统一说明.} 本节出现了三类数，量纲与来源都不同：\cref{tab:q2-need}是\textbf{一阶估计的半径}，\cref{tab:q2-enum}是\textbf{精确枚举的直径}（除以二才与前者可比），\cref{thm:twobearing}的 $41\mmet$ 则是\textbf{两个不可分辨源的间距}。三者在“两次测向不足以认证清除”这一点上结论一致，但只有\cref{thm:twobearing}是严格的，其余两者仅作量级参照。
+为避免只依赖一阶近似，本文对 $12$ 个候选点做了精确枚举（源距 $21$ 个值、两测偏差各 $3$ 个方向，共 $189$ 个组合，逐一按\cref{alg:diam}计算精确交会多边形的直径并取样本内最坏值）。完整表格与三类数字的口径说明见附录~\ref{app:q2}；结论与\cref{thm:twobearing}一致——表现最好的候选所达最坏直径仍远大于 $r_c=20\mmet$。
 
 \paragraph{选点策略.} 综上，第二检测点的选择应当按下列顺序：
 \begin{enumerate}
@@ -203,6 +148,6 @@ $w_1=2r_1\tan\bar\varepsilon$、$w_2=2r_2\tan\bar\varepsilon$ 的直条带（$r_
   其中 $\widehat C_{\rm clear}$ 为“若 $\mecr\le r_c$ 则走到圆心清除，否则按光学覆盖点列走一遍”的保守估计。
 \end{enumerate}
 
-\paragraph{单目标最优不等于整局最优.} 本文在第三、四问中实际采用的是较短的 $(a,b)=(200,\pm100)$，而不是\cref{tab:q2-enum}中单目标意义下更优的 $(750,450)$。原因有三：其一，由\cref{thm:twobearing}，远距离源无论如何都要走光学覆盖，把 $\mecr$ 从几百米降到几十米换来的扫描节省，抵不过多走 $650\mmet$（$130\msec$）的代价；其二，多目标场景中\emph{同一次移动可以为多个频道提供观测}（共享测站，见\cref{sec:q3:shared}），第二测点不再需要为单个目标“专程”远行；其三，走远之后机器狗离主巡站路线更远，会带来后续折返。
+\paragraph{单目标最优不等于整局最优.} 正式方案取较短的 $(200,\pm100)$ 而非单目标更优的 $(750,450)$：远源反正要走光学覆盖，多走 $650\mmet$（$130\msec$）换来的扫描节省有限；多目标下同一次移动可服务多个频道（\cref{sec:q3:shared}）；走远还会带来后续折返。固定种子的配对实验也显示自适应选点无改善（见附录~\ref{app:q2}），故保留固定 $(200,\pm100)$，把“是否再测一次”交给\cref{sec:q3:refine}的补测精化与\cref{sec:q4:online}的扫描成本门控。
 
-本文用固定种子的配对实验验证了这一判断：在 $\{100,150,200,250,300\}\times\{50,100,150,200\}$ 的离散集合上按信息增益与移动代价\emph{自适应}选点，与固定 $(200,100)$ 相比，第三问 $263.920\to265.518\msec/$源、第四问 $505.344\to508.205\msec/$源，两问均值与最坏值均无改善（清除率均为 $100\%$）。因此正式方案保留固定的 $(200,\pm100)$，并把“要不要再测一次”的判断交给\cref{sec:q3:refine}的补测精化与\cref{sec:q4:online}的扫描成本门控。
+\paragraph{本问小结.} 保证接收条件、严格分辨反例与精确枚举三者的结论一致：\textbf{两次测向不能保证一次认证清除，光学覆盖兜底不可省略}。据此，正式方案取固定的 $(200,\pm100)$，把“是否再测一次”的判断交给在线层的补测精化与扫描成本门控。

@@ -119,7 +119,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 % 定制列表环境
 \RequirePackage{enumitem}
 % 下划线
-\RequirePackage{ulem}
+\RequirePackage[normalem]{ulem}
 % 尺寸计算
 \RequirePackage{calc}
 
@@ -467,7 +467,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \setcounter{secnumdepth}{3}
 % 节标题格式, 居中, 使用\chinese命令修改计数器
 \def\@seccntformat#1{\csname the#1\endcsname\ }
-\renewcommand\thesection{\chinese{section}、}
+\renewcommand\thesection{\chinese{section}}
 \renewcommand\thesubsection{\arabic{section}\thinspace.\thinspace\arabic{subsection}}
 \renewcommand\thesubsubsection{\thesubsection\thinspace.\thinspace\arabic{subsubsection}}
 \renewcommand\section{\@startsection{section}{1}{\z@}%

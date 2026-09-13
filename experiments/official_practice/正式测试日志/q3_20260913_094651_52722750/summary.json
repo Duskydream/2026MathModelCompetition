@@ -1,0 +1,40 @@
+{
+  "status": "completed",
+  "error": null,
+  "cleared_count": 11,
+  "visited_survey_points": 7,
+  "termination": "full_coverage",
+  "shared_attempts": 9,
+  "shared_hits": 7,
+  "cleared_channels": [
+    2,
+    3,
+    7,
+    8,
+    9,
+    10,
+    13,
+    17,
+    18,
+    19,
+    20
+  ],
+  "successful_clear_count": 11,
+  "total_virtual_s": 4212.399223,
+  "average_per_cleared_s": 382.94538390909094,
+  "clearance_ratio": null,
+  "true_source_count": null,
+  "program_elapsed_s": 0.5630000000001019,
+  "ended_by_exit": true,
+  "unresolved_action": false,
+  "accepted_actions": 187,
+  "http_attempts": 187,
+  "time_components_s": {
+    "move": 3243.399221245563,
+    "switch": 124.0,
+    "measure": 670.0,
+    "optical": 153.0,
+    "laser": 22.0
+  },
+  "case_code": ""
+}
