@@ -21,7 +21,7 @@
     \texttt{code/\allowbreak practice\_robot.py} & 官方模拟器 HTTP 客户端：串行发送、超时原样重试、未决动作保护、逐动作日志与预算控制 \\
     \texttt{code/config.json} & 当前全部算法参数与 $22$ 站坐标 \\
     \texttt{code/layout\_opt.py}、\allowbreak\texttt{code/certify22.py} & 方向覆盖余量计算与 $h=1\mmet$ 网格证书 \\
-    \texttt{official\_practice/} & 演练样本：\texttt{q3\_runs.csv}、\texttt{q4\_runs.csv} 为 $50+70$ 局的逐局明细，
+    \texttt{official\_practice/} & 演练样本：\texttt{q3\_runs.csv}、\texttt{q4\_runs.csv} 为第三、四问各 $70$ 局的逐局明细，
       \texttt{official\_runs.json} 另含被排除记录的清单与原因 \\
     \texttt{支撑材料/formal-p*.jlog} & 第三、四问各三次正式测试的加密行为日志，文件名未作任何修改 \\
     \texttt{AI工具使用详情.pdf} & 按 2026 年 AI 工具使用规定提交的详情说明 \\
@@ -36,6 +36,8 @@
 （第四问将 \texttt{--question} 改为 \texttt{4}）。不加 \texttt{--connect} 时程序不会发送任何请求，便于离线检查。
 
 \section{关键参数配置}
+
+下表汇总当前默认路径使用的参数及其来源。
 
 \begin{table}[!htbp]
   \caption{算法参数及其来源}\centering\small
@@ -70,7 +72,7 @@
     \texttt{q4\_immediate\_near}      & true     & 收到 \texttt{near} 立即清除 & \cref{sec:q4:online} \\
     \bottomrule[1.5pt]
   \end{tabularx}\\[2pt]
-  \footnotesize \texttt{config.json} 中另有若干历史参数（如通用的 \texttt{second\_forward\_m}$=650$、\texttt{second\_lateral\_m}$=250$
+  \small \texttt{config.json} 中另有若干历史参数（如通用的 \texttt{second\_forward\_m}$=650$、\texttt{second\_lateral\_m}$=250$
   以及 \texttt{q3\_grid\_m}、\texttt{q4\_grid\_m}、\texttt{q4\_triangle\_spacing\_m}）。它们\textbf{不被当前默认路径读取}：
   第三、四问的第二测点分别取 \texttt{q3\_}、\texttt{q4\_} 前缀的同名参数。保留这些条目是为了能一键回退到历史对照版本
   （例如置 \texttt{q3\_policy=legacy} 或删除 \texttt{q4\_station\_list}），复现旧轮次实验时仍需要它们，因此没有删除。
@@ -174,7 +176,7 @@
     圆心 $+6@1200+8@2000$ 等稀疏布局 & $14\sim19$ & $-176\sim-596$ & 不通过 \\
     \bottomrule[1.5pt]
   \end{tabularx}\\[2pt]
-  \footnotesize 本表是一次有限搜索的记录，覆盖“圆心 $+$ 正内环 $+$ 正外环”族及若干由该族出发的局部扰动，
+  \small 本表是一次有限搜索的记录，覆盖“圆心 $+$ 正内环 $+$ 正外环”族及若干由该族出发的局部扰动，
   \textbf{不构成对任意 $21$ 站布局的穷举}。搜索脚本与逐布局余量见支撑材料 \texttt{layout\_opt.py}。
 \end{table}
 
@@ -233,7 +235,7 @@
     圆心补测精化 & $100$ 例留出 & $262.6$ & $260.0$ & $1.0\%$ \\
     \bottomrule[1.5pt]
   \end{tabular}\\[2pt]
-  \footnotesize 各行使用的案例集合不同，\textbf{不能把各行降幅连乘}得到一个“总提升”。
+  \small 各行使用的案例集合不同，\textbf{不能把各行降幅连乘}得到一个“总提升”。
 \end{table}
 
 \section{时间构成与固定成本的补充数据}\label{app:fixed}
@@ -322,6 +324,21 @@
   \end{tabular}
 \end{table}
 
+\begin{table}[!htbp]
+  \caption{本地留出预测与官方演练的分层对照（虚拟秒/源）}\label{tab:q4match}\centering\small
+  \begin{tabular}{c ccc @{\hspace{2em}} ccc}
+    \toprule[1.5pt]
+    & \multicolumn{3}{c}{问题三} & \multicolumn{3}{c}{问题四} \\
+    \cmidrule(lr){2-4}\cmidrule(lr){5-7}
+    源数 $n$ & 本地留出 & 官方实测 & 官方局数 & 本地留出 & 官方实测 & 官方局数 \\
+    \midrule[1pt]
+    $10$ & $318.9$ & $302.3$ & $7$  & $642$ & $639.3$ & $10$ \\
+    $13$ & $255.9$ & $258.0$ & $14$ & $475$ & $494.7$ & $12$ \\
+    $16$ & $223.5$ & $218.3$ & $13$ & $346$ & $375.2$ & $4$  \\
+    \bottomrule[1.5pt]
+  \end{tabular}
+\end{table}
+
 \section{问题一的实现细节与补充证明}\label{app:q1}
 
 \paragraph{五次线性规划各自的用途.} 算法中的线性规划只用来判别 $P$ 的类型，不用来求顶点。可行性规划取零目标，只问“约束组是否相容”；随后四次规划分别沿 $\pm x$、$\pm y$ 方向求极小，只要有一次报告无下界，$P$ 就在该方向延伸至无穷。四个坐标方向足以判定：二维多面体无界当且仅当其回收锥非平凡，而非平凡锥必与某个坐标半轴张成正夹角。判完类型后，有界情形的顶点由“边界线两两求交、再逐个检验是否满足全部约束”得到。
@@ -358,6 +375,23 @@
 
 \paragraph{极值点的证明.} $B(\bm0,\rho_{\min})$ 与 $B(\rho_{\min}\uvec{-\varepsilon},\rho_{\min})$ 是半径相等、圆心相距 $\rho_{\min}$ 的圆盘，其边界交点在 $\rho_{\min}\uvec{-\varepsilon\pm60^\circ}$，上方交点即 $\rho_{\min}\uvec{60^\circ-\varepsilon}$，代入即得 $|b|_{\max}=\rho_{\min}\sin59^\circ$。
 
+\paragraph{候选第二点的一阶估计.} 表~\ref{tab:q2-need}给出代表性候选点的一阶估计与移动代价；所有候选点均在 $\mathcal C_{\rm safe}$ 内。
+
+\begin{table}[!htbp]
+  \caption{不同候选第二点的定位效果与移动代价（$\mecr$ 为按\cref{eq:Rapprox}算出的一阶估计，$\bar\varepsilon=1.005^\circ$，单位 m）}\label{tab:q2-need}\centering\small
+  \begin{tabular}{ccccccc}
+    \toprule[1.5pt]
+    候选点 $(a,b)$ & 移动/m & 移动/s & $r_1=500$ & $r_1=1000$ & $r_1=1500$ & 可认证的最大 $r_1$ \\
+    \midrule[1pt]
+    $(200,100)$ & $223.6$ & $44.7$ & $44.7$ & $255.0$ & $640.8$ & $377\mmet$ \\
+    $(500,250)$ & $559.0$ & $111.8$& $9.8$  & $59.7$  & $181.7$ & --- \\
+    $(750,450)$ & $874.6$ & $174.9$& $17.6$ & $26.7$  & $78.2$  & --- \\
+    $(515,857)^{\dagger}$ & $999.8$ & $200.0$& $17.5$ & $34.6$  & $70.3$ & --- \\
+    \bottomrule[1.5pt]
+  \end{tabular}\\[2pt]
+  \small $\dagger$ 为\cref{cor:extreme}给出的最大横向偏移点；末列为使一阶 $\mecr$ 降到 $20\mmet$ 以内的最大首测距离，后四个点的 $\mecr$ 随 $r_1$ 非单调，无单一阈值，故不填。
+\end{table}
+
 \paragraph{$12$ 个候选第二点的精确枚举.} 源距取 $21$ 个值、两测偏差各取 $3$ 个方向，共 $189$ 个组合，逐一按\cref{alg:diam}计算精确交会多边形的直径并取样本内最坏值，结果见表~\ref{tab:q2-enum}。
 
 \begin{table}[!htbp]
@@ -375,6 +409,8 @@
     \bottomrule[1.5pt]
   \end{tabular}
 \end{table}
+
+{\small 左右两栏各含 $6$ 个候选点。\par}
 
 数据印证横向偏移主导：固定 $a$ 时最坏直径随 $b$ 增大迅速下降（$b:250\to450$ 可使直径减半），固定 $b$ 时增大 $a$ 收益明显更小；表现最好的 $(750,450)$ 最坏直径仍有 $138.06\mmet$（对应 $\mecr\approx69.0\mmet$），远大于 $r_c=20\mmet$，与\cref{thm:twobearing}一致。
 

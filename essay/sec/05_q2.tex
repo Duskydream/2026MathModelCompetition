@@ -50,7 +50,7 @@ $\mathcal C_{\rm safe}$ 中横向偏移的最大值为 $|b|_{\max}=\rho_{\min}\s
   \centering
 
 
-  \includegraphics[width=0.6\linewidth]{figures/fig-q2-region.png}
+  \includegraphics[width=0.78\textwidth]{figures/fig-q2-region.png}
 
   \caption{保证接收的第二检测点候选区域及其等代价线}\label{fig:q2-region}
 \end{figure}
@@ -113,23 +113,7 @@ $\|q-s_1\|/\sin\psi=\|q-g\|/\sin\angle(s_1)$，而 $\dist(q,L)=\|q-s_1\|\sin\ang
 
 \cref{eq:resolve}还给出一个刻画：两次测向能分辨的最小间距随源距变差，在 $\|q\|=1000\mmet$ 下 $r_1=1500\mmet$ 时约为 $41.5\mmet$，恰在 $r_1\approx1485\mmet$ 处越过 $2r_c=40\mmet$——即只有最远的一段会“原理上不够用”。
 
-\cref{thm:twobearing}有三个直接后果。\textbf{其一，光学覆盖兜底不可省略}：任何“两次测向再清除”的流水线都不完备，必须保留对可行域有连续覆盖证明的清除点列。\textbf{其二，不宜盲目追求正交交会}：远源反正要进入光学覆盖，为降低 $\mecr$ 而多走数百米往往不划算。\textbf{其三，近源应优先获得第二次测向}：由一阶估计 $\mecr\propto r_1r_2$，对近源两次测向常常够用——以 $(200,100)$ 为第二点时，首测距离在 $380\mmet$ 以内基本可一次认证清除（\cref{tab:q2-need}）。
-
-\begin{table}[!htbp]
-  \caption{不同候选第二点的定位效果与移动代价（$\mecr$ 为按\cref{eq:Rapprox}算出的一阶估计，$\bar\varepsilon=1.005^\circ$，单位 m）}\label{tab:q2-need}\centering\small
-  \begin{tabular}{ccccccc}
-    \toprule[1.5pt]
-    候选点 $(a,b)$ & 移动/m & 移动/s & $r_1=500$ & $r_1=1000$ & $r_1=1500$ & 可认证的最大 $r_1$ \\
-    \midrule[1pt]
-    $(200,100)$ & $223.6$ & $44.7$ & $44.7$ & $255.0$ & $640.8$ & $377\mmet$ \\
-    $(500,250)$ & $559.0$ & $111.8$& $9.8$  & $59.7$  & $181.7$ & --- \\
-    $(750,450)$ & $874.6$ & $174.9$& $17.6$ & $26.7$  & $78.2$  & --- \\
-    $(515,857)^{\dagger}$ & $999.8$ & $200.0$& $17.5$ & $34.6$  & $70.3$ & --- \\
-    \bottomrule[1.5pt]
-  \end{tabular}\\[2pt]
-  \footnotesize $\dagger$ 为\cref{cor:extreme}给出的最大横向偏移点；所有候选点均在 $\mathcal C_{\rm safe}$ 内。
-  末列为使一阶 $\mecr$ 降到 $20\mmet$ 以内的最大首测距离；后四个点的 $\mecr$ 随 $r_1$ 非单调（源可能落在第二点附近），无单一阈值，故不填。
-\end{table}
+\cref{thm:twobearing}有三个直接后果。\textbf{其一，光学覆盖兜底不可省略}：任何“两次测向再清除”的流水线都不完备，必须保留对可行域有连续覆盖证明的清除点列。\textbf{其二，不宜盲目追求正交交会}：远源反正要进入光学覆盖，为降低 $\mecr$ 而多走数百米往往不划算。\textbf{其三，近源应优先获得第二次测向}：由一阶估计 $\mecr\propto r_1r_2$，对近源两次测向常常够用——以 $(200,100)$ 为第二点时，首测距离在 $380\mmet$ 以内基本可一次认证清除（代表点与完整候选表见附录~\ref{app:q2}）。
 
 \subsection{精确枚举验证与选点策略}
 

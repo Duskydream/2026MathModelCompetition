@@ -77,12 +77,11 @@ $\mathcal N_{\rho-\delta}(g)\subseteq \mathcal N_\rho(p)$，从而 $\conv \mathc
   \footnotesize 最近邻巡回长度 $17940.2\mmet$（约 $3588\msec$）；相邻内环站间距 $677.1\mmet$；相邻外环站间距 $966.0\mmet$。
 \end{table}
 
+\paragraph{工程决策：$22$ 站与 $25$ 站的取舍.} 综合以上，本文以 $22$ 站为默认：它在题设参数下通过严格连续域证书，且巡站路径更短；$25$ 站解析布局作为保守备用保留。程序在启动时用 $20\mmet$ 粗网格复核，若当前参数下证书不满足（例如接收半径下界被调低到 $990\mmet$，$22$ 站约 $6\sim10\mmet$ 的余量消失），则\textbf{拒绝使用 $22$ 站并回退到 $25$ 站}。题目明确允许机器狗走出目标区域，故外环站与区域外第二测点都合规，且与 $2000000\mmet$ 的坐标上限相距甚远。
+
 \begin{figure}[!htbp]
   \centering
-
-
-  \includegraphics[width=0.6\linewidth]{figures/fig-q4-layout.png}
-
+  \includegraphics[width=\textwidth]{figures/fig-q4-layout.png}
   \caption{$22$ 站布局的方向覆盖证书}\label{fig:q4-layout}
 \end{figure}
 
@@ -118,7 +117,7 @@ $25\mmet$ 方格兜底（\cref{eq:grid}）只利用了清除圆的内接正方�
   \centering
 
 
-  \includegraphics[width=0.6\linewidth]{figures/fig-q4-strip.png}
+  \includegraphics[width=0.9\textwidth]{figures/fig-q4-strip.png}
 
   \caption{两种具有连续覆盖证明的光学清除点列}\label{fig:q4-strip}
 \end{figure}
@@ -156,7 +155,7 @@ $25\mmet$ 方格兜底（\cref{eq:grid}）只利用了清除圆的内接正方�
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.6\linewidth]{figures/fig-q4-track.png}
+  \includegraphics[width=0.9\textwidth]{figures/fig-q4-track.png}
   \caption{第四问典型局的行走轨迹与 $25$ 站／$22$ 站逐例配对}\label{fig:q4-track}
 \end{figure}
 

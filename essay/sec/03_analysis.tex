@@ -43,11 +43,11 @@ $\pi$ 是一个只依赖历史观测的在线策略（\cref{asu:info}）。约�
 
 \subsection{四层求解框架}
 
-综合上述分析，本文把四个问题统一在同一框架下，总体框架见\cref{fig:framework}，执行流程即\cref{alg:q3}。四层分别对应“发现—省时—省路—保对”：\textbf{覆盖保证}（发现）用测站集保证任何源都会被收到，并兼作终止证明；\textbf{布局下界}（省时）在覆盖成立下最少化测站数与巡回长度；\textbf{在线调度}（省路）把搜索与目标处理放进同一任务池贪心选择；\textbf{有界误差定位与认证清除}（保对）用集员可行域与最小包围圆保证清除。每一层对应的数学保证、代码实现与逐例验收见表~\ref{tab:proof-impl}。
+综合上述分析，本文把四个问题统一在同一框架下，总体框架见\cref{fig:framework}，执行流程即\cref{alg:q3}。四层分别对应“发现—省时—省路—保对”：\textbf{覆盖保证}（发现）用测站集保证任何源都会被收到，并兼作终止证明；\textbf{布局下界}（省时）在覆盖成立下最少化测站数与巡回长度；\textbf{在线调度}（省路）把搜索与目标处理放进同一任务池贪心选择；\textbf{有界误差定位与认证清除}（保对）用集员可行域与最小包围圆保证清除。每一层对应的数学保证、代码实现与逐例验收见表~\ref{tab:proof-impl}；四问与各层的对应是：问题一提供\textbf{定位证书}（第~\ref{sec:q1}节），问题二给出\textbf{第二测点选择}（第~\ref{sec:q2}节），问题三完成全向源的\textbf{覆盖与路径}（第~\ref{sec:q3}节），问题四给出定向源的\textbf{方向覆盖与搜索布局}（第~\ref{sec:q4}节）。
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.6\linewidth]{figures/fig-framework.png}
+  \includegraphics[width=\textwidth]{figures/fig-framework.png}
   \caption{总体求解框架：覆盖保证、布局下界、在线调度与定位清除四层}\label{fig:framework}
 \end{figure}
 
@@ -61,6 +61,22 @@ $\pi$ 是一个只依赖历史观测的在线策略（\cref{asu:info}）。约�
     方向覆盖（\cref{thm:hull}） & 运行时 $20\mmet$ 粗网格凸包检查 & $h=1\mmet$ 网格证书 $1018.68$ 万点全部通过 \\
     认证清除（\cref{cor:certify}） & 仅当 $\mecr\le r_c-10^{-6}$ 才在圆心清除 & 清除点到真源距离 $\le20\mmet$ \\
     包含性不变量（\cref{eq:invariant}） & 目标圆外切、圆盘排除取凸包外近似 & 每时刻可行域与包围圆均含真源 \\
+    \bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}
+
+\begin{table}[!htbp]
+  \caption{在线决策流程的判定与动作}\label{tab:decision}\centering\small
+  \begin{tabularx}{\textwidth}{@{}l L L@{}}
+    \toprule[1.5pt]
+    状态 & 判断条件 & 后续动作 \\
+    \midrule[1pt]
+    首测成功 & 返回 \texttt{direction} & 由方位约束建立可行域，进入定位 \\
+    首测无信号 & 全向源返回 \texttt{no\_signal} & 以圆盘排除该站邻域；定向源改用其他测站 \\
+    观测不足 & 可行域无界或仅 $1$ 条方位 & 走到第二测点或补测一次 \\
+    可行域过大 & $\mecr>r_c$ & 圆心补测精化，仍不足则光学覆盖 \\
+    认证通过 & $\mecr\le r_c-10^{-6}$ & 在最小包围圆圆心执行 \texttt{/clear} \\
+    清除失败 & 接口拒绝或超时 & 限次重试，否则安全退出并留档 \\
     \bottomrule[1.5pt]
   \end{tabularx}
 \end{table}

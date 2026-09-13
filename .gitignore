@@ -30,6 +30,19 @@ robot_actions.jsonl
 /analysis_b/pdf_work/initial_render_hashes.json
 /analysis_b/pdf_work/extracted_final_text.txt
 
+# LaTeX build artifacts (essay/main.*)
+essay/*.aux
+essay/*.out
+essay/*.toc
+essay/*.lof
+essay/*.lot
+essay/*.bbl
+essay/*.blg
+essay/*.fls
+essay/*.fdb_latexmk
+essay/*.synctex.gz
+essay/main.pdf
+
 # Desktop/editor temporary files
 .DS_Store
 Thumbs.db

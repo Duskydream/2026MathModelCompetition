@@ -59,22 +59,7 @@
 
 \subsection{本地模型与官方模拟器的一致性}
 
-本文所有版本比较都在本地合成模拟器上完成，因此本地环境与官方环境的差距直接关系到这些结论能否外推。把第三问补测精化的 $100$ 例留出验证（\cref{sec:q3:refine}）与第四问\cref{tab:q4holdout}脚注中的本地分层预测，分别与官方演练的同源数结果对照，得到\cref{tab:q4match}。
-
-\begin{table}[!htbp]
-  \caption{本地留出预测与官方演练的分层对照（虚拟秒/源）}\label{tab:q4match}\centering\small
-  \begin{tabular}{c ccc @{\hspace{2em}} ccc}
-    \toprule[1.5pt]
-    & \multicolumn{3}{c}{问题三} & \multicolumn{3}{c}{问题四} \\
-    \cmidrule(lr){2-4}\cmidrule(lr){5-7}
-    源数 $n$ & 本地留出 & 官方实测 & 官方局数 & 本地留出 & 官方实测 & 官方局数 \\
-    \midrule[1pt]
-    $10$ & $318.9$ & $302.3$ & $7$  & $642$ & $639.3$ & $10$ \\
-    $13$ & $255.9$ & $258.0$ & $14$ & $475$ & $494.7$ & $12$ \\
-    $16$ & $223.5$ & $218.3$ & $13$ & $346$ & $375.2$ & $4$  \\
-    \bottomrule[1.5pt]
-  \end{tabular}
-\end{table}
+本文所有版本比较都在本地合成模拟器上完成，因此本地环境与官方环境的差距直接关系到这些结论能否外推。把第三问补测精化的 $100$ 例留出验证与第四问的本地分层预测分别与官方演练的同源数结果对照，结果见附录~\ref{app:fixed}的表~\ref{tab:q4match}。
 
 两问的分层对照都落在同一量级：第三问的最大偏差为 $5.2\%$，第四问为 $8.4\%$。第四问存在一个系统性趋势：\textbf{源数越多，官方环境比本地慢得越明显}，偏差从 $-0.4\%$ 升到 $+8.4\%$；一个合理的解释是官方案例中源的空间分布比本地采用的面积均匀分布更分散，使多目标之间顺路共享观测的机会变少。第三问没有这样清晰的单调趋势（$n=10$ 时官方比本地快 $5.2\%$，$n=13,16$ 的偏差都在 $\pm2\%$ 以内），这与它各分层的样本量仍偏小有关。不过第四问 $n=16$ 只有 $4$ 局，上述趋势本身也可能部分来自抽样噪声。
 
@@ -84,7 +69,7 @@
   \centering
 
 
-  \includegraphics[width=0.6\linewidth]{figures/fig-results.png}
+  \includegraphics[width=\textwidth]{figures/fig-results.png}
 
   \caption{演练成绩随源数的变化与时间构成}\label{fig:results}
 \end{figure}
