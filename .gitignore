@@ -41,7 +41,6 @@ essay/*.blg
 essay/*.fls
 essay/*.fdb_latexmk
 essay/*.synctex.gz
-essay/main.pdf
 
 # Desktop/editor temporary files
 .DS_Store
