@@ -1,8 +1,10 @@
 \section{问题一：交会定位区域的直径算法与覆盖性判定}\label{sec:q1}
 
+本问回答两个问题：如何用带误差的方位读数严格刻画出源的可能位置，以及据此判断能否一次清除。
+
 \subsection{从示向度读数到线性约束}
 
-设在检测点 $s_k$ 处测得某干扰源的示向度为 $\theta_k$，误差界为 $\varepsilon$。由\cref{asu:bounded}，真源 $g$ 相对 $s_k$ 的真实方位角落在 $[\theta_k-\varepsilon,\theta_k+\varepsilon]$ 内，因此 $g$ 位于以 $s_k$ 为顶点、张角 $2\varepsilon$ 的\textbf{前向楔形}
+设在检测点 $s_k$ 处测得某干扰源的示向度为 $\theta_k$，误差界为 $\varepsilon$。由\cref{asu:bounded}，真源 $g$ 相对 $s_k$ 的真实方位角落在 $[\theta_k-\varepsilon,\theta_k+\varepsilon]$ 内，因此 $g$ 位于以 $s_k$ 为顶点、张角 $2\varepsilon$ 的前向楔形
 \begin{equation}\label{eq:wedge}
   W_k=\Bigl\{x\in\R^2 \;\Bigm|\; \bigl[\uvec{\theta_k-\varepsilon},\,x-s_k\bigr]\ge 0,\quad
                                   \bigl[\uvec{\theta_k+\varepsilon},\,x-s_k\bigr]\le 0\Bigr\}
@@ -12,74 +14,59 @@
   P=\bigcap_{k=1}^{K} W_k .
 \end{equation}
 
-\begin{lemma}[两条不等式已自动选出前向分支]\label{lem:forward}
+\begin{lemma}：\textbf{两条不等式已自动选出前向分支}．\label{lem:forward}
 当 $2\varepsilon<180^\circ$ 时，\cref{eq:wedge}恰好刻画以 $\uvec{\theta_k}$ 为轴、半角为 $\varepsilon$ 的单侧锥，而不包含背向方向。
 \end{lemma}
-\begin{proof}
-令 $x-s_k=r\,\uvec{\varphi}$（$r>0$）。两条约束分别化为 $\sin(\varphi-\theta_k+\varepsilon)\ge0$ 与 $\sin(\varphi-\theta_k-\varepsilon)\le0$，即
-$\varphi-\theta_k+\varepsilon\in[0,\pi]$ 且 $\varphi-\theta_k-\varepsilon\in[-\pi,0]\pmod{2\pi}$，两者之交为 $\varphi-\theta_k\in[-\varepsilon,\varepsilon]$。特别地取 $\varphi=\theta_k+180^\circ$ 时第一式给出 $-\sin\varepsilon<0$，故背向射线被排除。
-\end{proof}
 
-\cref{lem:forward}并非可有可无的细节：若把示向度处理成一条“带宽为 $2\varepsilon$ 的双向直线带”，则背向的一整块区域会被错误地保留，在多站交会时可能产生虚假的交集。
+\noindent（证明见附录~\ref{app:q1}。）
+
+\cref{lem:forward}是一个必须处理的细节：若把示向度处理成一条“带宽为 $2\varepsilon$ 的双向直线带”，则背向的一整块区域会被错误地保留，在多站交会时可能产生虚假的交集。
 
 把\cref{eq:wedge}的两条约束写成行向量形式，$K$ 个检测点共给出 $m=2K$ 条线性不等式，于是
 \begin{equation}\label{eq:poly}
   P=\{x\in\R^2 \;:\; \bm A x\le \bm b\},\qquad \bm A\in\R^{m\times2},\ \bm b\in\R^{m}.
 \end{equation}
-$P$ 是闭凸集，但\textbf{不一定有界}，也可能为空或退化。
+$P$ 是闭凸集，但不一定有界，也可能为空或退化。
 
 \subsection{直径的计算：算法与正确性}
 
-\begin{theorem}[直径在顶点上取到]\label{thm:diam}
+\begin{theorem}：\textbf{直径在顶点上取到}．\label{thm:diam}
 设 $P$ 为有界闭凸多边形，顶点集为 $V(P)=\{v_1,\dots,v_k\}$，则
 $\diam(P)=\max_{i<j}\|v_i-v_j\|$。
 \end{theorem}
-\begin{proof}
-$\|\cdot\|$ 是凸函数，故对固定的 $y$，$x\mapsto\|x-y\|$ 在紧凸集 $P$ 上的最大值必在极点处取到；对 $y$ 再用一次同样的论证即可。由 Minkowski 定理，有界闭凸多边形的极点恰为其顶点。
-\end{proof}
 
-由\cref{thm:diam}，求直径只需枚举顶点对，而不必在边界上做连续优化。据此给出\cref{alg:diam}。它的关键不在于求直径这一步本身，而在于\textbf{先把四类情形分清楚，再计算}：直接对约束做顶点枚举而不判空、不判无界，会在读数互相矛盾或测站张角不足时输出毫无意义的数字。
+\noindent（证明见附录~\ref{app:q1}。）
+
+由\cref{thm:diam}，求直径只需枚举顶点对。据此给出\cref{alg:diam}。它的关键是先把四类情形分清楚，再计算：直接对约束做顶点枚举而不判空、不判无界，会在读数互相矛盾或测站张角不足时输出毫无意义的数字。
 
 \begin{algorithm}[!htbp]
 \caption{有界误差交会定位区域的直径算法}\label{alg:diam}
 \begin{algorithmic}[1]
 \Require 检测点 $s_1,\dots,s_K$，示向度 $\theta_1,\dots,\theta_K$，误差界 $\varepsilon$
-\Ensure 定位区域 $P$ 的状态（空／无界／有界）、顶点表与直径 $D$
+\Ensure 定位区域 $P$ 的状态（空／无界／有界）、顶点表 $V$ 与直径 $D$
 \State 由\cref{eq:wedge}组装 $\bm A\in\R^{2K\times2}$，$\bm b\in\R^{2K}$
-\State 解可行性线性规划 $\min\{0 \;:\; \bm Ax\le\bm b\}$
-\If{不可行} \Return \textbf{空集}（读数与误差界相互矛盾，应报错而不是输出伪定位点）
-\EndIf
+\State 解可行性规划 $\min\{0:\bm Ax\le\bm b\}$；不可行则返回空集并报错
 \For{$\bm c\in\{(1,0),(-1,0),(0,1),(0,-1)\}$}
-  \State 解 $\min\{\bm c^{\!\top}x \;:\; \bm Ax\le\bm b\}$
-  \If{无下界} \Return \textbf{无界}，$D=+\infty$
-  \EndIf
+  \State 解 $\min\{\bm c^{\!\top}x:\bm Ax\le\bm b\}$；无下界则返回无界，$D=+\infty$
 \EndFor
-\State $V\gets\varnothing$
-\For{每一对约束 $(i,j)$，$i<j$}
-  \If{$\det(\bm a_i,\bm a_j)\ne0$}
-    \State 解 $\bm a_i^{\!\top}x=b_i,\ \bm a_j^{\!\top}x=b_j$ 得交点 $x$
-    \If{$\bm Ax\le\bm b+\tau\bm 1$ 且 $x\notin V$（按容差去重）} $V\gets V\cup\{x\}$
-    \EndIf
-  \EndIf
-\EndFor
-\State 以 $V$ 的重心为极点，按极角对 $V$ 排序，得到凸多边形顶点序列
-\State $D\gets\max_{v_i,v_j\in V}\|v_i-v_j\|$ \Comment{线段与单点自然退化为 $D=\|v_1-v_2\|$ 与 $D=0$}
-\State \Return \textbf{有界}，$V$，$D$
+\State 枚举约束对 $(i,j)$，解 $\bm a_i^{\!\top}x=b_i,\ \bm a_j^{\!\top}x=b_j$ 得交点，保留满足 $\bm Ax\le\bm b+\tau\bm 1$ 且按容差互异的点，得 $V$
+\State 以 $V$ 的重心为极点按极角排序，$D\gets\max_{v_i,v_j\in V}\|v_i-v_j\|$（线段与单点自然退化）
+\State \Return 有界，$V$，$D$
 \end{algorithmic}
 \end{algorithm}
 
-算法的线性规划只用于判别 $P$ 的类型（判空 $1$ 次、判无界 $4$ 次），顶点由边界线两两求交并逐个检验得到；复杂度为 $O(m^3+k^2)$，本题 $K\le4$ 时足够。四类退化（空、无界、线段、单点）的处理、五次线性规划的具体用途与替代实现见附录~\ref{app:q1}。
+算法的复杂度为 $O(m^3+k^2)$；四类退化（空、无界、线段、单点）的处理、五次线性规划的用途与替代实现见附录~\ref{app:q1}。
 
 \subsection{以定位区域直径为直径的圆能否覆盖定位区域}
 
-\begin{theorem}[覆盖性的充要条件与紧界]\label{thm:jung}
+\begin{theorem}：\textbf{覆盖性的充要条件与紧界}．\label{thm:jung}
 设 $P\subset\R^2$ 为有界闭凸集，$D=\diam(P)$，$\mecr=\mecr(P)$ 为最小包围圆半径。则
 \begin{equation}\label{eq:jung}
   \frac{D}{2}\ \le\ \mecr\ \le\ \frac{D}{\sqrt3},
 \end{equation}
 右端为 Jung 不等式，两端均可取等。于是
 \begin{itemize}
-  \item 存在以 $D$ 为直径的圆覆盖 $P$，\textbf{当且仅当} $\mecr=D/2$；
+  \item 存在以 $D$ 为直径的圆覆盖 $P$，当且仅当 $\mecr=D/2$；
   \item 一般情况下只能保证：以 $\dfrac{2D}{\sqrt3}\approx1.1547\,D$ 为直径的圆必能覆盖 $P$，且该系数不可改进。
 \end{itemize}
 \end{theorem}
@@ -87,9 +74,9 @@ $\|\cdot\|$ 是凸函数，故对固定的 $y$，$x\mapsto\|x-y\|$ 在紧凸集 
 左端：取 $p,q\in P$ 使 $\|p-q\|=D$，任何包含 $P$ 的圆都包含 $p,q$，故其半径不小于 $D/2$。右端即平面情形的 Jung 定理。取等：$P$ 为线段时 $\mecr=D/2$；$P$ 为边长 $D$ 的正三角形时 $\mecr=D/\sqrt3$。第一条由 $\mecr\ge D/2$ 立得。
 \end{proof}
 
-\paragraph{结论：一般不能覆盖.} 由\cref{thm:jung}，只要 $\mecr>D/2$，以 $D$ 为直径的圆无论圆心放在哪里都无法覆盖 $P$。这不是抽象反例，而是可以由真实的检测点与示向度产生的：
+\paragraph{结论：一般不能覆盖.} 由\cref{thm:jung}，只要 $\mecr>D/2$，以 $D$ 为直径的圆无论圆心放在哪里都无法覆盖 $P$。这是可以由真实检测点与示向度产生的具体反例：
 
-\begin{example}[三站交会给出 Jung 界上的正三角形]\label{exa:tri}
+\begin{example}：\textbf{三站交会给出 Jung 界上的正三角形}．\label{exa:tri}
 取三个检测点与读数
 \[
   \begin{aligned}
@@ -103,30 +90,30 @@ $(0,0)$、$(40,0)$、$(20,\,34.641016)$，即边长 $40\mmet$ 的正三角形。
 \[
   D=40.000000\mmet,\qquad \mecr=23.094011\mmet,\qquad \frac{D}{2}=20\mmet,
 \]
-$\mecr/D=0.577350=1/\sqrt3$，恰好取到 Jung 不等式的等号。以 $D$ 为直径的圆（半径 $20\mmet$）\textbf{不能}覆盖该三角形，缺口为 $3.094011\mmet$，见\cref{fig:q1-counter}。
+$\mecr/D=0.577350=1/\sqrt3$，恰好取到 Jung 不等式的等号。以 $D$ 为直径的圆（半径 $20\mmet$）不能覆盖该三角形，缺口为 $3.094011\mmet$，见\cref{fig:q1-counter}。
 \end{example}
 
 \begin{figure}[!htbp]
   \centering
 
 
-  \includegraphics[width=0.9\textwidth]{figures/fig-q1-counter.png}
+  \includegraphics[width=0.68\textwidth]{figures/fig-q1-counter.png}
 
-  \caption{以定位区域直径为直径的圆一般不能覆盖定位区域}\label{fig:q1-counter}
+  \caption{三站交会反例：$D=40\mmet$ 时以 $D$ 为直径的圆盖不住三个角}\label{fig:q1-counter}
 \end{figure}
 
-\paragraph{什么时候可以覆盖：两站交会的情形.} 题目附图所示的\emph{两站}交会四边形，在两站到源的距离远大于区域尺度时趋于平行四边形，对这一类区域同直径圆总是够用的：
+\paragraph{什么时候可以覆盖：两站交会的情形.} 题目附图所示的两站交会四边形，在两站到源的距离远大于区域尺度时趋于平行四边形，对这一类区域同直径圆总是够用的：
 
-\begin{lemma}[平行四边形的最小包围圆]\label{lem:para}
+\begin{lemma}：\textbf{平行四边形的最小包围圆}．\label{lem:para}
 设 $P$ 为平行四边形，则 $\mecr(P)=\diam(P)/2$（证明与数值算例见附录~\ref{app:q1}）。该结论只用到向量内积的符号，对交会角不加限制。
 \end{lemma}
 
-\paragraph{认证清除判据.} 由于清除成功的条件是清除点到源不超过 $r_c=20\mmet$，而算法只知道 $g\in P$，故：
+由于清除成功的条件是清除点到源不超过 $r_c=20\mmet$，而算法只知道 $g\in P$，故有：
 
-\begin{corollary}[认证清除判据]\label{cor:certify}
+\begin{corollary}：\textbf{认证清除判据}．\label{cor:certify}
 在 $c_*(P)$ 处执行一次 \texttt{/clear} 必定成功，当且仅当 $\mecr(P)\le r_c=20\mmet$；若仅已知直径，则 $D\le\sqrt3\,r_c=20\sqrt3\approx34.641\mmet$ 是充分条件，且该系数不可放宽到 $2r_c=40\mmet$。
 \end{corollary}
 
-因此，工程上常见的“定位区域直径小于 $2\times20=40\mmet$ 就能一次清除”的说法是\textbf{错误}的：\cref{exa:tri}中 $D=40\mmet$ 却存在距圆心 $23.09\mmet$ 的可能位置。本文一律以 $\mecr(P)\le20\mmet-10^{-6}$ 作为认证条件，而不使用直径判据。
+因此，工程上常见的“定位区域直径小于 $2\times20=40\mmet$ 就能一次清除”的说法是错误的： \cref{exa:tri}中 $D=40\mmet$ 却存在距圆心 $23.09\mmet$ 的可能位置。本文一律以 $\mecr(P)\le20\mmet-10^{-6}$ 作为认证条件。
 
-\paragraph{本问小结.} 算法 1 已在空集、无界、线段、单点四类退化上与解析结果逐一核对。本问给出的核心结论是：\textbf{认证清除的判据应取 $\mecr(P)\le20\mmet$，而不是直径 $D\le40\mmet$}，该判据贯穿后两问的清除层。
+\paragraph{本问小结.} 算法 1 已在四类退化上与解析结果核对。本问结论：\textbf{认证清除判据应取 $\mecr(P)\le20\mmet$}；本文维护源所在的可行域 $P$（$g\in P$），满足该条件才清除。

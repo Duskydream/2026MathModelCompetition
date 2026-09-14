@@ -4,9 +4,9 @@
 
 题目与附件给出的规则构成模型的全部硬约束，汇总于\cref{tab:rules}。其中三条对建模影响最大。
 
-\textbf{其一，测向误差有界且确定。} 误差只保证落在 $[-1^\circ,1^\circ]$ 内，且同一地点重复检测读数不变，故不能假设零均值或高斯分布，也不宜使用最小二乘、卡尔曼滤波等依赖概率模型的估计器；本文采用\textbf{集员定位}，只维护“真源可能在哪里”的集合。
+\textbf{其一，测向误差有界且确定。} 误差只保证落在 $[-1^\circ,1^\circ]$ 内，且同一地点重复检测读数不变，故不能假设零均值或高斯分布，也不宜使用最小二乘、卡尔曼滤波等依赖概率模型的估计器；本文采用集员定位，只维护“真源可能在哪里”的集合。
 
-\textbf{其二，清除判据是距离而不是方向。} 光学定位与激光清除只要求清除点到源不超过 $20\mmet$，与辐射方向无关；因此即使某定向源不再发信号，只要还持有一次方位约束，仍可用光学覆盖清除。
+\textbf{其二，清除判据是距离。} 光学定位与激光清除只要求清除点到源不超过 $20\mmet$，与辐射方向无关；因此即使某定向源不再发出信号，只要还持有一次方位约束，仍可用光学覆盖清除。
 
 \textbf{其三，动作耗时结构固定。} 移动 $5\mmet/\msec$、切频 $1\msec$、检测 $5\msec$、清除失败 $3\msec$、成功 $5\msec$。这组常数决定了全部成本权衡：一次额外检测约相当于 $25\sim30\mmet$ 的移动。
 
@@ -31,28 +31,28 @@
 
 本文的全部几何保证都建立在下列假设之上，其失效后果在\cref{sec:eval}中逐条检查。
 
-\begin{assumption}[静态环境]\label{asu:static}
+\begin{assumption}：\textbf{静态环境}．\label{asu:static}
 一次任务过程中，干扰源的位置、频道、有效接收半径与定向方向均不随时间变化；机器狗可沿任意直线自由行走，不考虑障碍、地形与高度差。
 \end{assumption}
 
-\begin{assumption}[确定性阈值]\label{asu:threshold}
+\begin{assumption}：\textbf{确定性阈值}．\label{asu:threshold}
 接收、近场与清除均为确定性阈值，不存在概率性漏检或误清除；不同源的信号互不影响。
 \end{assumption}
 
-\begin{assumption}[有界测向误差]\label{asu:bounded}
+\begin{assumption}：\textbf{有界测向误差}．\label{asu:bounded}
 读数误差有界：$|\theta-\theta^{\rm true}|\le\varepsilon=1^\circ$；算法统一取保守界 $\bar\varepsilon=1.005^\circ$ 以吸收取整偏差，且不假设误差的分布、独立性或零均值。
 \end{assumption}
 
-\begin{assumption}[信息边界]\label{asu:info}
+\begin{assumption}：\textbf{信息边界}．\label{asu:info}
 策略只能使用接口返回值，不得读取源的个数、位置、频道集合、接收半径或定向方向；本地实验真值仅用于事后核验。
 \end{assumption}
 
-\begin{assumption}[计时模型]\label{asu:time}
+\begin{assumption}：\textbf{计时模型}．\label{asu:time}
 虚拟时间按附件规则累加：\texttt{/measure} 为“移动距离$/5$ $+$ 切频 $0/1$ $+5$”秒，\texttt{/clear} 为“移动距离$/5$ $+3$（失败）或 $+5$（成功）”秒；\texttt{/clear} 不改变当前频道，\texttt{/enter}、\texttt{/exit} 不耗时。
 \end{assumption}
 
-\begin{assumption}[本地实验生成器，仅用于离线比较]\label{asu:gen}
-本地配对实验中源数在 $10\sim16$ 均匀抽取、位置按面积均匀、接收半径在 $[1000,1500]$ 均匀、第四问每源以 $0.5$ 概率为定向源；误差由“种子、频道与坐标”哈希确定。\textbf{这些分布是本文假设而非题目事实}，本地数值只用于\emph{版本之间的配对比较}，不作为对官方成绩的预测。
+\begin{assumption}：\textbf{本地实验生成器，仅用于离线比较}．\label{asu:gen}
+本地配对实验中源数在 $10\sim16$ 均匀抽取、位置按面积均匀、接收半径在 $[1000,1500]$ 均匀、第四问每源以 $0.5$ 概率为定向源；误差由“种子、频道与坐标”哈希确定。这些分布是本文假设，本地数值只用于版本之间的配对比较，不作为对官方成绩的预测。
 \end{assumption}
 
 \subsection{符号说明}
@@ -78,4 +78,4 @@
   \end{tabular}
 \end{table}
 
-\noindent 全文内部计算一律使用弧度，接口输入输出保持度与米。方位角采用题目约定：东为 $0^\circ$、逆时针为正、取值范围 $[0^\circ,360^\circ)$，不使用“以北为零、顺时针”的航海约定。
+\noindent 全文内部计算一律使用弧度，接口输入输出保持度与米。方位角采用题目约定：东为 $0^\circ$、逆时针为正、取值范围 $[0^\circ,360^\circ)$。术语上，正文简称的“测站”与题面的“检测点”同义（机器狗停靠并测量的位置）；$\mathcal S$ 为测站集合，亦称“搜索站集合”。

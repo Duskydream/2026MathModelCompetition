@@ -1,25 +1,27 @@
 \section{问题二：第二检测点的选择策略与候选区域}\label{sec:q2}
 
+本问回答：第二检测点选在哪里，既保证一定收到信号，又能把定位区域压到最小。
+
 \subsection{问题的形式化与两个必须同时满足的要求}
 
-设首个检测点为 $s_1$，测得某\emph{全向}源的示向度为 $\theta_1$。建立以 $s_1$ 为原点、$\uvec{\theta_1}$ 为 $x$ 轴正向、$\uvec{\theta_1+90^\circ}$ 为 $y$ 轴正向的局部坐标系。记真源在局部坐标下为
+设首个检测点为 $s_1$，测得某全向源的示向度为 $\theta_1$。建立以 $s_1$ 为原点、$\uvec{\theta_1}$ 为 $x$ 轴正向、$\uvec{\theta_1+90^\circ}$ 为 $y$ 轴正向的局部坐标系。记真源在局部坐标下为
 \begin{equation}\label{eq:localg}
   g=r\bigl(\cos\delta,\ \sin\delta\bigr),\qquad |\delta|\le\varepsilon,\quad 0\le r\le\rho\le\rho_{\max}=1500\mmet ,
 \end{equation}
-其中 $r$ 与该源的真实接收半径 $\rho$ 都\textbf{未知}，只知道 $\rho\ge\rho_{\min}=1000\mmet$，且因首站收到了信号必有 $r\le\rho$。第二检测点记为 $q=(a,b)$，其在原坐标下为 $q=s_1+a\,\uvec{\theta_1}+b\,\uvec{\theta_1+90^\circ}$。
+其中 $r$ 与该源的真实接收半径 $\rho$ 都未知，只知道 $\rho\ge\rho_{\min}=1000\mmet$，且因首站收到了信号必有 $r\le\rho$。第二检测点记为 $q=(a,b)$，其在原坐标下为 $q=s_1+a\,\uvec{\theta_1}+b\,\uvec{\theta_1+90^\circ}$。
 
 一个“好”的第二检测点必须同时满足两个要求：
 
 \begin{description}
-  \item[要求 A（可用性）.] 在 $q$ 处必须\emph{确实能收到}该源的信号，否则这次移动与检测不能提供任何新的方位约束。由于 $r$ 与 $\rho$ 未知，这必须是一个\textbf{不依赖未知量的充分条件}。
+  \item[要求 A（可用性）.] 在 $q$ 处必须确实能收到该源的信号，否则这次移动与检测不能提供任何新的方位约束。由于 $r$ 与 $\rho$ 未知，这必须是一个无需未知量的充分条件。
   \item[要求 B（有效性）.] 两条视线的交会必须足够“横”，使得定位区域 $P=W_1\cap W_2$ 足够小。
 \end{description}
 
-二者与\textbf{移动代价} $\|q\|/v$ 构成三方权衡。下面分别给出要求 A 的精确刻画（\cref{thm:csafe}）与要求 B 的定量刻画（\cref{lem:psi}、\cref{eq:Rapprox}），再由二者导出选点策略。
+二者与移动代价 $\|q\|/v$ 构成三方权衡。下面分别给出要求 A 的精确刻画（\cref{thm:csafe}）与要求 B 的定量刻画（\cref{lem:psi}、\cref{eq:Rapprox}），再由二者导出选点策略。
 
 \subsection{要求 A：保证接收的候选区域}
 
-\begin{theorem}[保证接收的候选区域]\label{thm:csafe}
+\begin{theorem}：\textbf{保证接收的候选区域}．\label{thm:csafe}
 若第二检测点 $q=(a,b)$ 满足
 \begin{equation}\label{eq:csafe}
   \mathcal C_{\rm safe}:\quad
@@ -28,7 +30,7 @@
     a^2+b^2\le 2\rho_{\min}\bigl(a\cos\varepsilon-|b|\sin\varepsilon\bigr),
   \end{cases}
 \end{equation}
-则\emph{无论真实源距 $r$ 与真实接收半径 $\rho$ 取何值}，在 $q$ 处一定能收到该全向源的信号。等价地，
+则无论真实源距 $r$ 与真实接收半径 $\rho$ 取何值，在 $q$ 处一定能收到该全向源的信号。等价地，
 \begin{equation}\label{eq:lens}
   \mathcal C_{\rm safe}
   = B\bigl(\bm 0,\rho_{\min}\bigr)\ \cap\
@@ -38,11 +40,9 @@
 即三个半径为 $\rho_{\min}$ 的圆盘之交。
 \end{theorem}
 
-\begin{proof}
-因 $\rho\ge\max(\rho_{\min},r)$，只需证 $\|q-g\|\le\max(\rho_{\min},r)$。当 $r\le\rho_{\min}$ 时，$\|q-r\uvec\delta\|^2$ 关于 $r$ 是凸二次函数，在 $[0,\rho_{\min}]$ 上的最大值在端点取得，两端分别给出\cref{eq:csafe}的两式（其中 $q^{\!\top}\uvec{\delta}=a\cos\delta+b\sin\delta\ge a\cos\varepsilon-|b|\sin\varepsilon$）；当 $r>\rho_{\min}$ 时只需证 $\|q-g\|\le r$，其右端关于 $r$ 单调增，最紧情形仍为 $r=\rho_{\min}$。又第二式等价于 $\|q-\rho_{\min}\uvec{\pm\varepsilon}\|\le\rho_{\min}$，故得\cref{eq:lens}。
-\end{proof}
+\noindent（证明见附录~\ref{app:q2}。）
 
-\begin{corollary}[候选区域的极值点]\label{cor:extreme}
+\begin{corollary}：\textbf{候选区域的极值点}．\label{cor:extreme}
 $\mathcal C_{\rm safe}$ 中横向偏移的最大值为 $|b|_{\max}=\rho_{\min}\sin59^\circ=857.167\mmet$（在 $a=515.038\mmet$ 处取到），前向偏移的最大值为 $a_{\max}=1000\mmet$。证明见附录~\ref{app:q2}。
 \end{corollary}
 
@@ -52,28 +52,26 @@ $\mathcal C_{\rm safe}$ 中横向偏移的最大值为 $|b|_{\max}=\rho_{\min}\s
 
   \includegraphics[width=0.78\textwidth]{figures/fig-q2-region.png}
 
-  \caption{保证接收的第二检测点候选区域及其等代价线}\label{fig:q2-region}
+  \caption{保证接收区的形状与等代价线（越靠近原点，移动越省）}\label{fig:q2-region}
 \end{figure}
 
 \cref{fig:q2-region}给出了 $\mathcal C_{\rm safe}$ 的形状及其与定位精度、移动代价的关系。
 
-\paragraph{关于候选区域的三点说明.} 其一，$\mathcal C_{\rm safe}$ 是\emph{充分}而非充要条件，实际可用点可能更多，但那依赖未知的 $r$ 与 $\rho$，不能作为策略依据。其二，它允许 $q$ 落在目标圆之外（附件允许）。其三，原点 $q=\bm0$ 虽满足约束但必须排除——同点重复检测不提供新约束，且交会角与点线距离公式在该点同时退化为零；实现中要求 $\|q-s_1\|\ge q_{\min}=100\mmet$，该门槛与共享测站规则复用。
+\paragraph{关于候选区域的三点说明.} 其一，$\mathcal C_{\rm safe}$ 是充分条件，实际可用点可能更多，但那依赖未知的 $r$ 与 $\rho$，不能作为策略依据。其二，它允许 $q$ 落在目标圆之外（附件允许）。其三，原点 $q=\bm0$ 虽满足约束但必须排除——同点重复检测不提供新约束，且交会角与点线距离公式在该点同时退化为零；实现中要求 $\|q-s_1\|\ge q_{\min}=100\mmet$，该门槛与共享测站规则复用。
 
 \subsection{要求 B：交会角与定位区域尺度}
 
-\begin{lemma}[交会角由横向偏移单独决定]\label{lem:psi}
+\begin{lemma}：\textbf{交会角由横向偏移单独决定}．\label{lem:psi}
 设 $\psi$ 为两条视线在真源 $g$ 处的夹角，$L$ 为过 $s_1$ 与 $g$ 的直线，则
 \begin{equation}\label{eq:sinpsi}
   \sin\psi=\frac{\dist(q,L)}{\|q-g\|},\qquad
   \dist(q,L)=\bigl|b\cos\delta-a\sin\delta\bigr|\ \ge\ |b|\cos\varepsilon-a\sin\varepsilon .
 \end{equation}
 \end{lemma}
-\begin{proof}
-在三角形 $s_1gq$ 中，$g$ 处的内角为 $\psi$（或其补角，正弦相同）。由正弦定理
-$\|q-s_1\|/\sin\psi=\|q-g\|/\sin\angle(s_1)$，而 $\dist(q,L)=\|q-s_1\|\sin\angle(s_1)$，整理即得。第二式由 $L$ 与局部 $x$ 轴夹角为 $\delta$、$|\delta|\le\varepsilon$ 直接算出。
-\end{proof}
 
-\cref{lem:psi}给出了本问最重要的结构性结论：\textbf{交会角的下界只由横向偏移 $|b|$（相对于第二段视距 $r_2=\|q-g\|$）决定，与前进距离 $a$ 无关}。“沿着示向度方向一直往前走”对改善交会角毫无帮助，只能缩短 $r_2$。
+\noindent（证明见附录~\ref{app:q2}。）
+
+\cref{lem:psi}给出了本问最重要的结构性结论：交会角的下界只由横向偏移 $|b|$（相对于第二段视距 $r_2=\|q-g\|$）决定，与前进距离 $a$ 无关。“沿着示向度方向一直往前走”对改善交会角毫无帮助，只能缩短 $r_2$。
 
 在小角一阶近似下，两条楔形在 $g$ 附近可视为等宽条带，其交为平行四边形（\cref{lem:para}），由此得到定位尺度的一阶估计
 \begin{equation}\label{eq:Rapprox}
@@ -83,10 +81,10 @@ $\|q-s_1\|/\sin\psi=\|q-g\|/\sin\angle(s_1)$，而 $\dist(q,L)=\|q-s_1\|\sin\ang
 
 \subsection{两次测向不足以保证认证清除}
 
-进一步考察两次测向是否足以保证认证清除：既然第二次测向能把区域缩小，那么再挑得讲究一些，是不是就能把 $\mecr$ 压进 $20\mmet$，从而省掉光学覆盖？答案是否定的，而且这一点可以\emph{严格}地证明——不依赖任何近似公式。
+进一步考察两次测向能否保证认证清除：即使把第二次测向挑得更讲究，$\mecr$ 仍压不进 $20\mmet$，光学覆盖不可省略。这一点可以严格证明，无需任何近似公式。
 
-\begin{theorem}[两次测向的分辨极限]\label{thm:twobearing}
-存在两个相距 $41\mmet$ 的源位置，使得无论第二检测点取在 $\mathcal C_{\rm safe}$ 中的哪一点，都存在一组容许的测向误差，令两个源产生\emph{完全相同}的两次观测。由于 $41\mmet>2r_c=40\mmet$，不存在任何一点能同时位于两源的 $20\mmet$ 清除范围内。因此，仅凭两次测向无法保证一次认证清除。
+\begin{theorem}：\textbf{两次测向的分辨极限}．\label{thm:twobearing}
+存在两个相距 $41\mmet$ 的源位置，使得无论第二检测点取在 $\mathcal C_{\rm safe}$ 中的哪一点，都存在一组容许的测向误差，令两个源产生完全相同的两次观测。由于 $41\mmet>2r_c=40\mmet$，不存在任何一点能同时位于两源的 $20\mmet$ 清除范围内。因此，仅凭两次测向无法保证一次认证清除。
 \end{theorem}
 
 \begin{proof}
@@ -119,11 +117,11 @@ $\|q-s_1\|/\sin\psi=\|q-g\|/\sin\angle(s_1)$，而 $\dist(q,L)=\|q-s_1\|\sin\ang
 
 为避免只依赖一阶近似，本文对 $12$ 个候选点做了精确枚举（源距 $21$ 个值、两测偏差各 $3$ 个方向，共 $189$ 个组合，逐一按\cref{alg:diam}计算精确交会多边形的直径并取样本内最坏值）。完整表格与三类数字的口径说明见附录~\ref{app:q2}；结论与\cref{thm:twobearing}一致——表现最好的候选所达最坏直径仍远大于 $r_c=20\mmet$。
 
-\paragraph{选点策略.} 综上，第二检测点的选择应当按下列顺序：
+第二检测点的选择按下列顺序（综合前述要求 A、B 与移动代价）：
 \begin{enumerate}
   \item \textbf{可行性优先}：$q\in\mathcal C_{\rm safe}$（\cref{eq:csafe}），保证一定收得到信号；
   \item \textbf{左右镜像取近}：$b$ 取正负两个镜像位置中综合代价更小的一侧；
-  \item \textbf{以“完成任务所需时间”而非“区域面积”为目标}：最小化
+  \item \textbf{以完成任务所需时间为目标}：最小化
   \begin{equation}\label{eq:q2cost}
     J(q)=\underbrace{\frac{\|q-p_{\rm cur}\|}{v}}_{\text{走到第二点}}
         +\underbrace{t_m+t_s}_{\text{检测与切频}}
@@ -132,6 +130,6 @@ $\|q-s_1\|/\sin\psi=\|q-g\|/\sin\angle(s_1)$，而 $\dist(q,L)=\|q-s_1\|\sin\ang
   其中 $\widehat C_{\rm clear}$ 为“若 $\mecr\le r_c$ 则走到圆心清除，否则按光学覆盖点列走一遍”的保守估计。
 \end{enumerate}
 
-\paragraph{单目标最优不等于整局最优.} 正式方案取较短的 $(200,\pm100)$ 而非单目标更优的 $(750,450)$：远源反正要走光学覆盖，多走 $650\mmet$（$130\msec$）换来的扫描节省有限；多目标下同一次移动可服务多个频道（\cref{sec:q3:shared}）；走远还会带来后续折返。固定种子的配对实验也显示自适应选点无改善（见附录~\ref{app:q2}），故保留固定 $(200,\pm100)$，把“是否再测一次”交给\cref{sec:q3:refine}的补测精化与\cref{sec:q4:online}的扫描成本门控。
+\paragraph{整局视角下的第二测点选择.} 在单目标更优的 $(750,450)$ 与较短的 $(200,\pm100)$ 之间，正式方案取后者：远源反正要走光学覆盖，多走 $650\mmet$（$130\msec$）换来的扫描节省有限；多目标下同一次移动可服务多个频道（\cref{sec:q3:shared}）；走远还会带来后续折返。固定种子的配对实验也显示自适应选点无改善（见附录~\ref{app:q2}），故保留固定 $(200,\pm100)$，把“是否再测一次”交给\cref{sec:q3:refine}的补测精化与\cref{sec:q4:online}的扫描成本门控。
 
-\paragraph{本问小结.} 保证接收条件、严格分辨反例与精确枚举三者的结论一致：\textbf{两次测向不能保证一次认证清除，光学覆盖兜底不可省略}。据此，正式方案取固定的 $(200,\pm100)$，把“是否再测一次”的判断交给在线层的补测精化与扫描成本门控。
+\paragraph{本问小结.} 保证接收、分辨极限与精确枚举三者结论一致：\textbf{两次测向不足以保证认证清除，光学兜底不可省略}。正式方案取固定 $(200,\pm100)$，是否再测交给在线层。

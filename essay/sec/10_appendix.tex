@@ -1,6 +1,6 @@
 \begin{appendices}
 
-% 附录的节编号为 A、B、…，标题不用顿号；子节编号改用 \thesection（A.1 而非 7.1）
+% 附录的节编号为 A、B、…，标题不用顿号；子节编号改用 \thesection（形如 A.1）
 \titleformat{\section}{\centering\heiti\zihao{3}\bfseries}{\thesection}{0.8em}{}
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
@@ -8,39 +8,33 @@
 \section{支撑材料清单}
 
 \begin{table}[!htbp]
-  \caption{支撑材料目录说明}\centering
+  \caption{支撑材料目录说明}\centering\small
   \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{4.6cm} L}
     \toprule[1.5pt]
     文件／目录 & 内容 \\
     \midrule[1pt]
-    \texttt{code/model.py} & 有界误差几何：楔形半平面、多边形裁剪、半平面交的空／无界／有界判定、直径、最小包围圆、光学格、测站布局生成与覆盖校验 \\
-    \texttt{code/optimized.py} & 在线策略主体：轨迹维护、共享测站扫描、认证清除与光学兜底入口 \\
-    \texttt{code/q3\_policy.py} & 第三问专用：目标圆外切约束、\texttt{no\_signal} 圆盘排除、第二测点、圆心补测、混合贪心调度 \\
-    \texttt{code/q4\_policy.py} & 第四问专用：$22$ 站列表校验与凸包方向覆盖检查、选择性重测、有界等待、补测精化、条带清除 \\
-    \texttt{code/q4\_optical.py} & 认证条带覆盖与扫描路线成本比较 \\
-    \texttt{code/\allowbreak practice\_robot.py} & 官方模拟器 HTTP 客户端：串行发送、超时原样重试、未决动作保护、逐动作日志与预算控制 \\
-    \texttt{code/config.json} & 当前全部算法参数与 $22$ 站坐标 \\
-    \texttt{code/layout\_opt.py}、\allowbreak\texttt{code/certify22.py} & 方向覆盖余量计算与 $h=1\mmet$ 网格证书 \\
-    \texttt{official\_practice/} & 演练样本：\texttt{q3\_runs.csv}、\texttt{q4\_runs.csv} 为第三、四问各 $70$ 局的逐局明细，
-      \texttt{official\_runs.json} 另含被排除记录的清单与原因 \\
-    \texttt{支撑材料/formal-p*.jlog} & 第三、四问各三次正式测试的加密行为日志，文件名未作任何修改 \\
+    \texttt{program/} & 完整可运行源程序：\texttt{model.py}（有界误差几何）、\texttt{optimized.py}（在线策略主体）、\texttt{q3\_policy.py}、\texttt{q4\_policy.py}、\texttt{q4\_optical.py}、\texttt{practice\_robot.py}（官方协议客户端），以及 $22$ 站方向覆盖的网格证书脚本 \texttt{layout\_opt.py}、\texttt{certify22.py}；入口 \texttt{practice\_launcher.py}、\texttt{practice\_q3.py}/\texttt{practice\_q4.py} 与 \texttt{启动第3/4问演练.cmd}；\texttt{config.json} 为全部参数与 $22$ 站坐标，\texttt{requirements.txt} 为依赖，\texttt{README.md} 为运行说明 \\
+    \texttt{official\_practice/} & 官方演练与正式测试的导出数据 \\
+    \quad\texttt{模拟测试导出数据/} & \texttt{q3\_runs.csv}、\texttt{q4\_runs.csv}：第三、四问各 $70$ 局的逐局明细（含时间分项与动作数） \\
+    \quad\texttt{正式测试导出数据/} & \texttt{official\_runs.json}，以及第三、四问各三次正式测试的目录（\texttt{actions.jsonl} 逐动作日志、\texttt{run\_config.json}、\texttt{summary.json}、\texttt{localization\_regions.json}） \\
+    \quad\texttt{正式测试日志/} & \texttt{formal-p3-*.jlog}、\texttt{formal-p4-*.jlog}：第三、四问各三次正式测试的加密行为日志，文件名未作任何修改 \\
     \texttt{AI工具使用详情.pdf} & 按 2026 年 AI 工具使用规定提交的详情说明 \\
     \bottomrule[1.5pt]
   \end{tabularx}
 \end{table}
 
-\noindent 运行方式：安装 Python 3.10 及以上与 \texttt{numpy}、\texttt{scipy}、\texttt{requests}，在模拟器接口就绪后执行
+\noindent 运行方式：安装 Python 3.10 及以上与 \texttt{numpy}、\texttt{scipy}，进入 \texttt{program/} 目录后执行
 \begin{center}
 \texttt{python practice\_robot.py --question 3 --robot-id <队号> --case-code <案例编码> --connect}
 \end{center}
 （第四问将 \texttt{--question} 改为 \texttt{4}）。不加 \texttt{--connect} 时程序不会发送任何请求，便于离线检查。
 
-\section{关键参数配置}
+\section{关键参数配置}\label{app:params}
 
 下表汇总当前默认路径使用的参数及其来源。
 
-\begin{table}[!htbp]
-  \caption{算法参数及其来源}\centering\small
+\begin{table}[H]
+  \caption{算法参数及其来源}\label{tab:params}\centering\small
   \begin{tabularx}{\textwidth}{@{}l l L l@{}}
     \toprule[1.5pt]
     参数 & 取值 & 作用 & 来源 \\
@@ -73,15 +67,14 @@
     \bottomrule[1.5pt]
   \end{tabularx}\\[2pt]
   \small \texttt{config.json} 中另有若干历史参数（如通用的 \texttt{second\_forward\_m}$=650$、\texttt{second\_lateral\_m}$=250$
-  以及 \texttt{q3\_grid\_m}、\texttt{q4\_grid\_m}、\texttt{q4\_triangle\_spacing\_m}）。它们\textbf{不被当前默认路径读取}：
+  以及 \texttt{q3\_grid\_m}、\texttt{q4\_grid\_m}、\texttt{q4\_triangle\_spacing\_m}）。它们不被当前默认路径读取：
   第三、四问的第二测点分别取 \texttt{q3\_}、\texttt{q4\_} 前缀的同名参数。保留这些条目是为了能一键回退到历史对照版本
   （例如置 \texttt{q3\_policy=legacy} 或删除 \texttt{q4\_station\_list}），复现旧轮次实验时仍需要它们，因此没有删除。
 \end{table}
 
 \section{调试记录：一次边界顶点的浮点失稳}\label{app:debug}
 
-在第三问圆盘排除约束的首轮验证中，种子 $2031091108$ 的案例报出
-\texttt{Localization certificate excluded true source by 9.7374 m}：该局虽然最终清除了全部 $15$ 个源，但中间的几何证书已经失效。根因是重复施加圆盘排除时，一个理论上位于边界的交点被浮点判为落在圆盘内部，相应二次方程的根又略微超出线段参数范围，导致边界顶点被错误丢弃，多次裁剪后可行域出现不保守的收缩。修复后改用平方距离容差保留边界顶点、对接近端点的根做范围容许与夹取、点数不足或凸包退化时保留输入多边形，并补充了重复约束的回归测试。本例说明“结果全部清除”不能替代对中间几何不变量的检查（正文\cref{sec:q3:loc}）。
+在第三问圆盘排除约束的首轮验证中，种子 $2031091108$ 的案例报出定位证书异常（\texttt{excluded true source by 9.7374\,m}）：该局虽然最终清除了全部 $15$ 个源，但中间的几何证书已经失效。根因是重复施加圆盘排除时，一个理论上位于边界的交点被浮点判为落在圆盘内部，相应二次方程的根又略微超出线段参数范围，导致边界顶点被错误丢弃，多次裁剪后可行域出现不保守的收缩。修复后改用平方距离容差保留边界顶点、对接近端点的根做范围容许与夹取、点数不足或凸包退化时保留输入多边形，并补充了重复约束的回归测试。本例说明“结果全部清除”不能替代对中间几何不变量的检查（正文\cref{sec:q3:loc}）。
 
 \section{虚拟时间上界的推导}\label{app:bound}
 
@@ -95,7 +88,7 @@
 
 \section{被否决改进路线的完整记录}\label{app:ablation}
 
-下列两表汇总了第三、四问中完成了完整配对实验、但最终未进入正式方案的全部改进路线。每一行都使用与开发阶段不重叠的留出案例、同一误差场做配对比较，清除率均为 $100\%$。保留这些记录的目的有两个：它们构成本文的消融实验，说明最终算法的每一项选择都有对照；同时也提醒读者，平均值改善并不足以作为采用一项改动的充分理由。
+下列两表汇总了第三、四问中完成了完整配对实验、但最终未进入正式方案的全部改进路线。每一行都使用与开发阶段不重叠的留出案例、同一误差场做配对比较，清除率均为 $100\%$。保留这些记录的目的有两个：它们构成本文的消融实验，说明最终算法的每一项选择都有对照；同时也提醒读者，平均值改善并不足以作为采用一项改动的充分理由。逐条完整数据与逐例记录随支撑材料提交。
 
 \begin{table}[!htbp]
   \caption{第三问被否决的改进方案（均完成完整配对实验，清除率均为 $100\%$）}\label{tab:q3reject}\centering
@@ -132,7 +125,7 @@
       现有路线已与这些方法找到的最好解持平。 \\
     低价值测站逐一删除 &
       在 $1120$ 个案例上统计每站的发现贡献与到达成本，再逐站做留一实验。虽有若干外环站平均价值偏低，
-      但每个外环站都能构造出独占方向覆盖的反例，\textbf{没有任何站拿得到连续域的安全删除证书}。 \\
+      但每个外环站都能构造出独占方向覆盖的反例，没有任何站拿得到连续域的安全删除证书。 \\
     运行时动态跳站 &
       只在“剩余测站仍能对所有未发现频道提供完整覆盖证明”时才允许跳过。$1000$ 个案例中安全证书授权的跳站次数为 $\bm 0$：
       证书足够安全但过于保守，没有实际收益。 \\
@@ -341,6 +334,10 @@
 
 \section{问题一的实现细节与补充证明}\label{app:q1}
 
+\paragraph{前向分支引理的证明.} 令 $x-s_k=r\,\uvec\varphi$（$r>0$）。两条约束分别化为 $\sin(\varphi-\theta_k+\varepsilon)\ge0$ 与 $\sin(\varphi-\theta_k-\varepsilon)\le0$，即 $\varphi-\theta_k+\varepsilon\in[0,\pi]$ 且 $\varphi-\theta_k-\varepsilon\in[-\pi,0]\pmod{2\pi}$，两者之交为 $\varphi-\theta_k\in[-\varepsilon,\varepsilon]$。取 $\varphi=\theta_k+180^\circ$ 时第一式给出 $-\sin\varepsilon<0$，故背向射线被排除。
+
+\paragraph{直径在顶点取到的证明.} $\|\cdot\|$ 是凸函数，故对固定的 $y$，$x\mapsto\|x-y\|$ 在紧凸集 $P$ 上的最大值必在极点处取到；对 $y$ 再用一次同样的论证即可。由 Minkowski 定理，有界闭凸多边形的极点恰为其顶点。
+
 \paragraph{五次线性规划各自的用途.} 算法中的线性规划只用来判别 $P$ 的类型，不用来求顶点。可行性规划取零目标，只问“约束组是否相容”；随后四次规划分别沿 $\pm x$、$\pm y$ 方向求极小，只要有一次报告无下界，$P$ 就在该方向延伸至无穷。四个坐标方向足以判定：二维多面体无界当且仅当其回收锥非平凡，而非平凡锥必与某个坐标半轴张成正夹角。判完类型后，有界情形的顶点由“边界线两两求交、再逐个检验是否满足全部约束”得到。
 
 \paragraph{复杂度.} 共 $5$ 次二维线性规划（可视为常数次）；顶点枚举 $O(m^2)$ 对交点、每个交点 $O(m)$ 次检验，合计 $O(m^3)$；直径枚举 $O(k^2)$。若检测点数很大，可换用半平面交 $O(m\log m)$ 加旋转卡壳 $O(k)$，总复杂度降至 $O(m\log m)$；本文提交的代码用的是前一种实现。
@@ -365,6 +362,10 @@
 \end{table}
 
 \section{问题二的补充推导与完整枚举}\label{app:q2}
+
+\paragraph{保证接收区域定理的证明.} 因 $\rho\ge\max(\rho_{\min},r)$，只需证 $\|q-g\|\le\max(\rho_{\min},r)$。当 $r\le\rho_{\min}$ 时，$\|q-r\uvec\delta\|^2$ 关于 $r$ 是凸二次函数，在 $[0,\rho_{\min}]$ 上的最大值在端点取得，两端分别给出\cref{eq:csafe}的两式（其中 $q^{\!\top}\uvec\delta=a\cos\delta+b\sin\delta\ge a\cos\varepsilon-|b|\sin\varepsilon$）；当 $r>\rho_{\min}$ 时只需证 $\|q-g\|\le r$，其右端关于 $r$ 单调增，最紧情形仍为 $r=\rho_{\min}$。又第二式等价于 $\|q-\rho_{\min}\uvec{\pm\varepsilon}\|\le\rho_{\min}$，故得\cref{eq:lens}。
+
+\paragraph{交会角引理的证明.} 在三角形 $s_1gq$ 中，$g$ 处的内角为 $\psi$（或其补角，正弦相同）。由正弦定理 $\|q-s_1\|/\sin\psi=\|q-g\|/\sin\angle(s_1)$，而 $\dist(q,L)=\|q-s_1\|\sin\angle(s_1)$，整理即得。第二式由 $L$ 与局部 $x$ 轴夹角为 $\delta$、$|\delta|\le\varepsilon$ 直接算出。
 
 \paragraph{一阶定位尺度估计.} 在小角近似下，两条楔形在 $g$ 附近可视为宽 $w_1=2r_1\tan\bar\varepsilon$、$w_2=2r_2\tan\bar\varepsilon$ 的等宽条带，其交为平行四边形，故
 \begin{equation}\label{eq:Rapprox-app}
@@ -398,6 +399,8 @@
   \caption{$12$ 个候选第二点的精确枚举结果（每点 $189$ 个组合，$\varepsilon=1^\circ$）}\label{tab:q2-enum}\centering\small
   \begin{tabular}{@{}cccc@{\hspace{2.2em}}cccc@{}}
     \toprule[1.5pt]
+    \multicolumn{4}{c}{左栏（$6$ 个候选点）} & \multicolumn{4}{c}{右栏（$6$ 个候选点）} \\
+    \cmidrule(r){1-4}\cmidrule(l){5-8}
     前进 $a$/m & 侧移 $b$/m & 移动/s & 最坏直径/m & 前进 $a$/m & 侧移 $b$/m & 移动/s & 最坏直径/m \\
     \midrule[1pt]
     $250$ & $100$ & $53.85$  & $631.03$ & $650$ & $100$ & $131.53$ & $414.19$ \\
@@ -420,18 +423,18 @@
 
 \section{第四问减站边界的三条引理}\label{app:q4}
 
-\begin{lemma}[正外环至少需要 $12$ 站]\label{lem:outer12}
+\begin{lemma}：\textbf{正外环至少需要 $12$ 站}．\label{lem:outer12}
 若外圈测站构成以原点为心的正 $n$ 边形，则为使目标圆边界上每一点满足\cref{eq:hullcond}，必有 $n\ge12$。
 \end{lemma}
 \begin{proof}
 设 $g$ 在目标圆边界上。由\cref{thm:hull}，$g$ 必须落在 $\mathcal N_{\rho_{\min}}(g)$ 的凸包内；对边界上所有 $g$ 同时成立，要求外圈站所成多边形包含整个目标圆，即其内切圆半径不小于 $R=1800\mmet$，此时正 $n$ 边形边长为 $2R\tan(\pi/n)$。$n=11$ 时边长 $1057.1\mmet>\rho_{\min}$：相邻两外环站之间的圆弧上存在与两站距离都超过 $\rho_{\min}$ 的点，其外侧没有可用站，凸包不含它；$n=12$ 时边长 $964.6\mmet<\rho_{\min}$，障碍消失。
 \end{proof}
 
-\begin{lemma}[圆心附近必须有站]\label{lem:center}
+\begin{lemma}：\textbf{圆心附近必须有站}．\label{lem:center}
 在内外两个正环构成的布局中去掉圆心站，则距圆心约 $300\mmet$、朝外发射的源不满足\cref{eq:hullcond}：此时 $\mathcal N_{\rho_{\min}}(g)$ 只剩近侧若干内环站，它们落在过 $g$ 的某条直线同侧，故 $g\notin\conv\mathcal N_{\rho_{\min}}(g)$。
 \end{lemma}
 
-\begin{lemma}[内环取 $8$ 站时证书失败]\label{lem:inner9}
+\begin{lemma}：\textbf{内环取 $8$ 站时证书失败}．\label{lem:inner9}
 在外环固定为 $12@1866\mmet$ 时，内环取 $8$ 站（半径 $990\mmet$）的相邻站距为 $757.7\mmet$，在 $(-100,100)$ 附近存在只有 $3$ 个站落在其 $1000\mmet$ 内、且位于这三站凸包之外的点，网格证书余量为 $-0.5$ 到 $-5.9\mmet$；内环改为 $9$ 站后余量转正为 $2.42\mmet$。继续增大内环半径会使内外环间距超过 $1000\mmet$ 而在别处失效，故这一维也无余地。
 \end{lemma}
 
@@ -441,29 +444,30 @@
 
 以下为完整的可运行源程序。为便于核对，文件内容与支撑材料中的副本逐字节一致。
 
-\subsection{有界误差几何与测站布局：\texttt{model.py}}
+\subsection{\texttt{program/model.py}：有界误差几何与测站布局}
 \lstinputlisting[language=Python]{code/model.py}
 
-\subsection{在线策略主体：\texttt{optimized.py}}
+\subsection{\texttt{program/optimized.py}：在线策略主体}
 \lstinputlisting[language=Python]{code/optimized.py}
 
-\subsection{第三问专用策略：\texttt{q3\_policy.py}}
+\subsection{\texttt{program/q3\_policy.py}：第三问专用策略}
 \lstinputlisting[language=Python]{code/q3_policy.py}
 
-\subsection{第四问专用策略：\texttt{q4\_policy.py}}
+\subsection{\texttt{program/q4\_policy.py}：第四问专用策略}
 \lstinputlisting[language=Python]{code/q4_policy.py}
 
-\subsection{认证条带覆盖：\texttt{q4\_optical.py}}
+\subsection{\texttt{program/q4\_optical.py}：认证条带覆盖}
 \lstinputlisting[language=Python]{code/q4_optical.py}
 
-\subsection{方向覆盖余量与网格证书：\texttt{layout\_opt.py}、\texttt{certify22.py}}
+\subsection{\texttt{program/layout\_opt.py}、\texttt{program/certify22.py}：方向覆盖余量与网格证书}
 \lstinputlisting[language=Python]{code/layout_opt.py}
 \lstinputlisting[language=Python]{code/certify22.py}
 
-\subsection{模拟器通信客户端：\texttt{practice\_robot.py}}
+\subsection{\texttt{program/practice\_robot.py}：模拟器通信客户端}
 \lstinputlisting[language=Python]{code/practice_robot.py}
 
-\subsection{参数配置：\texttt{config.json}}
-\lstinputlisting{code/config.json}
+\subsection{\texttt{program/config.json}：参数配置}
+
+完整配置文件随支撑材料提交；关键参数、取值与来源已汇总于附录~\ref{app:params}的表~\ref{tab:params}，此处不再逐行列出。
 
 \end{appendices}

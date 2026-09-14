@@ -72,7 +72,7 @@
 \newcommand{\msec}{\,\mathrm{s}}
 \newcommand{\mmet}{\,\mathrm{m}}
 
-\title{无线电干扰源的快速自动定位与清除\\——覆盖保证、布局下界与在线调度的一体化模型}
+\title{无线电干扰源定位与清除的覆盖保证与在线调度模型}
 
 %==== 以下信息在 withoutpreface 模式下不会输出，保留以备打印版使用 ====
 \tihao{B}
@@ -87,25 +87,77 @@
 \dayinput{14}
 %=====================================================================
 
+% ---- 统一字体：中文加粗=宋体加粗（模板默认 CJK 加粗=黑体、斜体=楷体，这里覆盖）----
+\setCJKmainfont{SimSun}[AutoFakeBold=2.5, ItalicFont=SimSun]
+\setCJKmonofont{SimSun}
+% 代码/接口名用 Courier New（模板原注释掉的字体），与 Times 正文字体搭配
+\setmonofont{Courier New}
+
+% 定理/假设的可选方括号标题：模板不支持可选标题，改由正文写成“：加粗标题”
+
+% ---- 定理类环境正文统一为宋体（覆盖模板默认的 CJK 斜体=楷体）----
+\makeatletter
+\newcommand*{\deKai}[1]{%
+  \expandafter\let\csname old@#1\expandafter\endcsname\csname #1\endcsname
+  \expandafter\let\csname endold@#1\expandafter\endcsname\csname end#1\endcsname
+  \renewenvironment{#1}{\csname old@#1\endcsname\normalfont}{\csname endold@#1\endcsname}%
+}
+\deKai{assumption}
+\deKai{theorem}
+\deKai{lemma}
+\deKai{corollary}
+\deKai{example}
+\makeatother
+
+% ---- 摘要标题：小四号、去掉“摘 要”中的空格，压缩为紧凑一行 ----
+\makeatletter
+\renewcommand{\abstractname}{摘要}
+\renewenvironment{abstract}{%
+  \begin{center}{\zihao{4}\bfseries\abstractname}\end{center}%
+  \quotation}
+  {\endquotation\newpage\null}
+% ---- 关键词前留一整行空行 ----
+\renewcommand\keywords[1]{%
+  \par\vspace{\baselineskip}%
+  {\noindent\zihao{-4}\heiti\mcm@cap@keywordsname：}~{#1}}
+\makeatother
+\makeatother
+
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-本题的核心并非单纯定位，而是在源数未知、测向误差有界、辐射方向未知的条件下，实现\textbf{可证明全覆盖、可认证清除、可执行调度}的闭环搜索系统。本文把机器狗在圆形目标区域内自主完成“发现—定位—清除”的任务建模为\textbf{部分可观测环境下、带覆盖保证的在线搜索--定位--清除问题}，按“\emph{覆盖保证} $\to$ \emph{布局下界} $\to$ \emph{在线调度} $\to$ \emph{有界误差定位与认证清除}”四层展开，并始终以\textbf{清除率 100\% 为硬约束}，只在其满足时才比较时间。
+本题的核心是：在源数未知、测向误差有界、辐射方向未知的条件下，让机器狗自主完成“发现—定位—清除”，并给出\textbf{可证明全覆盖、可认证清除、可执行调度}的闭环方案。全文按四层展开：覆盖保证（每个源必被收到）$\to$ 布局下界（保证下用最少测站）$\to$ 在线调度（怎样走、怎样测最省时间）$\to$ 有界误差定位与认证清除（清除前用几何证书确认定位足够准），并始终以\textbf{清除率 100\% 为硬约束}。四项核心结果：$140$ 局演练与 $6$ 次正式测试清除率均为 $100\%$；第三问证明\textbf{七站达到距离覆盖的理论下界}；第四问把测站压到 \textbf{22 站}并取得 $1\mmet$ 网格连续域证书；合并平均定位清除时间 $239.0\msec/$源（第三问）与 $498.8\msec/$源（第四问）。
 
-针对\textbf{问题一}，把每个示向度读数化为两条线性半平面约束，定位区域即有限个\emph{前向楔形}之交；给出“判空与判无界 $\to$ 边界线求交过滤 $\to$ 极角排序 $\to$ 顶点对枚举”的直径算法，并由 Jung 定理证明以该直径为直径的圆一般\emph{不能}覆盖该区域（三站算例 $D=40\mmet$、最小包围圆 $23.094\mmet>20\mmet$）。由此确立全文判据：\textbf{$\mecr\le20\mmet$ 才可一次认证清除}，而非 $D\le40\mmet$。
+\textbf{针对问题一}，把示向度读数化为前向楔形之交，给出区域直径算法；由 Jung 定理证明以 $D$ 为直径的圆一般不能覆盖定位区域（三站算例 $D=40\mmet$、$\mecr=23.094\mmet>20\mmet$），故全文认证清除判据取 $\mecr\le20\mmet$。
 
-针对\textbf{问题二}，导出一个\textbf{不依赖未知源距与接收半径}的保证接收区域 $\mathcal{C}_{\rm safe}$（三个半径 $1000\mmet$ 圆盘之交），并证明交会角下界只由横向偏移决定、与前进距离无关；进一步给出严格分辨极限——存在相距 $41\mmet$ 的两源产生完全相同的两次观测，故仅凭两次测向无法保证一次清除，光学覆盖兜底不可省略。
+\textbf{针对问题二}，导出无需已知源距与接收半径的保证接收区域 $\mathcal C_{\rm safe}$（三个 $1000\mmet$ 圆盘之交），并证明两次测向的分辨极限——存在相距 $41\mmet$ 的两源产生相同观测，故光学覆盖兜底不可省略。
 
-针对\textbf{问题三}，证明“圆心加正六边形”七站布局的最坏覆盖距离 $988.5114\mmet<1000\mmet$，并由 Bezdek 界证明\textbf{七站是保证发现的最小站数}；配合有界误差可行域递推、\texttt{no\_signal} 圆盘排除、最小包围圆认证清除与混合贪心调度，官方演练 $70$ 局、$917$ 个源\textbf{全部清除}，平均 $255.6\msec/$源。
+\textbf{针对问题三}，证明“圆心加正六边形”七站布局最坏覆盖距离 $988.5114\mmet<1000\mmet$，并由 Bezdek 界证明七站是保证发现的最小站数；官方演练 $70$ 局、$917$ 个源全部清除。
 
-针对\textbf{问题四}，给出方向覆盖的\textbf{充要条件}：源 $g$ 对任意朝向都能被发现，当且仅当 $g$ 落在其 $\rho$-近邻测站的凸包内。据此把测站由 $49\to27\to25$ 压到 \textbf{22 站}，并用 $h=1\mmet$ 网格证书（$1018.68$ 万点，最小余量 $1.7331\mmet$）完成连续域严格验证；在所考察布局族内 $21$ 站及以下均无法通过同一证书。官方演练 $70$ 局、$887$ 个源全部清除，平均 $511.2\msec/$源。
+\textbf{针对问题四}，给出方向覆盖的\textbf{充要条件}（源落在近邻测站凸包内），据此把测站压到 22 站，并以 $1018.68$ 万点、最小余量 $1.7331\mmet$ 的 $1\mmet$ 网格证书完成连续域验证；官方演练 $70$ 局、$887$ 个源全部清除。
 
-$140$ 局演练还表明\textbf{整局总时间几乎完全由与源数无关的固定成本决定}，平均定位清除时间随源数下降主要是\emph{分母效应}。综上，本文把每一条结论都落成可执行的启动校验、逐例不变量检查与失败留档；三次正式测试（第三、四问各三次）全部清除，合并平均 $239.0$ 与 $498.8\msec/$源。
+$140$ 局演练还表明\textbf{整局总时间几乎完全由固定成本决定，与源数无关}，平均时间随源数下降主要是分母效应；三次正式测试全部清除，\textbf{合并平均 $239.0$ 与 $498.8\msec/$源}。
 
 \keywords{交会定位；有界误差可行域；覆盖保证；凸包方向覆盖；在线调度；最小包围圆}
 \end{abstract}
+
+\noindent{\heiti\bfseries 解答总览}\par\vspace{0.25em}
+{\small
+\noindent\begin{tabularx}{\textwidth}{@{}c L L c@{}}
+\toprule[1.5pt]
+问题 & 核心方法 & 关键结果 & 节 \\
+\midrule[1pt]
+一 & 前向楔形交会 $+$ 直径算法 & $D=40\mmet$ 时 $\mecr=23.09\mmet>20\mmet$，判据取 $\mecr\le20\mmet$ & \ref{sec:q1} \\
+二 & 保证接收区 $\mathcal C_{\rm safe}$ $+$ 分辨极限 & 相距 $41\mmet$ 的两源不可分辨，光学兜底不可省 & \ref{sec:q2} \\
+三 & 七站覆盖 $+$ 混合贪心调度 & $d_{\max}=988.51\mmet<1000\mmet$，七站为最小 & \ref{sec:q3} \\
+四 & 凸包方向覆盖 $+$ 网格证书 & $22$ 站，$1018.68$ 万点通过，最小余量 $1.7331\mmet$ & \ref{sec:q4} \\
+演练 & 官方模拟器逐局核验 & $140$ 局 $100\%$ 清除；$239.0$／$498.8\msec/$源 & \ref{sec:results} \\
+\bottomrule[1.5pt]
+\end{tabularx}}
+
+\noindent{\small 复现：源码哈希与样本筛选规则见第\ref{sec:results}节，运行方式与日志清单见附录~A。}
 
 % 按 2026 格式规范，正文不设目录
 % \tableofcontents
@@ -120,7 +172,7 @@ $140$ 局演练还表明\textbf{整局总时间几乎完全由与源数无关的
 \input{sec/08_results}
 \input{sec/09_evaluation}
 
-\CumcmAIUsed{语言润色与表述打磨、\LaTeX{} 排版与公式规范化、以及程序语法层面的调试；问题的分析、建模、定理证明、算法设计与全部实验均由参赛队员独立完成}
+\CumcmAIUsed{语言润色与表述打磨、\LaTeX{} 排版与公式规范化、以及程序语法层面的调试；问题的分析、建模、定理证明、算法设计与全部在线模拟实验均由参赛队员独立完成}
 
 \begin{thebibliography}{9}
   \bibitem{bezdek} K.~Bezdek.
@@ -147,7 +199,6 @@ $140$ 局演练还表明\textbf{整局总时间几乎完全由与源数无关的
   \bibitem{torrieri} D.~J.~Torrieri.
   \newblock Statistical theory of passive location systems [J].
   \newblock \emph{IEEE Transactions on Aerospace and Electronic Systems}, 1984, AES-20(2): 183--198.
-  \bibitem{cumcm2026} 2026 年高教社杯全国大学生数学建模竞赛 B 题《无线电干扰源的快速自动定位与清除》及附件 1、附件 2.
   \bibitem{kaelbling} L.~P.~Kaelbling, M.~L.~Littman, A.~R.~Cassandra.
   \newblock Planning and acting in partially observable stochastic domains [J].
   \newblock \emph{Artificial Intelligence}, 1998, 101(1--2): 99--134.

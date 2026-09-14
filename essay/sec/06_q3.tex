@@ -2,23 +2,23 @@
 
 \subsection{三层结构与终止证明}
 
-第三问的难点不在“怎样清除一个已知的源”，而在“怎样证明已经没有源了”。本文把策略分成\textbf{发现—定位—清除}三层，其中发现层承担终止证明的责任。
+第三问真正困难的是“怎样证明已经没有源了”。本文把策略分成发现—定位—清除三层，其中发现层承担终止证明的责任。
 
-称测站集 $\mathcal S$ 对 $\Dreg$ 具有\emph{距离覆盖}，若
+称测站集 $\mathcal S$ 对 $\Dreg$ 具有距离覆盖，若
 \begin{equation}\label{eq:cover3}
   d_{\max}(\mathcal S):=\max_{x\in\Dreg}\ \min_{s\in\mathcal S}\ \|x-s\|\ \le\ \rho_{\min}=1000\mmet .
 \end{equation}
 
-\begin{theorem}[终止的正确性]\label{thm:term3}
+\begin{theorem}：\textbf{终止的正确性}．\label{thm:term3}
 设 $\mathcal S$ 具有距离覆盖。若算法在每个 $s\in\mathcal S$ 处都对每个尚未成功清除的频道检测过一次，并清除了由此发现的所有目标，则 $\Dreg$ 内不存在未被清除的全向干扰源。
 \end{theorem}
 \begin{proof}
 反设频道 $c$ 上还存在未清除源 $g\in\Dreg$。由\cref{eq:cover3}存在 $s\in\mathcal S$ 使 $\|s-g\|\le1000\le\rho$。全向源覆盖角为 $360^\circ$，故在 $s$ 处检测频道 $c$ 必定返回 \texttt{direction} 或 \texttt{near}，于是 $g$ 会被发现并进入目标列表，与“所有发现的目标均已清除”矛盾。
 \end{proof}
 
-\cref{thm:term3}说明：合法的停止理由只有两个——\textbf{(i)} 覆盖测站全部访问完毕且目标列表清空；\textbf{(ii)} 已成功清除 $16$ 个源，达到题设数量上界。“连续若干次没有收到信号”“已经清了 $10$ 个”“$20$ 个频道各扫过一遍”都\emph{不是}有效的终止证明。
+\cref{thm:term3}说明：合法的停止理由只有两个——(i) 覆盖测站全部访问完毕且目标列表清空；(ii) 已成功清除 $16$ 个源，达到题设数量上界。“连续若干次没有收到信号”“已经清了 $10$ 个”“$20$ 个频道各扫过一遍”都不是有效的终止证明。
 
-\subsection{发现层：七站布局及其最优性}\label{sec:q3:layout}
+\subsection{发现层：七站达到距离覆盖的理论下界}\label{sec:q3:layout}
 
 \paragraph{最坏覆盖距离的解析式.}
 
@@ -27,7 +27,7 @@
   \mathcal S_7=\{\bm 0\}\cup\bigl\{r\,\uvec{60^\circ k}\ :\ k=0,1,\dots,5\bigr\}.
 \end{equation}
 
-\begin{theorem}[七站布局的最坏覆盖距离]\label{thm:hexcover}
+\begin{theorem}：\textbf{七站布局的最坏覆盖距离}．\label{thm:hexcover}
 对 $0<r\le\sqrt3R$，
 \begin{equation}\label{eq:dmax}
   d_{\max}(\mathcal S_7)=\max\left\{\frac{r}{\sqrt3},\ \sqrt{R^2+r^2-\sqrt3\,Rr}\right\}.
@@ -42,7 +42,7 @@ $\|x-s_k\|=\sqrt{t^2+r^2-2tr\cos\phi}\le\sqrt{t^2+r^2-\sqrt3\,tr}=:g(t)$。
 $f(t)=t$ 于 $[0,r/\sqrt3]$，$f(t)=g(t)$ 于 $[r/\sqrt3,R]$。前段最大值为 $r/\sqrt3$。后段 $g$ 是关于 $t$ 的二次根式，$g'(t)\propto2t-\sqrt3r$，在 $t=\sqrt3r/2$ 取极小，故在闭区间 $[r/\sqrt3,R]$ 上的最大值在端点取到，为 $\max\{g(r/\sqrt3),g(R)\}=\max\{r/\sqrt3,\ \sqrt{R^2+r^2-\sqrt3Rr}\}$。合并即得\cref{eq:dmax}。上界可达：$x$ 取 $t=r/\sqrt3$ 且极角恰在两环点之间（Voronoi 三重点），或 $x$ 取目标圆边界上两环点角平分方向的点。
 \end{proof}
 
-\begin{corollary}[环半径的可行区间与最优值]\label{cor:ring}
+\begin{corollary}：\textbf{环半径的可行区间与最优值}．\label{cor:ring}
 取 $R=1800\mmet$、$\rho_{\min}=1000\mmet$，$d_{\max}\le\rho_{\min}$ 当且仅当
 \begin{equation}\label{eq:ringrange}
   \begin{aligned}
@@ -54,17 +54,17 @@ $f(t)=t$ 于 $[0,r/\sqrt3]$，$f(t)=g(t)$ 于 $[r/\sqrt3,R]$。前段最大值�
 $d_{\max}(r)$ 在 $r^\star=\dfrac{\sqrt3}{2}R=1558.846\mmet$ 处取最小值 $R/2=900\mmet$。
 \end{corollary}
 
-\paragraph{为什么不取覆盖最优的 $r^\star$.} 覆盖只是\emph{约束}而非\emph{目标}。$r$ 越小，六个环点越靠内，巡站路线越短，而且发现目标后的第二测点、补测点与清除点也都更靠近主路线。因此本文在可行区间内取靠近下界的 $r=1150\mmet$，此时
+\paragraph{为什么不取覆盖最优的 $r^\star$.} 覆盖是约束，时间才是目标。$r$ 越小，六个环点越靠内，巡站路线越短，而且发现目标后的第二测点、补测点与清除点也都更靠近主路线。因此本文在可行区间内取靠近下界的 $r=1150\mmet$，此时
 \begin{equation}
   d_{\max}=\sqrt{1800^2+1150^2-\sqrt3\times1800\times1150}=988.5114\mmet<1000\mmet,
 \end{equation}
-覆盖余量 $11.4886\mmet$。$5\mmet$ 网格加边界采样的数值核对（$61445$ 个位置）与该解析值一致。程序在启动时用\cref{eq:dmax}重新校验，不满足覆盖条件即\emph{拒绝运行}，避免误改参数导致保证失效。
+覆盖余量 $11.4886\mmet$。$5\mmet$ 网格加边界采样的数值核对（$61445$ 个位置）与该解析值一致。程序在启动时用\cref{eq:dmax}重新校验，不满足覆盖条件即拒绝运行，避免误改参数导致保证失效。
 
-\cref{fig:q3-layout}给出了该布局的覆盖示意与 $d_{\max}(r)$ 曲线。实验上，$r$ 取 $1250,1300,\dots,1450$ 的扫描全部慢于 $1150$；而 $r<1122.956$ 会直接破坏覆盖保证。也就是说，\textbf{$r=1150\mmet$ 已经贴着可行下界}，这一维参数上不再有可挖掘的空间。
+\cref{fig:q3-layout}给出了该布局的覆盖示意与 $d_{\max}(r)$ 曲线。实验上，$r$ 取 $1250,1300,\dots,1450$ 的扫描全部慢于 $1150$；而 $r<1122.956$ 会直接破坏覆盖保证。也就是说，$r=1150\mmet$ 已经贴着可行下界，这一维参数上不再有可挖掘的空间。
 
 \paragraph{七站是保证发现的最小站数.}
 
-\begin{theorem}[站数下界]\label{thm:seven}
+\begin{theorem}：\textbf{站数下界}．\label{thm:seven}
 在 $R=1800\mmet$、$\rho_{\min}=1000\mmet$ 的条件下，任何具有距离覆盖的测站集至少包含 $7$ 个站；\cref{eq:hex}取 $r\in[r_-,r_+]$ 时达到该下界。
 \end{theorem}
 \begin{proof}
@@ -72,9 +72,9 @@ $d_{\max}(r)$ 在 $r^\star=\dfrac{\sqrt3}{2}R=1558.846\mmet$ 处取最小值 $R/
 $1.7988\ldots<1.8$\cite{bezdek,bezdek2,kershner}，故 $|\mathcal S|\le6$ 不可能；而 $\mathcal S_7$ 在 $r\in[r_-,r_+]$ 时满足覆盖，故 $7$ 可达。
 \end{proof}
 
-为了从反面确认这条下界是紧的，并顺带回答“少一个站到底能省多少”，本文另外实现了一个\emph{不保证覆盖}的六站实验入口，逐布局结果见附录~\ref{app:sens}的\cref{tab:q3six}。
+为了从反面确认这条下界是紧的，并顺带回答“少一个站到底能省多少”，本文另外实现了一个不保证覆盖的六站实验入口，逐布局结果见附录~\ref{app:sens}的\cref{tab:q3six}。
 
-对六站布局做过 Nelder--Mead 极小极大优化，最坏未覆盖距离最低只能压到约 $1003\mmet$（已接近理论值 $1000.7\mmet$），仍然越过 $1000\mmet$ 这条线。更值得注意的是收益侧：\textbf{去掉一个站只省下约 $6\msec/$源的扫描，却因为失去圆心站而使首次发现更远、清除路程更长，移动反而增加约 $4\msec/$源，净收益仅 $1\sim2\msec/$源，代价是引入约万分之二的单源漏检概率}。在“清除率是硬约束”的准则下这笔交换不划算，正式方案因此坚持七站；这也说明第三问的发现层已经贴着几何下界。
+对六站布局做过 Nelder--Mead 极小极大优化，最坏未覆盖距离最低只能压到约 $1003\mmet$（已接近理论值 $1000.7\mmet$），仍然越过 $1000\mmet$ 这条线。更值得注意的是收益侧：去掉一个站只省下约 $6\msec/$源的扫描，却因为失去圆心站而使首次发现更远、清除路程更长，移动反而增加约 $4\msec/$源，净收益仅 $1\sim2\msec/$源，代价是引入约万分之二的单源漏检概率。在“清除率是硬约束”的准则下这笔交换不划算，正式方案因此坚持七站；这也说明第三问的发现层已经贴着几何下界。
 
 \begin{figure}[!htbp]
   \centering
@@ -89,7 +89,7 @@ $1.7988\ldots<1.8$\cite{bezdek,bezdek2,kershner}，故 $|\mathcal S|\le6$ 不可
 
 对每个已发现频道 $c$ 维护一个凸可行域 $P_c$，其不变量是
 \begin{equation}\label{eq:invariant}
-  \textbf{（包含性不变量）}\qquad g_c\in P_c\ \text{恒成立}.
+  \text{\textbf{（包含性不变量）}}\qquad g_c\in P_c\ \text{恒成立}.
 \end{equation}
 
 \textbf{初始化.} 首次收到 \texttt{direction} 时，以检测点 $p$ 为顶点构造包含真实扇区的三角形外包
@@ -99,20 +99,20 @@ $1.7988\ldots<1.8$\cite{bezdek,bezdek2,kershner}，故 $|\mathcal S|\le6$ 不可
 \end{equation}
 它外包了半径 $\rho_{\max}$、半角 $\bar\varepsilon$ 的扇形，因此无需猜测源距。
 
-\textbf{新方位裁剪.} 每获得一条新的有效示向度，按\cref{eq:wedge}生成两条半平面并求交：$P_c\leftarrow P_c\cap W$。若结果为空，说明模型假设与观测相矛盾，程序\emph{报错并保留日志}，而不是取个近似点继续往下走。
+\textbf{新方位裁剪.} 每获得一条新的有效示向度，按\cref{eq:wedge}生成两条半平面并求交：$P_c\leftarrow P_c\cap W$。若结果为空，说明模型假设与观测相矛盾，程序报错并保留日志后停止。
 
-\textbf{目标圆外包.} 所有源都在 $\Dreg$ 内，故可再与目标圆求交。为保持多边形表示，本文用 $48$ 条支撑半平面 $\bm n_j^{\!\top}x\le R+10^{-7}$ 作为圆的\emph{外切}近似。这里必须外切而不能内接：内接多边形会切掉靠近圆边界的一圈真实位置，可能让边界源脱离 $P_c$，破坏\cref{eq:invariant}。
+\textbf{目标圆外包.} 所有源都在 $\Dreg$ 内，故可再与目标圆求交。为保持多边形表示，本文用 $48$ 条支撑半平面 $\bm n_j^{\!\top}x\le R+10^{-7}$ 作为圆的外切近似。这里必须外切而不能内接：内接多边形会切掉靠近圆边界的一圈真实位置，可能让边界源脱离 $P_c$，破坏\cref{eq:invariant}。
 
 \textbf{无信号的距离排除（仅第三问）.} 这是第三问相对第四问独有的信息优势。
 
-\begin{theorem}[无信号排除]\label{thm:nosignal}
+\begin{theorem}：\textbf{无信号排除}．\label{thm:nosignal}
 第三问中所有源都是全向源。若在点 $s$ 检测频道 $c$ 返回 \texttt{no\_signal}，而频道 $c$ 上仍存在未清除的源 $g_c$，则
 $\|s-g_c\|>\rho_c\ge\rho_{\min}$，即 $g_c\notin B(s,\rho_{\min})$。
 \end{theorem}
 
-于是可令 $P_c\leftarrow \conv\bigl(P_c\setminus B^\circ(s,\rho_{\min})\bigr)$。注意 $P_c\setminus B^\circ$ 一般\emph{非凸}，本文取其凸包作为\textbf{保守外近似}：这可能重新包含一小部分已被排除的区域（约束变松），但绝不会误删真源。实现中排除半径取 $\rho_{\min}-10^{-4}$，为浮点计算留余量。
+于是可令 $P_c\leftarrow \conv\bigl(P_c\setminus B^\circ(s,\rho_{\min})\bigr)$。注意 $P_c\setminus B^\circ$ 一般非凸，本文取其凸包作为保守外近似：这可能重新包含一小部分已被排除的区域（约束变松），但绝不会误删真源。实现中排除半径取 $\rho_{\min}-10^{-4}$，为浮点计算留余量。
 
-\paragraph{一次必须记录的失败.} 这条约束的首轮验证中曾有一例证书失效：该局最终清除了全部源，程序内部却报出“可行域排除了真源”。根因是重复施加圆盘排除时浮点判断把一个边界交点误判到圆盘内部，致使边界顶点被错误丢弃，多次裁剪后可行域出现了\emph{不保守}的收缩。修复方式与回归测试见附录~\ref{app:debug}。这次失败也是本文的一个方法论主张的由来：\textbf{“结果全部清除”替代不了对中间几何不变量的检查}。\cref{fig:q3-shrink}展示了可行域在上述四类约束下逐步收缩、直至可以认证清除的完整过程。
+\paragraph{一次必须记录的失败.} 该约束首轮验证时曾有一例证书失效：整局源已全部清除，程序内部却报出“可行域排除了真源”，根因是浮点判断把一个边界交点误判为落在圆盘内部，丢弃了边界顶点。修复与回归测试见附录~\ref{app:debug}。它带来一条方法论主张：\textbf{“结果全部清除”替代不了对中间几何不变量的检查}。\cref{fig:q3-shrink}展示了可行域在上述四类约束下逐步收缩、直至可以认证清除的完整过程。
 
 \begin{figure}[!htbp]
   \centering
@@ -133,11 +133,11 @@ $\|s-g_c\|>\rho_c\ge\rho_{\min}$，即 $g_c\notin B(s,\rho_{\min})$。
 \end{equation}
 即格内任意点到格心的距离都在清除半径内；真源必在 $P_c$ 内而 $P_c$ 被这些格覆盖，故必有一格成功。遍历走按列蛇形路径，并按当前位置选择从哪一端进入。
 
-\textbf{补测精化.} 认证清除与光学覆盖之间存在一段过渡区间：$\mecr$ 只比 $20\mmet$ 略大（比如 $60\mmet$），却可能要在上百米的网格上逐点试。为此加入圆心补测——当 $r_c<\mecr\le300\mmet$ 时先走到 $c_*(P_c)$ 再测一次，这段移动与后续清除路径高度重合，边际成本很低；若仍不够，就沿新方位的垂线横移 $60\mmet$ 补测第二次，此后才进入光学网格。$100$ 例留出验证：平均 $262.6\to260.0\msec/$源，\textbf{每源失败清除次数由 $3.00$ 降到 $0.38$}，$64$ 例更快、$36$ 例更慢、最大单例退步 $30.9\msec/$源。
+\textbf{补测精化.} 认证清除与光学覆盖之间存在一段过渡区间：$\mecr$ 只比 $20\mmet$ 略大（比如 $60\mmet$），却可能要在上百米的网格上逐点试。为此加入圆心补测——当 $r_c<\mecr\le300\mmet$ 时先走到 $c_*(P_c)$ 再测一次，这段移动与后续清除路径高度重合，边际成本很低；若仍不够，就沿新方位的垂线横移 $60\mmet$ 补测第二次，此后才进入光学网格。$100$ 例留出验证：平均 $262.6\to260.0\msec/$源，每源失败清除次数由 $3.00$ 降到 $0.38$，$64$ 例更快、$36$ 例更慢、最大单例退步 $30.9\msec/$源。
 
 \subsection{调度层：搜索与目标处理的混合贪心}\label{sec:q3:shared}
 
-早期版本采用“到一个站 $\to$ 扫完 $\to$ 处理本站发现的全部目标 $\to$ 再去下一站”的分批流程，会产生大量折返。当前版本把\textbf{搜索任务}与\textbf{目标任务}放进同一个任务池，每一步比较：
+早期版本采用“到一个站 $\to$ 扫完 $\to$ 处理本站发现的全部目标 $\to$ 再去下一站”的分批流程，会产生大量折返。当前版本把搜索任务与目标任务放进同一个任务池，每一步比较：
 
 \begin{itemize}
   \item 去最近未访问测站的代价：$\|s^*-p_{\rm cur}\|$；
@@ -150,9 +150,9 @@ $\|s-g_c\|>\rho_c\ge\rho_{\min}$，即 $g_c\notin B(s,\rho_{\min})$。
     \end{cases}
   \end{equation}
 \end{itemize}
-其中 $q_c$ 为第二测点，$x_c$ 为 \texttt{near} 点或最小包围圆圆心 $c_*(P_c)$；取二者中较小者执行。这样机器狗可以“顺路”经过新的测站，也可以在靠近时提前把近处目标处理掉。目标状态\emph{跨测站保留}，不再每到一站就清空。
+其中 $q_c$ 为第二测点，$x_c$ 为 \texttt{near} 点或最小包围圆圆心 $c_*(P_c)$；取二者中较小者执行。这样机器狗可以“顺路”经过新的测站，也可以在靠近时提前把近处目标处理掉。目标状态跨测站保留，不再每到一站就清空。
 
-\paragraph{共享测站.} 一次移动应尽量服务多个目标：到达第二测点或完成清除后，算法顺带检查其他待处理频道，若当前位置对该频道确有观测价值就补测一次。是否“有价值”由一组阈值界定（见附录~\ref{app:fixed}）；这些阈值都是\emph{选择动作的启发式}，不提供接收保证，也不参与正确性论证。
+\paragraph{共享测站.} 一次移动应尽量服务多个目标：到达第二测点或完成清除后，算法顺带检查其他待处理频道，若当前位置对该频道确有观测价值就补测一次。是否“有价值”由一组阈值界定（见附录~\ref{app:fixed}）；这些阈值都是选择动作的启发式，不提供接收保证，也不参与正确性论证。
 
 \subsection{算法总览}
 
@@ -163,26 +163,17 @@ $\|s-g_c\|>\rho_c\ge\rho_{\min}$，即 $g_c\notin B(s,\rho_{\min})$。
 \begin{algorithmic}[1]
 \Require 目标圆半径 $R$，接收半径下界 $\rho_{\min}$，误差界 $\bar\varepsilon$，环半径 $r=1150\mmet$
 \Ensure 全部干扰源被清除
-\State 调用 \texttt{/enter}；$p_{\rm cur}\gets(0,0)$，当前频道 $\gets1$，$\mathcal C_{\rm done}\gets\varnothing$，轨迹表 $\mathcal Q\gets\varnothing$
-\State 由\cref{eq:hex}生成 $\mathcal S_7$ 并用\cref{eq:dmax}校验覆盖；不满足则拒绝运行
+\State 调用 \texttt{/enter}；由\cref{eq:hex}生成 $\mathcal S_7$ 并按\cref{eq:dmax}校验覆盖，不满足则拒绝运行
 \While{$\mathcal S_7\ne\varnothing$ 或 $\mathcal Q$ 中仍有未清除频道}
-  \State $c^\star\gets\arg\min_{c\in\mathcal Q\setminus\mathcal C_{\rm done}}J(c)$ \Comment{\cref{eq:q3cost}}
-  \State $s^\star\gets\arg\min_{s\in\mathcal S_7}\|s-p_{\rm cur}\|$
-  \If{$\|s^\star-p_{\rm cur}\|<J(c^\star)$} \Comment{搜索更划算}
-    \State 走到 $s^\star$ 并从 $\mathcal S_7$ 移除；对每个未清除频道 $c$ 依次检测（当前频道优先，其余升序）
-    \State 若 $c\in\mathcal Q$ 则更新 $P_c$，否则在收到信号时新建轨迹并施加\cref{thm:nosignal}与目标圆约束
-  \Else \Comment{处理目标更划算}
-    \If{$c^\star$ 尚需补一条方位}
-      \State 走到第二测点 $q_{c^\star}=\text{origin}+200\,\uvec{\theta}\pm100\,\bm n$（取综合代价小的一侧）并检测，更新 $P_{c^\star}$
-      \State 共享测站扫描（排除 $c^\star$）
-    \EndIf
-    \State 圆心补测精化（\cref{sec:q3:refine}(iii)）
-    \If{$\mecr(P_{c^\star})\le r_c-10^{-6}$} 在 $c_*(P_{c^\star})$ 处清除
-    \Else\ 按 $25\mmet$ 方格蛇形遍历 $P_{c^\star}$ 逐格尝试清除
-    \EndIf
-    \State 共享测站扫描
+  \State $c^\star\gets\arg\min_{c\in\mathcal Q\setminus\mathcal C_{\rm done}}J(c)$（\cref{eq:q3cost}），$s^\star\gets\arg\min_{s\in\mathcal S_7}\|s-p_{\rm cur}\|$
+  \If{$\|s^\star-p_{\rm cur}\|<J(c^\star)$}
+    \State 走到 $s^\star$ 并从 $\mathcal S_7$ 移除，对每个未清除频道依次检测（当前频道优先）
+    \State 更新或新建各频道可行域 $P_c$（新建时施加\cref{thm:nosignal}与目标圆约束）
+  \Else
+    \State 必要时走到第二测点 $q_{c^\star}=\text{origin}+200\,\uvec{\theta}\pm100\,\bm n$ 检测，并做共享测站扫描
+    \State 圆心补测精化；若 $\mecr(P_{c^\star})\le r_c-10^{-6}$ 则在圆心清除，否则按 $25\mmet$ 方格蛇形遍历逐格尝试
   \EndIf
-  \If{$|\mathcal C_{\rm done}|=16$} \textbf{break} \Comment{题设数量上界}
+  \If{$|\mathcal C_{\rm done}|=16$} break \Comment{题设数量上界}
   \EndIf
 \EndWhile
 \State 调用 \texttt{/exit}
@@ -193,7 +184,7 @@ $\|s-g_c\|>\rho_c\ge\rho_{\min}$，即 $g_c\notin B(s,\rho_{\min})$。
 
 \subsection{实验结果与消融}
 
-\cref{fig:q3-track}给出一局完整任务的行走轨迹，可直观看到巡站与目标处理如何交错进行。所有本地实验均使用与开发阶段\emph{不重叠}的新种子做留出验证，核验项目见\cref{sec:eval}。
+\cref{fig:q3-track}给出一局完整任务的行走轨迹，可直观看到巡站与目标处理如何交错进行。所有本地实验均使用与开发阶段不重叠的新种子做留出验证，核验项目见\cref{sec:eval}。
 
 \begin{figure}[!htbp]
   \centering
@@ -207,6 +198,6 @@ $\|s-g_c\|>\rho_c\ge\rho_{\min}$，即 $g_c\notin B(s,\rho_{\min})$。
 
 \subsection{成本基准与剩余优化空间}\label{sec:q3:lb}
 
-把覆盖保证策略难以回避的三项开销（走遍七站、全站排除空频道、每源一次第二测点往返与一次清除）相加，得到一个用于自我衡量的成本基准。按源数分层，官方演练的分层均值比该基准高 $3\%\sim7\%$。需要强调\textbf{这是经验构造而非可证下界}，其意义在于说明“现有方案已贴近一条合理的成本底线”，而不是“距最优解仅差几个百分点”。完整表格与推导见附录~\ref{app:fixed}。结合\cref{thm:seven}（站数不能再减）与\cref{cor:ring}（环半径已贴可行下界），本文认为\textbf{第三问的优化重点已从“搜索覆盖”转向“定位精度与光学覆盖开销”}。
+把覆盖保证策略难以回避的三项开销（走遍七站、全站排除空频道、每源一次第二测点往返与一次清除）相加，得到一个用于自我衡量的成本基准。按源数分层，官方演练的分层均值比该基准高 $3\%\sim7\%$。需要强调这是一个经验构造，用于判断“现有方案是否已贴近一条合理的成本底线”。完整表格与推导见附录~\ref{app:fixed}。结合\cref{thm:seven}（站数不能再减）与\cref{cor:ring}（环半径已贴可行下界），本文认为第三问的优化重点已从“搜索覆盖”转向“定位精度与光学覆盖开销”。
 
-\paragraph{本问小结.} 七站布局的解析覆盖式与 $5\mmet$ 网格数值核对一致；终止性、包含性不变量与逐动作计时均经逐例核验，$70$ 局官方演练全部清除。发现层已贴近 Bezdek 几何下界，因此优化重点转向定位精度与光学覆盖开销。
+\paragraph{本问小结.} 七站布局的解析式与 $5\mmet$ 网格核对一致，$70$ 局演练全部清除，发现层已贴近 Bezdek 几何下界。
