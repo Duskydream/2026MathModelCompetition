@@ -110,15 +110,15 @@ python program/certify22.py 100    # 粗网格快检
 | 路径 | 内容 |
 |---|---|
 | `模拟测试导出数据/` | 演练批量导出：`q3_runs.csv`、`q4_runs.csv`（各 70 局逐局记录） |
-| `正式测试导出数据/` | `official_runs.json` 汇总（含 `excluded` 排除说明）与 6 个正式测试局目录（q3×3、q4×3），每局含 `actions.jsonl`、`localization_regions.json`、`run_config.json`、`summary.json` |
+| `正式测试导出数据/` | `official_runs.json` 汇总与 6 个正式测试局目录（q3×3、q4×3），每局含 `actions.jsonl`、`localization_regions.json`、`run_config.json`、`summary.json` |
 | `正式测试日志/` | 6 个加密 `.jlog` 正式日志（本地保留，已被 `.gitignore` 排除） |
 
-`official_runs.json` 汇总（已排除与当前配置不一致的历史局）：
+结果由 `q3_runs.csv` / `q4_runs.csv` 逐局数据重算核验（第三问全部 70 局均已验证与当前配置一致）：
 
 | 问题 | 局数 | 源数 | 平均秒/源 | 中位数 | P95 |
 |---|---:|---:|---:|---:|---:|
-| 第三问 | 50 | 667 | 252.0 | 251.5 | 301.6 |
-| 第四问 | 70 | 887 | 511.19 | 515.8 | 644.6 |
+| 第三问 | 70 | 917 | 255.64 | 251.77 | 305.69 |
+| 第四问 | 70 | 887 | 511.19 | 515.81 | 644.63 |
 
 逐局 CSV 的列包括 `sources_cleared`、`total_virtual_s`、`seconds_per_source`、
 `move_s` / `measure_s` / `switch_s` / `optical_s` / `laser_s`、`actions`、
